@@ -139,6 +139,14 @@ export default {
         &.loser {
             opacity: .5;
         }
+
+        &:first-of-type {
+            border-radius: $radius $radius 0 0;
+        }
+
+        &:last-of-type {
+            border-radius: 0 0 $radius $radius;
+        }
     }
 
     .team-flag {
