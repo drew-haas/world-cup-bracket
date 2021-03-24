@@ -1,5 +1,7 @@
 # world-cup-bracket
 
+Project Link: [https://world-cup-bracket.vercel.app/](https://world-cup-bracket.vercel.app/)
+
 ## Project setup
 ```
 npm install
