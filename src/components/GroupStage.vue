@@ -22,11 +22,13 @@
             </div>
         </div>
         <div class="group-stage-grid">
-            <div v-for="group in userGroupData" :key="group.group" class="group" :data-group="group.group">
+            <div v-for="(group, i) in userGroupData" :key="group.group" class="group" :data-group="group.group">
                 <h2 class="group-name">Group <span>{{group.group}}</span></h2>
-                <div class="group-teams">
-                    <TeamRow v-for="team in group.teams" :key="team.code" :team="team"/>
-                </div>
+                <draggable class="group-teams" v-model="group.teams" item-key="team">
+                    <template #item="{element}">
+                        <TeamRow :key="element" :team="element"/>
+                    </template>
+                </draggable>
             </div>
         </div>
         <!-- <div class="group-actions">
@@ -38,104 +40,29 @@
 
 <script>
 import TeamRow from '@/components/TeamRow.vue'
-import Draggabilly from 'draggabilly'
+import draggable from "vuedraggable"
+import { mapState } from 'vuex'
 
 export default {
     name: 'GroupStage',
     components: {
-        TeamRow
+        TeamRow,
+        draggable
     },
     computed: {
-        userGroupData() {
-            return this.$store.state.userGroupData
-        },
-        roundOne() {
-            return this.$store.state.roundOne
-        }
-    },
-    mounted() {
-        // Init Functions
-        this.setupDraggabilly();
-    },
-    methods: {
-        // Setup all Dragabilly instances
-        setupDraggabilly() {
-            // get all draggie elements
-            const draggableElems = document.querySelectorAll('.team-row-container');
-
-            // array of Draggabillies
-            let draggies = []
-            let sortedArray = [];
-            let userDataTeamsArray = [];
-            let groupContainer;
-            let groupData = [];
-
-            // Create new Draggie for each element
-            for (let i = 0; i < draggableElems.length; i++) {
-                const draggableElem = draggableElems[i];
-                const draggie = new Draggabilly(draggableElem, {
-                    axis: 'y',
-                    // containment: true
-                });
-
-                draggies.push(draggie); // Array of draggabilly elements
-
-                draggie.on('dragStart', (event, pointer) => {
-                    // clear user data teams array
-                    userDataTeamsArray = [];
-                })
-
-                draggie.on('dragMove', (event, pointer, moveVector) => {
-                    // assign groupContainer to current group
-                    groupContainer = draggableElem.parentElement;
-
-                    // get sorted teams in their group based on top positions
-                    sortedArray = this.sortTeamsByTop([...draggableElem.parentElement.children]);
-                });
-
-                draggie.on('dragEnd', (event, pointer) => {
-                    // update group html with sorted content
-                    groupContainer.innerHTML = "";
-
-                    sortedArray.forEach((el) => {
-                        // update vuex
-                        let obj = {};
-                        obj.code = el.dataset.countryCode;
-                        obj.name = el.dataset.countryName;
-                        userDataTeamsArray.push(obj);
-
-                        // update html
-                        groupContainer.appendChild(el)
-                    });
-
-                    // Clear top styles on teams
-                    let c = [...groupContainer.children];
-                    c.forEach(el => el.style.top = 0);
-
-                    // set up user group data
-                    // this.updateGroupData();
-
-                    // update group
-                    let groupLetter = groupContainer.parentNode.dataset.group;
-                    let groupObj = {};
-                    let groupIndex = this.userGroupData.map((e) => {return e.group}).indexOf(groupLetter);
-                    groupObj.group = groupLetter;
-                    groupObj.teams = userDataTeamsArray;
-
-                    this.$store.commit({
-                        type: 'updateUserGroup',
-                        groupObj: groupObj,
-                        groupIndex: groupIndex
-                    })
-
-                    // update round one
-                    this.$store.commit({
-                        type: 'updateRoundOne'
-                    })
-                })
+        userGroupData: {
+            get() {
+                return this.$store.state.userGroupData
+            },
+            set(value) {
+                this.$store.commit('updateUserGroupData', value)
             }
         },
-
+        ...mapState([
+            'roundOne'
+        ])
+    },
+    methods: {
         // Calculate Order of teams by top position
         sortTeamsByTop(teams) {
             // push teams to an array with their top position
