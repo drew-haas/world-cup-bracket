@@ -4,6 +4,7 @@ import Vue from 'vue'
 export default createStore({
   state: {
     userGroupData: [],
+    userKnockoutData: [],
     ogGroupData: [
       {
         "group": "a",
@@ -82,51 +83,59 @@ export default createStore({
     roundOne: [
       {
         "teams": [
-          {"id": "c1"},
-          {"id": "d2"}
-        ]
+          {"id": "a1"},
+          {"id": "b2"}
+        ],
+        "nextGame": "roundTwo_0_0"
       },
       {
         "teams": [
-          {"id": "a1"},
-          {"id": "b2"}
-        ]
+          {"id": "c1"},
+          {"id": "d2"}
+        ],
+        "nextGame": "roundTwo_0_1"
       },
       {
         "teams": [
           {"id": "e1"},
           {"id": "f2"}
-        ]
+        ],
+        "nextGame": "roundTwo_1_0"
       },
       {
         "teams": [
           {"id": "g1"},
           {"id": "h2"}
-        ]
+        ],
+        "nextGame": "roundTwo_1_1"
       },
       {
         "teams": [
           {"id": "b1"},
           {"id": "a2"}
-        ]
+        ],
+        "nextGame": "roundTwo_2_0"
       },
       {
         "teams": [
           {"id": "d1"},
           {"id": "c2"}
-        ]
+        ],
+        "nextGame": "roundTwo_2_1"
       },
       {
         "teams": [
           {"id": "f1"},
           {"id": "e2"}
-        ]
+        ],
+        "nextGame": "roundTwo_3_0"
       },
       {
         "teams": [
           {"id": "h1"},
           {"id": "g2"}
-        ]
+        ],
+        "nextGame": "roundTwo_3_1"
       }
     ],
     // Quarter Finals
@@ -135,25 +144,29 @@ export default createStore({
         "teams": [
           {"id": "roundOne_1"},
           {"id": "roundOne_2"}
-        ]
+        ],
+        "nextGame": "roundThree_0_0"
       },
       {
         "teams": [
           {"id": "roundOne_3"},
           {"id": "roundOne_4"}
-        ]
+        ],
+        "nextGame": "roundThree_0_1"
       },
       {
         "teams": [
           {"id": "roundOne_5"},
           {"id": "roundOne_6"}
-        ]
+        ],
+        "nextGame": "roundThree_1_0"
       },
       {
         "teams": [
           {"id": "roundOne_7"},
           {"id": "roundOne_8"}
-        ]
+        ],
+        "nextGame": "roundThree_1_1"
       },
     ],
     // Semi Finals
@@ -162,13 +175,15 @@ export default createStore({
         "teams": [
           {"id": "roundTwo_1"},
           {"id": "roundTwo_2"}
-        ]
+        ],
+        "nextGame": "roundFour_0_0"
       },
       {
         "teams": [
           {"id": "roundTwo_3"},
           {"id": "roundTwo_4"}
-        ]
+        ],
+        "nextGame": "roundFour_0_1"
       }
     ],
     // Final
@@ -177,7 +192,8 @@ export default createStore({
         "teams": [
           {"id": "roundThree_1"},
           {"id": "roundThree_2"}
-        ]
+        ],
+        "nextGame": "final"
       },
     ]
   },
@@ -200,6 +216,10 @@ export default createStore({
             team.code = teamData.code;
         })
       })
+    },
+    updateGame: (state, payload) => {
+      state[payload.round][payload.gameIndex].teams[payload.nextTeamIndex].code = payload.code;
+      state[payload.round][payload.gameIndex].teams[payload.nextTeamIndex].name = payload.name;
     }
   },
   actions: {

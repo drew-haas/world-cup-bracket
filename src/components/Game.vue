@@ -5,7 +5,7 @@
             <span>{{game.teams[1].id}}</span>
         </div>
         <div class="teams">
-            <div class="team" v-for="team in game.teams" :key="team.code" @click="updateNextGame">
+            <div class="team" :class="{ 'winner': team.isWinner, 'loser': team.isLoser }" v-for="(team, i) in game.teams" :key="team.code" :data-country-code="team.code" :data-country-name="team.name" :data-index="i" @click="teamClickCallback">
                 <div class="team-flag" v-if="team.code"><img :src="'https://www.countryflags.io/' + team.code + '/flat/24.png'"></div>
                 <div class="team-name">{{team.name}}</div>
             </div>
@@ -18,18 +18,60 @@ export default {
     name: 'Game',
     props: {
         game: Object,
+        round: Object,
+        index: Number
     },
     computed: {
         groupData() {
             return this.$store.state.groupData
         }
     },
-    mounted() {
-        // Init Functions
-    },
     methods: {
-        updateNextGame() {
-            console.log('Update Next Game');
+        teamClickCallback(event) {
+            // if no teams available exit function
+            if (!event.target.dataset.countryCode) {
+                return;
+            }
+
+            let teamIndex = event.target.dataset.index;
+            let teamCode = event.target.dataset.countryCode;
+            let teamName = event.target.dataset.countryName;
+
+            // Update Current Game with Winner and Loser
+            this.game.teams.forEach((team, i) => {
+                if(i == teamIndex) {
+                    // winner
+                    team.isWinner = true;
+                    team.isLoser = false;
+                } else {
+                    // loser
+                    team.isWinner = false;
+                    team.isLoser = true;
+
+                }
+            });
+
+            // Update next game
+            // Organize Payload
+            let nextGame = this.game.nextGame.split('_');
+            let nextRound = nextGame[0];
+            let nextGameIndex = nextGame[1];
+            let nextTeamIndex = nextGame[2];
+
+            if (nextRound == 'final') {
+                console.log('create a', teamName, 'animation!');
+            } else {
+                // continue to next game
+                // Update State
+                this.$store.commit({
+                    type: 'updateGame',
+                    round: nextRound,
+                    gameIndex: nextGameIndex,
+                    nextTeamIndex: nextTeamIndex,
+                    code: teamCode,
+                    name: teamName
+                });
+            }
         },
     }
 }
@@ -89,11 +131,31 @@ export default {
         height: 50%;
         display: flex;
         align-items: center;
+
+        &.winner {
+            background: $bg-light;
+        }
+
+        &.loser {
+            opacity: .5;
+        }
+
+        &:first-of-type {
+            border-radius: $radius $radius 0 0;
+        }
+
+        &:last-of-type {
+            border-radius: 0 0 $radius $radius;
+        }
     }
 
     .team-flag {
         display: flex;
         padding: 0 13px;
+    }
+
+    .team-name, .team-flag {
+        pointer-events: none;
     }
 }
 </style>
