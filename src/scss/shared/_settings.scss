@@ -1,0 +1,37 @@
+// =========================
+// Colors
+// =========================
+$red: #8b0c2f;
+$maroon: #530312;
+$red-light: #dd5953;
+$red-dark: $maroon;
+$warning: $red;
+
+$green: #11b19e;
+$green-dark: #098074;
+$success: $green;
+
+$gold: #e7ba66;
+$accent: $gold;
+
+$gray: #ccc;
+$gray-dark: #666;
+
+$bg-light: #f1f1f1;
+$bg-dark: #222;
+
+// =========================
+// Spacing
+// =========================
+$section-spacing: 70px;
+$container-size: 1200px;
+$radius: 5px;
+
+// =========================
+// Viewports
+// =========================
+$viewport-xlarge: 1400px;
+$viewport-large: 1200px;
+$viewport-medium: 900px;
+$viewport-small: 767px;
+$viewport-xsmall: 400px;

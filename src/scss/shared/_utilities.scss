@@ -1,0 +1,20 @@
+// ============================================
+// Viewport Mixin
+// * easier syntax for media queries
+// * desktop first approach
+// ============================================
+@mixin viewport($viewport-name) {
+    @if $viewport-name == 'large' {
+        @media screen and (max-width: $viewport-large) {
+            @content;
+        }
+    } @else if $viewport-name == 'medium' {
+        @media screen and (max-width: $viewport-medium) {
+            @content;
+        }
+    } @else if $viewport-name == 'small' {
+        @media screen and (max-width: $viewport-small) {
+            @content;
+        }
+    }
+}

@@ -1,18 +1,32 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img class="logo" alt="Fifa World Cup Qatar 2022 Logo" src="../assets/wc-logo.png">
+    <h1 class="visually-hidden">Fifa World Cup Bracket Challenge</h1>
+    <GroupStage/>
+    <KnockoutStage/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import GroupStage from '@/components/GroupStage.vue'
+import KnockoutStage from '@/components/KnockoutStage.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    GroupStage,
+    KnockoutStage
   }
 }
 </script>
+
+<style scoped lang="scss">
+.logo {
+  max-width: 200px;
+}
+
+h1 {
+  color: $red;
+}
+</style>

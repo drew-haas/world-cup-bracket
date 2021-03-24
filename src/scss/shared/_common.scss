@@ -1,0 +1,42 @@
+// HTML tags
+a {
+    text-decoration: none;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+// Buttons and Links
+.button {
+    --button-color: #{$gray-dark};
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid var(--button-color);
+    color: var(--button-color);
+    padding: 10px 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--button-color);
+        color: #fff;
+    }
+
+    &-submit {
+        --button-color: #{$green};
+    }
+
+    &-alert {
+        --button-color: #{$red};
+    }
+}
+
+// Re-usable classes
+.visually-hidden {
+    display: none;
+}
