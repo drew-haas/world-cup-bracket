@@ -185,10 +185,6 @@ export default createStore({
     updateUserGroupData: (state, groupData) => {
       state.userGroupData = groupData;
     },
-    updateUserGroup: (state, payload) => {
-      // update userGroupData group based on current order of teams in that group
-      state.userGroupData[payload.groupIndex] = payload.groupObj;
-    },
     updateRoundOne: (state) => {
       // add correct teams to roundOne
       state.roundOne.forEach((game) => {
