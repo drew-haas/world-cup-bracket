@@ -82,7 +82,7 @@ export default {
     &:nth-child(3):after { content: '3'; }
     &:nth-child(4):after { content: '4'; }
 
-    &.is-pointer-down, &.is-dragging {
+    &.sortable-chosen {
         background-color: $bg-light;
         z-index: 1;
     }

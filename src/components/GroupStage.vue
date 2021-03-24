@@ -24,17 +24,13 @@
         <div class="group-stage-grid">
             <div v-for="group in userGroupData" :key="group.group" class="group" :data-group="group.group">
                 <h2 class="group-name">Group <span>{{group.group}}</span></h2>
-                <draggable class="group-teams" v-model="group.teams" item-key="team">
+                <draggable class="group-teams" v-model="group.teams" item-key="team" @change="onMoveCallback">
                     <template #item="{element}">
                         <TeamRow :key="element" :team="element"/>
                     </template>
                 </draggable>
             </div>
         </div>
-        <!-- <div class="group-actions">
-            <button id="submitGroup" class="button button-submit" @click="submitGroupData">Submit</button>
-            <button id="reset" class="button button-alert" @click="resetGroupData">Reset</button>
-        </div> -->
     </div>
 </template>
 
@@ -59,62 +55,14 @@ export default {
             }
         },
         ...mapState([
-            'roundOne'
+            // 'roundOne'
         ])
     },
     methods: {
-        // Calculate Order of teams by top position
-        sortTeamsByTop(teams) {
-            // push teams to an array with their top position
-            let rectArray = [];
-            teams.forEach((element, i) => {
-                let r = element.getBoundingClientRect();
-                rectArray.push({top: r.top, team: teams[i]});
-            });
-
-            // sort by top
-            rectArray.sort((a, b) => (a.top > b.top) ? 1 : -1);
-
-            // return just teams array with new order
-            let newArray = [];
-            rectArray.forEach((el) => {
-                newArray.push(el.team);
-            })
-
-            return newArray;
+        onMoveCallback(evt, originalEvent) {
+            //
+            this.updateRoundOneData();
         },
-
-        // Update Group Data based on HTML order
-        updateGroupData() {
-            let groupData = [];
-            const groups = [...document.querySelectorAll('.group')];
-
-            groups.forEach((el) => {
-                // Setup Group Objects
-                let groupObject = {};
-                const teams = [...el.querySelector('.group-teams').children];
-
-                groupObject.group = el.dataset.group;
-                groupObject.teams = [];
-
-                // Setup Team Objects
-                teams.forEach((el, i) => {
-                    let teamObject = {};
-                    teamObject.code = el.dataset.countryCode;
-                    teamObject.name = el.dataset.countryName;
-                    groupObject.teams.push(teamObject);
-                });
-
-                userGroupData.push(groupObject);
-            });
-
-            // Update userGroupData in state
-            this.$store.commit('updateUserGroupData', userGroupData);
-
-            // Update userGroupData in localStorage
-            // localStorage.setItem('userGroupData', JSON.stringify(userGroupData));
-        },
-
         // Update Teams in Round One
         updateRoundOneData() {
             this.$store.commit('updateRoundOne');
