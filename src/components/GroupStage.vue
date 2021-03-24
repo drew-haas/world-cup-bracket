@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="group-stage-grid">
-            <div v-for="(group, i) in userGroupData" :key="group.group" class="group" :data-group="group.group">
+            <div v-for="group in userGroupData" :key="group.group" class="group" :data-group="group.group">
                 <h2 class="group-name">Group <span>{{group.group}}</span></h2>
                 <draggable class="group-teams" v-model="group.teams" item-key="team">
                     <template #item="{element}">
