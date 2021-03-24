@@ -12,16 +12,16 @@
         </div>
         <div class="games-container">
             <div class="column col-g-8">
-                <Game v-for="(game, i) in roundOne" :key="i" v-bind:game="game"/>
+                <Game v-for="(game, i) in roundOne" :key="i" :game="game"/>
             </div>
             <div class="column col-g-4">
-                <Game v-for="(game, i) in roundTwo" :key="i" v-bind:game="game"/>
+                <Game v-for="(game, i) in roundTwo" :key="i" :game="game"/>
             </div>
             <div class="column col-g-2">
-                <Game v-for="(game, i) in roundThree" :key="i" v-bind:game="game"/>
+                <Game v-for="(game, i) in roundThree" :key="i" :game="game"/>
             </div>
             <div class="column col-g-1">
-                <Game v-for="(game, i) in roundFour" :key="i" v-bind:game="game"/>
+                <Game v-for="(game, i) in roundFour" :key="i" :game="game"/>
             </div>
         </div>
         <!-- <div class="knockout-actions">

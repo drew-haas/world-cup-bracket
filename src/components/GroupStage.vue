@@ -25,7 +25,7 @@
             <div v-for="group in userGroupData" :key="group.group" class="group" :data-group="group.group">
                 <h2 class="group-name">Group <span>{{group.group}}</span></h2>
                 <div class="group-teams">
-                    <TeamRow v-for="team in group.teams" :key="team.code" v-bind:team="team" v-bind:group="group.group"/>
+                    <TeamRow v-for="team in group.teams" :key="team.code" :team="team"/>
                 </div>
             </div>
         </div>
