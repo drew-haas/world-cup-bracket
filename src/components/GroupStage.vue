@@ -60,7 +60,6 @@ export default {
     },
     methods: {
         onMoveCallback(evt, originalEvent) {
-            //
             this.updateRoundOneData();
         },
         // Update Teams in Round One

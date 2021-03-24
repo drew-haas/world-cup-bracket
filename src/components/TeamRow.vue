@@ -69,6 +69,7 @@ export default {
 
     &:last-of-type {
         border-bottom: none;
+        border-radius: 0 0 $radius $radius;
     }
 
     &:nth-child(1), &:nth-child(2) {
