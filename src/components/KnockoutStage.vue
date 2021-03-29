@@ -44,16 +44,16 @@ export default {
             return this.$store.state.teams
         },
         roundOne() {
-            return this.$store.state.roundOne
+            return this.$store.state.games.filter(game => game.round === 1)
         },
         roundTwo() {
-            return this.$store.state.roundTwo
+            return this.$store.state.games.filter(game => game.round === 2)
         },
         roundThree() {
-            return this.$store.state.roundThree
+            return this.$store.state.games.filter(game => game.round === 3)
         },
         roundFour() {
-            return this.$store.state.roundFour
+            return this.$store.state.games.filter(game => game.round === 4)
         },
     },
     mounted() {

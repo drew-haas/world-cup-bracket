@@ -21,6 +21,7 @@
                 </div>
             </div>
         </div>
+        <div class="reset visually-hidden">Reset Groups</div>
         <div class="group-stage-grid">
             <div v-for="group in userGroupData" :key="group.group" class="group" :data-group="group.group">
                 <h2 class="group-name">Group <span>{{group.group}}</span></h2>
@@ -66,7 +67,6 @@ export default {
         updateRoundOneData() {
             this.$store.commit('updateRoundOne');
         },
-
         // On Submit Save the Group Data
         submitGroupData() {
             console.log('Submit Data?');

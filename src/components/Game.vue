@@ -22,8 +22,8 @@ export default {
         index: Number
     },
     computed: {
-        groupData() {
-            return this.$store.state.groupData
+        games() {
+            return this.$store.state.games
         }
     },
     methods: {
@@ -33,46 +33,124 @@ export default {
                 return;
             }
 
+            let currentWinner = this.game.teams.indexOf(team => team.isWinner);
+            console.log('currentWinner', currentWinner);
+
             let teamIndex = event.target.dataset.index;
             let teamCode = event.target.dataset.countryCode;
             let teamName = event.target.dataset.countryName;
-
-            // Update Current Game with Winner and Loser
-            this.game.teams.forEach((team, i) => {
-                if(i == teamIndex) {
-                    // winner
-                    team.isWinner = true;
-                    team.isLoser = false;
-                } else {
-                    // loser
-                    team.isWinner = false;
-                    team.isLoser = true;
-
-                }
-            });
-
-            // Update next game
-            // Organize Payload
             let nextGame = this.game.nextGame.split('_');
             let nextRound = nextGame[0];
             let nextGameIndex = nextGame[1];
             let nextTeamIndex = nextGame[2];
+            let toggleWinner = this.game.teams[teamIndex].isWinner;
+            let toggleLoser = this.game.teams[teamIndex].isLoser;
 
-            if (nextRound == 'final') {
-                console.log('create a', teamName, 'animation!');
+            console.log('toggleLoser', toggleLoser);
+            console.log('toggleWinner', toggleWinner);
+
+            // Update Current Game
+            if (toggleWinner) {
+                // change both teams back to default
+                this.game.teams.forEach((team, i) => {
+                    team.isWinner = false;
+                    team.isLoser = false;
+                });
             } else {
-                // continue to next game
-                // Update State
+                // update winner and loser
+                this.game.teams.forEach((team, i) => {
+                    if(i == teamIndex) {
+                        team.isWinner = true;
+                        team.isLoser = false;
+                    } else {
+                        team.isWinner = false;
+                        team.isLoser = true;
+                    }
+                });
+            }
+
+            // Update next game(s)
+            if (nextRound == 'final') {
+                console.log('create a', teamName, 'celebration animation!');
+            } else if (toggleWinner) {
+                // Remove Team from all games
+                let gameChain = this.getChainOfGames(this.game.nextGame);
+
+                gameChain.forEach(game => {
+                    let gameArray = game.split('_');
+                    let gameId = gameArray[0] + '_' + gameArray[1];
+                    let teamIndex = gameArray[2];
+
+                    // Remove Team from Game
+                    this.$store.commit({
+                        type: 'removeTeamFromGame',
+                        gameId,
+                        teamIndex,
+                        teamCode
+                    });
+                })
+            } else if (toggleLoser) {
+                // remove current/old winner from chain of games and add team to next game
+                // Remove Team from all games
+                let gameChain = this.getChainOfGames(this.game.nextGame);
+
+                gameChain.forEach(game => {
+                    let gameArray = game.split('_');
+                    let gameId = gameArray[0] + '_' + gameArray[1];
+                    let teamIndex = gameArray[2];
+
+                    // Remove Team from Game
+                    this.$store.commit({
+                        type: 'removeTeamFromGame',
+                        gameId,
+                        teamIndex,
+                        teamCode
+                    });
+
+                    console.log('remove team from game');
+                })
+
+                // Add Team to next Game
                 this.$store.commit({
-                    type: 'updateGame',
+                    type: 'addTeamToGame',
                     round: nextRound,
                     gameIndex: nextGameIndex,
-                    nextTeamIndex: nextTeamIndex,
+                    teamIndex: nextTeamIndex,
+                    code: teamCode,
+                    name: teamName
+                });
+
+            } else {
+                // Add Team to next Game
+                this.$store.commit({
+                    type: 'addTeamToGame',
+                    round: nextRound,
+                    gameIndex: nextGameIndex,
+                    teamIndex: nextTeamIndex,
                     code: teamCode,
                     name: teamName
                 });
             }
         },
+
+        // Get Chain of Games for team
+        getChainOfGames(nextGame) {
+            let gameChain = [nextGame];
+
+            while (nextGame != "final") {
+                let s = nextGame.split('_');
+                let currentGameId = s[0] + '_' + s[1];
+                let currentGame = this.games.filter(game => game.gameId === currentGameId);
+
+                nextGame = currentGame[0].nextGame;
+
+                if (nextGame != "final") {
+                    gameChain.push(nextGame);
+                }
+            }
+
+            return gameChain;
+        }
     }
 }
 </script>
