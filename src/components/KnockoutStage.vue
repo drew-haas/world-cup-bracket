@@ -12,22 +12,22 @@
         </div>
         <div class="games-container">
             <div class="column col-g-8">
-                <Game v-for="(game, i) in roundOne" :key="i" :game="game" :round="roundOne" :index="i"/>
+                <Game v-for="(game, i) in roundOne" :key="game.gameId" :game="game" :round="roundOne" :index="i"/>
             </div>
             <div class="column col-g-4">
-                <Game v-for="(game, i) in roundTwo" :key="i" :game="game" :round="roundTwo" :index="i"/>
+                <Game v-for="(game, i) in roundTwo" :key="game.gameId" :game="game" :round="roundTwo" :index="i"/>
             </div>
             <div class="column col-g-2">
-                <Game v-for="(game, i) in roundThree" :key="i" :game="game" :round="roundThree" :index="i"/>
+                <Game v-for="(game, i) in roundThree" :key="game.gameId" :game="game" :round="roundThree" :index="i"/>
             </div>
             <div class="column col-g-1">
-                <Game v-for="(game, i) in roundFour" :key="i" :game="game" :round="roundFour" :index="i"/>
+                <Game v-for="(game, i) in roundFour" :key="game.gameId" :game="game" :round="roundFour" :index="i"/>
             </div>
         </div>
-        <!-- <div class="knockout-actions">
-            <button id="submitBracket" class="button button-submit" @click="submitBracketData">Submit</button>
-            <button id="resetBracket" class="button button-alert" @click="resetBracketData">Reset</button>
-        </div> -->
+        <div class="knockout-actions">
+            <!-- <button id="submitBracket" class="button button-submit" @click="submitBracketData">Submit</button> -->
+            <button id="resetBracket" class="button" @click="resetBracketData">Reset</button>
+        </div>
     </div>
 </template>
 
@@ -40,9 +40,6 @@ export default {
         Game
     },
     computed: {
-        teams() {
-            return this.$store.state.teams
-        },
         roundOne() {
             return this.$store.state.games.filter(game => game.round === 1)
         },
@@ -55,43 +52,14 @@ export default {
         roundFour() {
             return this.$store.state.games.filter(game => game.round === 4)
         },
+        resetGames() {
+            return this.$store.state.games.filter(game => game.round != 1)
+        }
     },
     mounted() {
-        // Check for stored data first and use it if so
-
-        // Init Functions
-        // this.setupBracket();
+        // TODO: Check for stored data first and use it if so
     },
     methods: {
-        // Setup Bracket
-        setupBracket() {
-            console.log(this.groupData.length);
-            if (this.groupData.length == 0) {
-                return;
-            };
-
-            const col1 = document.querySelector('.col-g-8');
-
-            // Fill in bracket from groupData
-            this.knockoutGames.forEach((el) => {
-                let t1 = el[0].split(''); // ['c', '1']
-                let t2 = el[1].split(''); // t2[0] = group, t2[1] = position in group
-
-                let g1 = this.groupData.filter(item => item.group === t1[0]);
-                let g2 = this.groupData.filter(item => item.group === t2[0]);
-
-                t1 = g1[0].teams[t1[1] - 1].teamCode;
-                t2 = g2[0].teams[t2[1] - 1].teamCode;
-
-                // push game item
-                let gameDiv = this.createGameDiv(t1, t2);
-                col1.append(gameDiv);
-            });
-        },
-
-        // Go back to group data
-        backToGroup() {
-        },
 
         // On Submit Save the Bracket Data
         submitBracketData() {
@@ -99,34 +67,24 @@ export default {
 
         // Reset the groups to the default value
         resetBracketData() {
+            // remove teams from all rounds except round 1
+            this.resetGames.forEach(game => {
+                game.teams.forEach(team => {
+                    team.code = "";
+                    team.name = "";
+                    team.isWinner = false;
+                    team.isLoser  = false;
+                });
+            })
+
+            // set round 1 back to no winner or loser
+            this.roundOne.forEach(game => {
+                game.teams.forEach(team => {
+                    team.isWinner = false;
+                    team.isLoser  = false;
+                });
+            })
         },
-
-        // Create game div with two teams
-        createGameDiv(t1, t2) {
-            const gameContainer = document.createElement('div');
-            gameContainer.classList.add('game');
-
-            // const date = document.createElement('div');
-            // date.classList.add('date');
-
-            const team1 = this.teams.filter(item => item.code === t1);
-            console.log(team1);
-            const team1div = document.createElement('div');
-            team1div.classList.add('team');
-            team1div.dataset.code = t1;
-            team1div.append(team1[0].name);
-
-            const team2 = this.teams.filter(item => item.code === t2);
-            console.log(team2);
-            const team2div = document.createElement('div');
-            team2div.classList.add('team');
-            team2div.dataset.code = t2;
-            team2div.append(team2[0].name);
-
-            gameContainer.append(team1div, team2div)
-
-            return gameContainer;
-        }
     }
 }
 </script>

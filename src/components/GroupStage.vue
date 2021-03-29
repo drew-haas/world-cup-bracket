@@ -21,7 +21,6 @@
                 </div>
             </div>
         </div>
-        <div class="reset visually-hidden">Reset Groups</div>
         <div class="group-stage-grid">
             <div v-for="group in userGroupData" :key="group.group" class="group" :data-group="group.group">
                 <h2 class="group-name">Group <span>{{group.group}}</span></h2>
@@ -31,6 +30,10 @@
                     </template>
                 </draggable>
             </div>
+        </div>
+        <div class="group-stage-actions">
+            <!-- <button id="submitBracket" class="button button-submit" @click="submitBracketData">Submit</button> -->
+            <!-- <button id="resetBracket" class="button" @click="resetGroupData">Reset</button> -->
         </div>
     </div>
 </template>
@@ -47,39 +50,43 @@ export default {
         draggable
     },
     computed: {
-        userGroupData: {
-            get() {
-                return this.$store.state.userGroupData
-            },
-            set(value) {
-                this.$store.commit('updateUserGroupData', value)
-            }
+        // userGroupData: {
+        //     get() {
+        //         return this.$store.state.userGroupData
+        //     },
+        //     set(value) {
+        //         this.$store.commit('updateUserGroupData', value)
+        //     }
+        // },
+        userGroupData() {
+            return this.$store.state.userGroupData
         },
         ...mapState([
-            // 'roundOne'
+            'userGroupData'
         ])
     },
     methods: {
         onMoveCallback(evt, originalEvent) {
             this.updateRoundOneData();
         },
+
         // Update Teams in Round One
         updateRoundOneData() {
             this.$store.commit('updateRoundOne');
         },
+
         // On Submit Save the Group Data
         submitGroupData() {
-            console.log('Submit Data?');
             // TODO: figure out best way to handle knockout data
-            // Update Knockout Games?
-            // Route to Knockout stage?
-            // this.$router.push({ path: '/bracket/'});
+            // console.log('Submit Data?');
         },
 
         // Reset the groups to the default value
         resetGroupData() {
-            console.log('Reset to ogGroupData!');
             // TODO: go back to ogGroupData
+            console.log('Reset to ogGroupData!');
+            this.$store.commit('updateUserGroupData', this.$store.state.ogGroupData);
+            console.log(this.userGroupData);
         }
     }
 }

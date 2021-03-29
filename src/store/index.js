@@ -220,6 +220,8 @@ export default createStore({
   mutations: {
     updateUserGroupData: (state, groupData) => {
       state.userGroupData = groupData;
+      console.log('value: ', groupData)
+      console.log('userGroupData: ', state.userGroupData, groupData)
     },
     updateRoundOne: (state) => {
       // add correct teams to roundOne
@@ -274,6 +276,22 @@ export default createStore({
 
       // remove winner or loser from teams
       game[0].teams.forEach((team) => {
+        team.isWinner = false;
+        team.isLoser  = false;
+      })
+    },
+    // =====================
+    // removeTeamFromGame
+    // required params:
+    // * payload.gameId
+    // =====================
+    removeTeamsFromGame: (state, payload) => {
+      // remove teams and reset game
+      let game = state.games.filter(game => game.gameId === payload.gameId);
+
+      game[0].teams.forEach(team => {
+        team.code = "";
+        team.name = "";
         team.isWinner = false;
         team.isLoser  = false;
       })

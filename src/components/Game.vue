@@ -34,7 +34,6 @@ export default {
             }
 
             let currentWinner = this.game.teams.indexOf(team => team.isWinner);
-            console.log('currentWinner', currentWinner);
 
             let teamIndex = event.target.dataset.index;
             let teamCode = event.target.dataset.countryCode;
@@ -45,9 +44,6 @@ export default {
             let nextTeamIndex = nextGame[2];
             let toggleWinner = this.game.teams[teamIndex].isWinner;
             let toggleLoser = this.game.teams[teamIndex].isLoser;
-
-            console.log('toggleLoser', toggleLoser);
-            console.log('toggleWinner', toggleWinner);
 
             // Update Current Game
             if (toggleWinner) {
@@ -71,7 +67,9 @@ export default {
 
             // Update next game(s)
             if (nextRound == 'final') {
+
                 console.log('create a', teamName, 'celebration animation!');
+
             } else if (toggleWinner) {
                 // Remove Team from all games
                 let gameChain = this.getChainOfGames(this.game.nextGame);
@@ -106,8 +104,6 @@ export default {
                         teamIndex,
                         teamCode
                     });
-
-                    console.log('remove team from game');
                 })
 
                 // Add Team to next Game
