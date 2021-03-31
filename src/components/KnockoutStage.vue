@@ -26,7 +26,7 @@
         </div>
         <div class="knockout-actions">
             <!-- <button id="submitBracket" class="button button-submit" @click="submitBracketData">Submit</button> -->
-            <button id="resetBracket" class="button" @click="resetBracketData">Reset</button>
+            <button id="resetBracket" class="button button-alert" @click="resetBracketData">Reset Bracket</button>
         </div>
     </div>
 </template>

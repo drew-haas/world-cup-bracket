@@ -24,7 +24,7 @@ export default {
   margin-top: 50px;
   background-color: $bg-light;
   text-align: left;
-  padding: 50px;
+  padding: 50px 50px 45px;
 }
 .dru-logo {
   max-width: 60px;

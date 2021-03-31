@@ -9,73 +9,73 @@ export default createStore({
       {
         "group": "a",
         "teams": [
-          {"code":"uy", "name": "Uruguay"},
-          {"code":"ru", "name": "Russia"},
-          {"code":"sa", "name": "Saudi Arabia"},
-          {"code":"eg", "name": "Egypt"}
+          {"code": "uy", "name": "Uruguay"},
+          {"code": "ru", "name": "Russia"},
+          {"code": "qa", "name": "Qatar"},
+          {"code": "eg", "name": "Egypt"}
         ]
       },
       {
         "group": "b",
         "teams": [
-          {"code":"es", "name": "Spain"},
-          {"code":"pt", "name": "Portugal"},
-          {"code":"ir", "name": "Iran"},
-          {"code":"ma", "name": "Morocco"}
+          {"code": "es", "name": "Spain"},
+          {"code": "pt", "name": "Portugal"},
+          {"code": "ir", "name": "Iran"},
+          {"code": "ma", "name": "Morocco"}
         ]
       },
       {
         "group":"c",
         "teams": [
-          {"code":"fr", "name":"France"},
-          {"code":"dk", "name": "Denmark"},
-          {"code":"pe", "name": "Peru"},
-          {"code":"au","name":"Australia"}
+          {"code": "fr", "name": "France"},
+          {"code": "dk", "name": "Denmark"},
+          {"code": "pe", "name": "Peru"},
+          {"code": "au", "name": "Australia"}
         ]
       },
       {
         "group":"d",
         "teams": [
-          {"code":"hr","name":"Croatia"},
-          {"code":"ar","name":"Argentina"},
-          {"code":"ng","name":"Nigeria"},
-          {"code":"is","name":"Iceland"}
+          {"code": "hr", "name": "Croatia"},
+          {"code": "ar", "name": "Argentina"},
+          {"code": "ng", "name": "Nigeria"},
+          {"code": "is", "name": "Iceland"}
         ]
       },
       {
         "group":"e",
         "teams": [
-          {"code":"br","name":"Brazil"},
-          {"code":"ch","name":"Switzerland"},
-          {"code":"rs","name":"Serbia"},
-          {"code":"cr","name":"Costa Rica"}
+          {"code": "br", "name": "Brazil"},
+          {"code": "ch", "name": "Switzerland"},
+          {"code": "rs", "name": "Serbia"},
+          {"code": "cr", "name": "Costa Rica"}
         ]
       },
       {
         "group":"f",
         "teams": [
-          {"code":"se","name":"Sweden"},
-          {"code":"mx","name":"Mexico"},
-          {"code":"kr","name":"South Korea"},
-          {"code":"de","name":"Germany"}
+          {"code": "se", "name": "Sweden"},
+          {"code": "mx", "name": "Mexico"},
+          {"code": "kr", "name": "South Korea"},
+          {"code": "de", "name": "Germany"}
         ]
       },
       {
         "group":"g",
         "teams": [
-          {"code":"be","name":"Belgium"},
-          {"code":"gb","name":"England"},
-          {"code":"tn","name":"Tunisia"},
-          {"code":"pa","name":"Panama"}
+          {"code": "be", "name": "Belgium"},
+          {"code": "gb", "name": "England"},
+          {"code": "tn", "name": "Tunisia"},
+          {"code": "pa", "name": "Panama"}
         ]
       },
       {
         "group":"h",
         "teams": [
-          {"code":"co","name":"Colombia"},
-          {"code":"jp","name":"Japan"},
-          {"code":"sn","name":"Senegal"},
-          {"code":"pl","name":"Poland"}
+          {"code": "co", "name": "Colombia"},
+          {"code": "jp", "name": "Japan"},
+          {"code": "sn", "name": "Senegal"},
+          {"code": "pl", "name": "Poland"}
         ]
       }
     ],
@@ -219,9 +219,11 @@ export default createStore({
   },
   mutations: {
     updateUserGroupData: (state, groupData) => {
-      state.userGroupData = groupData;
-      console.log('value: ', groupData)
-      console.log('userGroupData: ', state.userGroupData, groupData)
+      let d = groupData
+      state.userGroupData = d;
+    },
+    resetUserGroupData: (state) => {
+      state.userGroupData = state.ogGroupData;
     },
     updateRoundOne: (state) => {
       // add correct teams to roundOne
@@ -240,6 +242,9 @@ export default createStore({
             team.code = teamData.code;
         })
       })
+
+      // check to make sure no teams past round one are in the bracket
+      // and if so remove them
     },
     // =====================
     // addTeamToGame

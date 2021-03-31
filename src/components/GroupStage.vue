@@ -32,8 +32,7 @@
             </div>
         </div>
         <div class="group-stage-actions">
-            <!-- <button id="submitBracket" class="button button-submit" @click="submitBracketData">Submit</button> -->
-            <!-- <button id="resetBracket" class="button" @click="resetGroupData">Reset</button> -->
+            <button id="resetBracket" class="button button-alert" @click="resetGroupData">Reset Groups</button>
         </div>
     </div>
 </template>
@@ -50,24 +49,25 @@ export default {
         draggable
     },
     computed: {
-        // userGroupData: {
-        //     get() {
-        //         return this.$store.state.userGroupData
-        //     },
-        //     set(value) {
-        //         this.$store.commit('updateUserGroupData', value)
-        //     }
-        // },
-        userGroupData() {
-            return this.$store.state.userGroupData
+        userGroupData: {
+            get() {
+                return this.$store.state.userGroupData
+            },
+            set(value) {
+                this.$store.commit('updateUserGroupData', value)
+            }
         },
-        ...mapState([
-            'userGroupData'
-        ])
+        // userGroupData() {
+        //     return this.$store.state.userGroupData
+        // },
+        ogGroupData() {
+            return this.$store.state.ogGroupData
+        }
     },
     methods: {
         onMoveCallback(evt, originalEvent) {
             this.updateRoundOneData();
+            localStorage.setItem('userGroupData', JSON.stringify(this.userGroupData));
         },
 
         // Update Teams in Round One
@@ -75,18 +75,15 @@ export default {
             this.$store.commit('updateRoundOne');
         },
 
-        // On Submit Save the Group Data
-        submitGroupData() {
-            // TODO: figure out best way to handle knockout data
-            // console.log('Submit Data?');
-        },
-
         // Reset the groups to the default value
         resetGroupData() {
-            // TODO: go back to ogGroupData
             console.log('Reset to ogGroupData!');
-            this.$store.commit('updateUserGroupData', this.$store.state.ogGroupData);
-            console.log(this.userGroupData);
+
+            this.$store.commit('resetUserGroupData');
+            localStorage.removeItem('userGroupData');
+            this.updateRoundOneData();
+
+            console.log('reset should happen', this.userGroupData);
         }
     }
 }
@@ -173,7 +170,7 @@ export default {
     margin-right: 8px;
 }
 
-.group-actions {
+.group-stage-actions {
     margin: 70px 0;
 
     .button {
