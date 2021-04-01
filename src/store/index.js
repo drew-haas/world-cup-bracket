@@ -223,7 +223,7 @@ export default createStore({
       state.userGroupData = d;
     },
     resetUserGroupData: (state) => {
-      state.userGroupData = state.ogGroupData;
+      state.userGroupData = JSON.parse(JSON.stringify(state.ogGroupData));
     },
     updateRoundOne: (state) => {
       // add correct teams to roundOne
