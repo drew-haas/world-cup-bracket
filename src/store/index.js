@@ -225,7 +225,7 @@ export default createStore({
     resetUserGroupData: (state) => {
       console.log('userGroupData', state.userGroupData)
       console.log('ogGroupData', state.ogGroupData)
-      state.userGroupData = state.ogGroupData;
+      state.userGroupData = JSON.parse(JSON.stringify(state.ogGroupData));
     },
     updateRoundOne: (state) => {
       // add correct teams to roundOne
