@@ -223,6 +223,8 @@ export default createStore({
       state.userGroupData = d;
     },
     resetUserGroupData: (state) => {
+      console.log('userGroupData', state.userGroupData)
+      console.log('ogGroupData', state.ogGroupData)
       state.userGroupData = state.ogGroupData;
     },
     updateRoundOne: (state) => {

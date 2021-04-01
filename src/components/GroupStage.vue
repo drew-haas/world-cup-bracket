@@ -80,10 +80,10 @@ export default {
             console.log('Reset to ogGroupData!');
 
             this.$store.commit('resetUserGroupData');
-            localStorage.removeItem('userGroupData');
-            this.updateRoundOneData();
 
-            console.log('reset should happen', this.userGroupData);
+            localStorage.removeItem('userGroupData');
+
+            this.updateRoundOneData();
         }
     }
 }
