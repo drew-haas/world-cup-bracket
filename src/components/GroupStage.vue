@@ -56,12 +56,6 @@ export default {
             set(value) {
                 this.$store.commit('updateUserGroupData', value)
             }
-        },
-        // userGroupData() {
-        //     return this.$store.state.userGroupData
-        // },
-        ogGroupData() {
-            return this.$store.state.ogGroupData
         }
     },
     methods: {
@@ -77,8 +71,6 @@ export default {
 
         // Reset the groups to the default value
         resetGroupData() {
-            console.log('Reset to ogGroupData!');
-
             this.$store.commit('resetUserGroupData');
 
             localStorage.removeItem('userGroupData');
