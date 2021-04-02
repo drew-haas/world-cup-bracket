@@ -14,27 +14,21 @@ let lsKnockoutData = JSON.parse(localStorage.getItem('userKnockoutData'));
 
 if (lsGroupData) {
 
-    // if lsGroupData exists - set localStorage item as userGroupData
-    console.log('lsGroupData available')
+    // if lsGroupData exists - use it for userGroupData
     store.commit('updateUserGroupData', lsGroupData);
-    console.log(store.state.userGroupData)
-
-    // if lsGroupData is there only then check for lsKnockoutData
-    if (lsKnockoutData) {
-
-        console.log('lsKnockoutData available');
-
-    } else {
-
-        console.log('lsKnockoutData not available')
-
-    }
-
-} else {
-
-    console.log('lsGroupData not available');
 
 }
 
-// Set knockoutGames to match from start
-store.commit('updateRoundOne');
+// if lsKnockoutData is there use it!
+if (lsKnockoutData) {
+
+    console.log('lsKnockoutData available');
+    // update all games
+    store.commit('updateGames', lsKnockoutData);
+
+} else {
+
+    // Set knockoutGames to match from start
+    store.commit('updateRoundOne');
+
+}

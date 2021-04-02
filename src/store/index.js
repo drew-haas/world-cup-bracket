@@ -9,55 +9,55 @@ export default createStore({
       {
         "group": "a",
         "teams": [
-          {"code": "uy", "name": "Uruguay"},
-          {"code": "ru", "name": "Russia"},
+          {"code": "eg", "name": "Egypt"},
           {"code": "qa", "name": "Qatar"},
-          {"code": "eg", "name": "Egypt"}
+          {"code": "ru", "name": "Russia"},
+          {"code": "uy", "name": "Uruguay"}
         ]
       },
       {
         "group": "b",
         "teams": [
-          {"code": "es", "name": "Spain"},
-          {"code": "pt", "name": "Portugal"},
           {"code": "ir", "name": "Iran"},
-          {"code": "ma", "name": "Morocco"}
+          {"code": "ma", "name": "Morocco"},
+          {"code": "pt", "name": "Portugal"},
+          {"code": "es", "name": "Spain"}
         ]
       },
       {
         "group":"c",
         "teams": [
-          {"code": "fr", "name": "France"},
+          {"code": "au", "name": "Australia"},
           {"code": "dk", "name": "Denmark"},
-          {"code": "pe", "name": "Peru"},
-          {"code": "au", "name": "Australia"}
+          {"code": "fr", "name": "France"},
+          {"code": "pe", "name": "Peru"}
         ]
       },
       {
         "group":"d",
         "teams": [
-          {"code": "hr", "name": "Croatia"},
           {"code": "ar", "name": "Argentina"},
-          {"code": "ng", "name": "Nigeria"},
-          {"code": "is", "name": "Iceland"}
+          {"code": "hr", "name": "Croatia"},
+          {"code": "is", "name": "Iceland"},
+          {"code": "ng", "name": "Nigeria"}
         ]
       },
       {
         "group":"e",
         "teams": [
           {"code": "br", "name": "Brazil"},
-          {"code": "ch", "name": "Switzerland"},
+          {"code": "cr", "name": "Costa Rica"},
           {"code": "rs", "name": "Serbia"},
-          {"code": "cr", "name": "Costa Rica"}
+          {"code": "ch", "name": "Switzerland"}
         ]
       },
       {
         "group":"f",
         "teams": [
-          {"code": "se", "name": "Sweden"},
+          {"code": "de", "name": "Germany"},
           {"code": "mx", "name": "Mexico"},
           {"code": "kr", "name": "South Korea"},
-          {"code": "de", "name": "Germany"}
+          {"code": "se", "name": "Sweden"}
         ]
       },
       {
@@ -65,8 +65,8 @@ export default createStore({
         "teams": [
           {"code": "be", "name": "Belgium"},
           {"code": "gb", "name": "England"},
-          {"code": "tn", "name": "Tunisia"},
-          {"code": "pa", "name": "Panama"}
+          {"code": "pa", "name": "Panama"},
+          {"code": "tn", "name": "Tunisia"}
         ]
       },
       {
@@ -74,8 +74,8 @@ export default createStore({
         "teams": [
           {"code": "co", "name": "Colombia"},
           {"code": "jp", "name": "Japan"},
-          {"code": "sn", "name": "Senegal"},
-          {"code": "pl", "name": "Poland"}
+          {"code": "pl", "name": "Poland"},
+          {"code": "sn", "name": "Senegal"}
         ]
       }
     ],
@@ -219,11 +219,13 @@ export default createStore({
   },
   mutations: {
     updateUserGroupData: (state, groupData) => {
-      let d = groupData
-      state.userGroupData = d;
+      state.userGroupData = groupData;
     },
     resetUserGroupData: (state) => {
       state.userGroupData = JSON.parse(JSON.stringify(state.ogGroupData));
+    },
+    updateGames: (state, gameData) => {
+      state.games = gameData;
     },
     updateRoundOne: (state) => {
       // add correct teams to roundOne
@@ -231,20 +233,47 @@ export default createStore({
 
       roundOneGames.forEach((game) => {
         game.teams.forEach(team => {
-            let tSlice = team.id.slice('');
-            let groupLetter = tSlice[0];
-            let groupOrder  = tSlice[1] - 1;
+          let tSlice = team.id.slice('');
+          let groupLetter = tSlice[0];
+          let groupOrder  = tSlice[1] - 1;
 
-            let teamGroup = state.userGroupData.filter(group => group.group === groupLetter);
-            let teamData = teamGroup[0].teams[groupOrder];
+          let teamGroup = state.userGroupData.filter(group => group.group === groupLetter);
+          let teamData = teamGroup[0].teams[groupOrder];
 
+          // check to see if we need to update the game first -- if we do set it to no winner or loser. if not do nothing.
+          if (!(team.code == teamData.code)) {
             team.name = teamData.name;
             team.code = teamData.code;
+            game.teams[0].isWinner = false;
+            game.teams[1].isWinner = false;
+            game.teams[0].isLoser = false;
+            game.teams[1].isLoser = false;
+
+            // clear chain of games
+            // remove current/old winner from chain of games and add team to next game
+            // Remove Team from all games
+            let gameChain = getChainOfGames(game.nextGame, state.games);
+
+            gameChain.forEach(game => {
+                let gameArray = game.split('_');
+                let gameId = gameArray[0] + '_' + gameArray[1];
+                let teamIndex = gameArray[2];
+
+                // Remove Team from Game
+                // remove team
+                let nextGame = state.games.filter(game => game.gameId == gameId);
+                nextGame[0].teams[teamIndex].code = "";
+                nextGame[0].teams[teamIndex].name = "";
+
+                // remove winner or loser from teams
+                nextGame[0].teams.forEach((team) => {
+                  team.isWinner = false;
+                  team.isLoser  = false;
+                })
+            })
+          }
         })
       })
-
-      // check to make sure no teams past round one are in the bracket
-      // and if so remove them
     },
     // =====================
     // addTeamToGame
@@ -265,16 +294,10 @@ export default createStore({
     // required params:
     // * payload.gameId
     // * payload.teamIndex
-    // * payload.teamCode
     // =====================
     removeTeamFromGame: (state,payload) => {
       // remove team
       let game = state.games.filter(game => game.gameId === payload.gameId);
-
-      // If the team code doesn't match we don't want to remove
-      // if (game[0].teams[payload.teamIndex].code != payload.teamCode) {
-      //   return;
-      // }
 
       game[0].teams[payload.teamIndex].code = "";
       game[0].teams[payload.teamIndex].name = "";
@@ -307,3 +330,22 @@ export default createStore({
   modules: {
   }
 })
+
+// Get Chain of Games for team
+function getChainOfGames(nextGame, allGames) {
+  let gameChain = [nextGame];
+
+  while (nextGame != "final") {
+      let s = nextGame.split('_');
+      let currentGameId = s[0] + '_' + s[1];
+      let currentGame = allGames.filter(game => game.gameId === currentGameId);
+
+      nextGame = currentGame[0].nextGame;
+
+      if (nextGame != "final") {
+          gameChain.push(nextGame);
+      }
+  }
+
+  return gameChain;
+}

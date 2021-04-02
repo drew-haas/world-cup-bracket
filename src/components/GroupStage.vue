@@ -56,12 +56,19 @@ export default {
             set(value) {
                 this.$store.commit('updateUserGroupData', value)
             }
+        },
+        games() {
+            return this.$store.state.games
         }
     },
     methods: {
         onMoveCallback(evt, originalEvent) {
+            // Update Games
             this.updateRoundOneData();
+
+            // Update LocalStorage
             localStorage.setItem('userGroupData', JSON.stringify(this.userGroupData));
+            localStorage.setItem('userKnockoutData', JSON.stringify(this.games));
         },
 
         // Update Teams in Round One
@@ -76,6 +83,8 @@ export default {
             localStorage.removeItem('userGroupData');
 
             this.updateRoundOneData();
+
+            localStorage.setItem('userKnockoutData', JSON.stringify(this.games));
         }
     }
 }

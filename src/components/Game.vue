@@ -33,8 +33,6 @@ export default {
                 return;
             }
 
-            let currentWinner = this.game.teams.indexOf(team => team.isWinner);
-
             let teamIndex = event.target.dataset.index;
             let teamCode = event.target.dataset.countryCode;
             let teamName = event.target.dataset.countryName;
@@ -67,11 +65,15 @@ export default {
 
             // Update next game(s)
             if (nextRound == 'final') {
-
+                // Winner Selected!
+                // Create Winner Selection Celebration
                 console.log('create a', teamName, 'celebration animation!');
+                // const cellyDiv = document.querySelector('.final-celebration');
+                // cellyDiv.innerHTML = teamName;
+                // cellyDiv.classList.add('active');
 
             } else if (toggleWinner) {
-                // Remove Team from all games
+                // Remove Team from chain of games
                 let gameChain = this.getChainOfGames(this.game.nextGame);
 
                 gameChain.forEach(game => {
@@ -127,6 +129,17 @@ export default {
                     name: teamName
                 });
             }
+
+            // Update LocalStorage
+            localStorage.setItem('userKnockoutData', JSON.stringify(this.games));
+
+            // check games to see if all have been filled out
+            // this.games.forEach(game =>{
+            //     if (game.teams[0].isWinner || game.teams[0].isLoser) {
+
+            //     }
+            // })
+            // show submit button when all filled out
         },
 
         // Get Chain of Games for team

@@ -25,9 +25,10 @@
             </div>
         </div>
         <div class="knockout-actions">
-            <!-- <button id="submitBracket" class="button button-submit" @click="submitBracketData">Submit</button> -->
+            <button id="submit" class="button button-submit" @click="submitData">Submit Group And Bracket!</button>
             <button id="resetBracket" class="button button-alert" @click="resetBracketData">Reset Bracket</button>
         </div>
+        <div class="final-celebration"></div>
     </div>
 </template>
 
@@ -84,12 +85,20 @@ export default {
                     team.isLoser  = false;
                 });
             })
+
+            localStorage.removeItem('userKnockoutData');
         },
     }
 }
 </script>
 
 <style lang="scss">
+.knockout-stage-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
 .knockout-stage-information {
     max-width: $container-size;
     margin: $section-spacing auto;
@@ -134,5 +143,41 @@ export default {
 .col-g-1 {
     grid-template-rows: 1fr;
     align-items: center;
+}
+
+.button-submit {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.final-celebration {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  pointer-events: none;
+  font-size: 120px;
+  background: $bg-light;
+  padding: 100px;
+
+  &.active {
+    pointer-events: auto;
+    animation: scaleUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
 }
 </style>
