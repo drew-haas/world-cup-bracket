@@ -19,7 +19,7 @@ export default {
     props: {
         game: Object,
         round: Object,
-        index: Number
+        index: Number,
     },
     computed: {
         games() {
@@ -133,13 +133,8 @@ export default {
             // Update LocalStorage
             localStorage.setItem('userKnockoutData', JSON.stringify(this.games));
 
-            // check games to see if all have been filled out
-            // this.games.forEach(game =>{
-            //     if (game.teams[0].isWinner || game.teams[0].isLoser) {
-
-            //     }
-            // })
-            // show submit button when all filled out
+            // show submit button when all filled out and final selected
+            this.checkForCompletion()
         },
 
         // Get Chain of Games for team
@@ -159,6 +154,40 @@ export default {
             }
 
             return gameChain;
+        },
+
+        checkForCompletion() {
+            // check games to see if all have been filled out and final has selected
+            let teamCount = 0, finalSelected = false;
+            this.games.forEach(game => {
+                game.teams.forEach(team => {
+                    if (!(Object.keys(team.code).length === 0)) {
+                        teamCount = teamCount + 1;
+                    }
+                })
+
+                if (game.nextGame == 'final' && (game.teams[0].isWinner || game.teams[0].isLoser)) {
+                    finalSelected = true;
+                }
+            })
+
+            if (teamCount == this.games.length * 2 && finalSelected) {
+                this.showSubmitButton();
+            } else {
+                this.hideSubmitButton();
+            }
+
+            return teamCount == this.games.length * 2 && finalSelected;
+        },
+
+        showSubmitButton() {
+            let submitBtn = document.querySelector('#submit');
+            submitBtn.classList.add('active');
+        },
+
+        hideSubmitButton() {
+            let submitBtn = document.querySelector('#submit');
+            submitBtn.classList.remove('active');
         }
     }
 }

@@ -25,8 +25,8 @@
             </div>
         </div>
         <div class="knockout-actions">
-            <button id="submit" class="button button-submit" @click="submitData">Submit Group And Bracket!</button>
             <button id="resetBracket" class="button button-alert" @click="resetBracketData">Reset Bracket</button>
+            <button id="submit" class="button button-submit" @click="submitData">Submit</button>
         </div>
         <div class="final-celebration"></div>
     </div>
@@ -57,13 +57,12 @@ export default {
             return this.$store.state.games.filter(game => game.round != 1)
         }
     },
-    mounted() {
-        // TODO: Check for stored data first and use it if so
-    },
     methods: {
 
         // On Submit Save the Bracket Data
-        submitBracketData() {
+        submitData() {
+            // Submit data to database?
+            console.log('Submit and Save Data to Database');
         },
 
         // Reset the groups to the default value
@@ -145,8 +144,13 @@ export default {
     align-items: center;
 }
 
+.button {
+    margin: 0 auto;
+}
+
 .button-submit {
     display: none;
+    margin-top: 40px;
 
     &.active {
         display: block;
