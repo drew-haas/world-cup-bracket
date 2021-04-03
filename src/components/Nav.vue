@@ -1,8 +1,9 @@
 <template>
     <nav id="nav">
-        <div class="title">World Cup Bracket Challenge</div>
+        <div class="title"><router-link to="/">World Cup Bracket Challenge</router-link></div>
         <div class="nav-links">
             <router-link to="/">Home</router-link>
+            <router-link to="/signup">Signup</router-link>
             <router-link to="/about">About</router-link>
             <router-link to="/groups">Groups</router-link>
         </div>

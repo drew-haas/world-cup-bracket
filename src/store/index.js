@@ -4,7 +4,6 @@ import Vue from 'vue'
 export default createStore({
   state: {
     userGroupData: [],
-    userKnockoutData: [],
     ogGroupData: [
       {
         "group": "a",
