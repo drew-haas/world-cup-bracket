@@ -1,23 +1,43 @@
 <template>
     <footer class="footer">
-        <!-- <h2>Footer</h2> -->
         <img class="dru-logo" alt="Fifa World Cup Qatar 2022 Logo" src="../assets/dru-logo.svg">
-        <div id="sign-in-status"></div>
-        <div id="sign-in"></div>
-        <div id="account-details"></div>
-        <!-- <ul>
-            <li><router-link to="/">Home</router-link></li>
-            <li><router-link to="/about">About</router-link></li>
-        </ul> -->
+        <br><br>
+        <hr>
+        <br>
+        <div id="sign-in-status" class="status" data-satus="signed-out"></div>
+        <button id="sign-in" class="button" data-functionality="sign-in" @click="handleSignIn"></button>
+        <div id="account-details" class="user-details"></div>
     </footer>
 </template>
 
 <script>
+import firebase from 'firebase'
+
 export default {
   name: 'TeamRow',
   props: {
     team: Object,
     group: String
+  },
+  methods: {
+    handleSignIn(event) {
+      // route to sign in or sign out
+      console.log('handle sign-in', event.target.dataset.functionality);
+
+      if (event.target.dataset.functionality == 'sign-out') {
+        // sign out user
+        firebase.auth().signOut().then(() => {
+          // Sign-out successful.
+        }).catch((error) => {
+          // An error happened.
+        });
+      } else if (event.target.dataset.functionality == 'sign-in') {
+        // route to sign in page
+        this.$router.push('signin');
+      } else {
+        console.warn('handleSignIn -- no option available. Error with data-functionality: ', event.target.dataset.functionality);
+      }
+    }
   }
 }
 </script>
@@ -31,5 +51,9 @@ export default {
 }
 .dru-logo {
   max-width: 60px;
+}
+
+.user-details {
+  padding-top: 20px;
 }
 </style>

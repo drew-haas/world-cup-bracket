@@ -24,6 +24,10 @@ createApp(App).use(store).use(router).mount('#app');
 
 // Check for user data
 firebase.auth().onAuthStateChanged(function(user) {
+    const signInStatus = document.getElementById('sign-in-status');
+    const signInButton = document.getElementById('sign-in');
+    const accountDetails = document.getElementById('account-details');
+
     if (user) {
       // User is signed in.
       var displayName = user.displayName;
@@ -35,9 +39,11 @@ firebase.auth().onAuthStateChanged(function(user) {
       var providerData = user.providerData;
 
       user.getIdToken().then(function(accessToken) {
-        document.getElementById('sign-in-status').textContent = 'Signed in';
-        document.getElementById('sign-in').textContent = 'Sign out';
-        document.getElementById('account-details').textContent = JSON.stringify({
+        signInStatus.textContent = 'Signed in as ' + email;
+        signInStatus.dataset.status = 'signed-in';
+        signInButton.textContent = 'Sign out';
+        signInButton.dataset.functionality = 'sign-out';
+        accountDetails.textContent = JSON.stringify({
           displayName: displayName,
           email: email,
           emailVerified: emailVerified,
@@ -50,9 +56,11 @@ firebase.auth().onAuthStateChanged(function(user) {
       });
     } else {
       // User is signed out.
-      document.getElementById('sign-in-status').textContent = 'Signed out';
-      document.getElementById('sign-in').textContent = 'Sign in';
-      document.getElementById('account-details').textContent = 'null';
+      signInStatus.textContent = 'Signed out';
+      signInStatus.dataset.status = 'signed-out';
+      signInButton.textContent = 'Sign in';
+      signInButton.dataset.functionality = 'sign-in';
+      accountDetails.textContent = 'user data null';
     }
   }, function(error) {
     console.log(error);

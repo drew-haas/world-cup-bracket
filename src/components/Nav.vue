@@ -2,10 +2,11 @@
     <nav id="nav">
         <div class="title"><router-link to="/">World Cup Bracket Challenge</router-link></div>
         <div class="nav-links">
-            <router-link to="/">Home</router-link>
+            <router-link to="/">Selections</router-link>
             <router-link to="/signup">Signup</router-link>
-            <router-link to="/about">About</router-link>
-            <router-link to="/groups">Groups</router-link>
+            <router-link to="/signin">Signin</router-link>
+            <!-- <router-link to="/about">About</router-link>
+            <router-link to="/groups">Groups</router-link> -->
         </div>
     </nav>
 </template>
