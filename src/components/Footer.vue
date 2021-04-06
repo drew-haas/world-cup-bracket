@@ -14,20 +14,15 @@
 import firebase from 'firebase'
 
 export default {
-  name: 'TeamRow',
-  props: {
-    team: Object,
-    group: String
-  },
+  name: 'Footer',
   methods: {
     handleSignIn(event) {
-      // route to sign in or sign out
-      console.log('handle sign-in', event.target.dataset.functionality);
-
+      // Sign Out the user
       if (event.target.dataset.functionality == 'sign-out') {
-        // sign out user
         firebase.auth().signOut().then(() => {
-          // Sign-out successful.
+          // Sign Out Success
+          // update store
+          this.$store.commit('updateSignin', false);
         }).catch((error) => {
           // An error happened.
         });

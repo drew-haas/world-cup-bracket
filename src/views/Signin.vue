@@ -1,14 +1,23 @@
 <template>
   <div class="signin">
-    <h1>Sign in to your account</h1>
-    <form id="signinForm">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password">
-        <button class="button" type="submit">Submit</button>
-    </form>
-    <div class="status-message"></div>
+    <div class="signin-container" v-if="!signedin">
+        <h1>Sign in to your account</h1>
+        <div>Don't have an account? Click here to Sign Up!</div>
+        <form id="signinForm">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+            <button class="button" type="submit">Submit</button>
+        </form>
+        <div class="form-information">
+            <div class="status-message"></div>
+            <div class="forgot-password-reset" @click="sendResetEmail">Forgot Password? Click here to get an email reset.</div>
+        </div>
+    </div>
+    <div class="redirect-container" v-if="signedin">
+        <h2>You're signed in! Get outta here!</h2>
+    </div>
   </div>
 </template>
 
@@ -20,6 +29,11 @@ let email, password;
 
 export default {
     name: 'Home',
+    computed: {
+        signedin() {
+            return this.$store.state.signedin
+        }
+    },
     mounted() {
         // Form Setup
         const form = document.getElementById("signinForm");
@@ -35,11 +49,19 @@ export default {
             const statusDiv = document.querySelector('.status-message');
 
             firebase.auth().signInWithEmailAndPassword(email, password).then((userCredential) => {
-                // Signed in
+                // SIGNED IN SUCCESS
                 // var user = userCredential.user;
                 statusDiv.classList.remove('error');
                 statusDiv.classList.add('success');
                 statusDiv.textContent = 'Sign in Successful!';
+
+                // update store
+                this.$store.commit('updateSignin', true);
+
+                // TODO: make animation THEN redirect
+                // redirect to home page
+                this.$router.push('/');
+
             }).catch((error) => {
                 // var errorCode = error.code;
                 var errorMessage = error.message;
@@ -47,16 +69,32 @@ export default {
                 statusDiv.classList.remove('success');
                 statusDiv.textContent = errorMessage;
 
-                // TODO: add password reset button
-                // var auth = firebase.auth();
-                // var emailAddress = "user@example.com";
-
-                // auth.sendPasswordResetEmail(emailAddress).then(function() {
-                //     // Email sent.
-                // }).catch(function(error) {
-                //     // An error happened.
-                // });
+                // add forgot password reset button
+                this.showResetEmail();
             });
+        },
+
+        // add forgot password reset button
+        showResetEmail() {
+            const resetDiv = document.querySelector('.forgot-password-reset');
+            resetDiv.classList.add('active');
+        },
+
+        hideResetEmail() {
+            const resetDiv = document.querySelector('.forgot-password-reset');
+            resetDiv.classList.remove('active');
+        },
+
+        sendResetEmail() {
+            console.log('send reset email');
+            // var auth = firebase.auth();
+            // var emailAddress = "user@example.com";
+
+            // auth.sendPasswordResetEmail(emailAddress).then(function() {
+            //     // Email sent.
+            // }).catch(function(error) {
+            //     // An error happened.
+            // });
         }
     }
 }
@@ -65,5 +103,23 @@ export default {
 <style scoped lang="scss">
 h1 {
   color: $red;
+}
+
+.form-information {
+    margin-top: 20px;
+}
+
+.forgot-password-reset {
+    display: none;
+    cursor: pointer;
+
+    &:hover {
+        color: black;
+        text-decoration: underline;
+    }
+
+    &.active {
+        display: inline-block;
+    }
 }
 </style>

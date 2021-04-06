@@ -18,11 +18,40 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
+console.log(database.ref().child('users'));
+
+function writeNewUser(uid, email) {
+  // A new User Entry
+  var userData = {
+    uid,
+    email
+  };
+
+  // Get a key for a new Post.
+  var newPostKey = database.ref().child('users').push().key;
+  console.log(newPostKey);
+
+  // Write the new user's data to the list of users
+  var updates = {};
+  updates['/users/' + newPostKey] = userData;
+
+  return database.ref().update({updates}, (error) => {
+    if (error) {
+      // the write failed.
+      console.log(error);
+    } else {
+      // Data saved successfully
+    }
+  });
+}
+
+// writeNewUser(1, 'drew@gmail.com');
 
 // Create Vue App
 createApp(App).use(store).use(router).mount('#app');
 
-// Check for user data
+// Check for firebase user data
 firebase.auth().onAuthStateChanged(function(user) {
     const signInStatus = document.getElementById('sign-in-status');
     const signInButton = document.getElementById('sign-in');
@@ -37,6 +66,9 @@ firebase.auth().onAuthStateChanged(function(user) {
       var uid = user.uid;
       var phoneNumber = user.phoneNumber;
       var providerData = user.providerData;
+
+      // update store
+      store.commit('updateSignin', true);
 
       user.getIdToken().then(function(accessToken) {
         signInStatus.textContent = 'Signed in as ' + email;
@@ -55,6 +87,9 @@ firebase.auth().onAuthStateChanged(function(user) {
         }, null, '  ');
       });
     } else {
+      // update store
+      store.commit('updateSignin', false);
+
       // User is signed out.
       signInStatus.textContent = 'Signed out';
       signInStatus.dataset.status = 'signed-out';

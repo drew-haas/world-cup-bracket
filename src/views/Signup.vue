@@ -1,6 +1,7 @@
 <template>
   <div class="signup">
     <h1>Create an Account</h1>
+    <div>Already have an account? Click here to Sign In!</div>
     <form id="signupForm">
         <label for="email">Email</label>
         <input type="email" id="email" name="email">
@@ -8,7 +9,9 @@
         <input type="password" id="password" name="password">
         <button class="button" type="submit">Submit</button>
     </form>
-    <div class="status-message"></div>
+    <div class="form-information">
+        <div class="status-message"></div>
+    </div>
   </div>
 </template>
 
