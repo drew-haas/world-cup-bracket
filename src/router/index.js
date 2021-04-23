@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { auth } from '../firebase'
+import { auth } from 'firebase'
 
 import Home from '../views/Home.vue'
 
