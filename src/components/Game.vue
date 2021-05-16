@@ -6,7 +6,9 @@
         </div>
         <div class="teams">
             <div class="team" :class="{ 'winner': team.isWinner, 'loser': team.isLoser }" v-for="(team, i) in game.teams" :key="team.code" :data-country-code="team.code" :data-country-name="team.name" :data-index="i" @click="teamClickCallback">
-                <div class="team-flag" v-if="team.code"><img :src="'https://www.countryflags.io/' + team.code + '/flat/24.png'"></div>
+                <div class="team-flag" v-if="team.code">
+                    <img :src="require('@/assets/flags/' + team.code + '-32.png')">
+                </div>
                 <div class="team-name">{{team.name}}</div>
             </div>
         </div>
