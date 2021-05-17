@@ -2,24 +2,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import firebase from 'firebase'
+import { db, auth } from './firebase'
 
-// Setup Firebase Settings
-// TODO: make these Environment Variables?
-var firebaseConfig = {
-    apiKey: "AIzaSyBxOybl1InZOVq0Pzg6SRVpj8kjxfLRvns",
-    authDomain: "world-cup-bracket-35f1b.firebaseapp.com",
-    projectId: "world-cup-bracket-35f1b",
-    storageBucket: "world-cup-bracket-35f1b.appspot.com",
-    messagingSenderId: "180181053728",
-    appId: "1:180181053728:web:4937cb83780a4a1f21e745",
-    measurementId: "G-G61BKFH8R9"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-var database = firebase.database();
-console.log(database.ref().child('users'));
+console.log(db);
 
 function writeNewUser(uid, email) {
   // A new User Entry
@@ -46,13 +31,14 @@ function writeNewUser(uid, email) {
   });
 }
 
+// TEST
 // writeNewUser(1, 'drew@gmail.com');
 
 // Create Vue App
 createApp(App).use(store).use(router).mount('#app');
 
 // Check for firebase user data
-firebase.auth().onAuthStateChanged(function(user) {
+auth.onAuthStateChanged((user) => {
     const signInStatus = document.getElementById('sign-in-status');
     const signInButton = document.getElementById('sign-in');
     const accountDetails = document.getElementById('account-details');
@@ -101,10 +87,15 @@ firebase.auth().onAuthStateChanged(function(user) {
     console.log(error);
   });
 
+// ===================================
+//
 // Check for localStorage items
+//
+// ===================================
 let lsGroupData = JSON.parse(localStorage.getItem('userGroupData'));
 let lsKnockoutData = JSON.parse(localStorage.getItem('userKnockoutData'));
 
+// If lsGroupData is there use it!
 if (lsGroupData) {
     // if lsGroupData exists - use it for userGroupData
     store.commit('updateUserGroupData', lsGroupData);
