@@ -1,6 +1,8 @@
 <template>
     <div class="team-row-container" :data-country-code="team.code" :data-country-name="team.name">
-        <div class="team-flag"><img :src="'https://www.countryflags.io/' + team.code + '/flat/32.png'"></div>
+        <div class="team-flag">
+            <img :src="require('@/assets/flags/' + team.code + '-32.png')">
+        </div>
         <div class="team-name">{{team.name}}</div>
         <div class="team-info-container">
             <div class="info-button"></div>
