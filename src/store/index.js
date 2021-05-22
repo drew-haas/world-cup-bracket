@@ -4,6 +4,7 @@ import Vue from 'vue'
 export default createStore({
   state: {
     signedin: false,
+    user: [],
     userGroupData: [],
     ogGroupData: [
       {
@@ -338,6 +339,11 @@ export default createStore({
     // Change signedin state with passed in boolean
     updateSignin: (state, bool) => {
       state.signedin = bool;
+    },
+
+    // Change signedin state with passed in boolean
+    updateUser: (state, userInformation) => {
+      state.user = userInformation;
     }
   },
   actions: {

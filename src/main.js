@@ -55,6 +55,7 @@ auth.onAuthStateChanged((user) => {
 
       // update store
       store.commit('updateSignin', true);
+      store.commit('updateUser', user);
 
       user.getIdToken().then(function(accessToken) {
         signInStatus.textContent = 'Signed in as ' + email;
