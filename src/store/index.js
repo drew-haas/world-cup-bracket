@@ -3,8 +3,9 @@ import Vue from 'vue'
 
 export default createStore({
   state: {
+    signedin: false,
+    user: [],
     userGroupData: [],
-    userKnockoutData: [],
     ogGroupData: [
       {
         "group": "a",
@@ -218,15 +219,22 @@ export default createStore({
     ],
   },
   mutations: {
+    // Update all groups with groupData passed in
     updateUserGroupData: (state, groupData) => {
       state.userGroupData = groupData;
     },
+
+    // Reset all groupData to the default
     resetUserGroupData: (state) => {
       state.userGroupData = JSON.parse(JSON.stringify(state.ogGroupData));
     },
+
+    // Update all games with gameData passed in
     updateGames: (state, gameData) => {
       state.games = gameData;
     },
+
+    // Update all round one games and chain of games if something changes
     updateRoundOne: (state) => {
       // add correct teams to roundOne
       let roundOneGames = state.games.filter(game => game.round === 1);
@@ -275,6 +283,7 @@ export default createStore({
         })
       })
     },
+
     // =====================
     // addTeamToGame
     // required params:
@@ -289,6 +298,7 @@ export default createStore({
       game[0].teams[payload.teamIndex].code = payload.code;
       game[0].teams[payload.teamIndex].name = payload.name;
     },
+
     // =====================
     // removeTeamFromGame
     // required params:
@@ -308,6 +318,7 @@ export default createStore({
         team.isLoser  = false;
       })
     },
+
     // =====================
     // removeTeamFromGame
     // required params:
@@ -323,6 +334,16 @@ export default createStore({
         team.isWinner = false;
         team.isLoser  = false;
       })
+    },
+
+    // Change signedin state with passed in boolean
+    updateSignin: (state, bool) => {
+      state.signedin = bool;
+    },
+
+    // Change signedin state with passed in boolean
+    updateUser: (state, userInformation) => {
+      state.user = userInformation;
     }
   },
   actions: {

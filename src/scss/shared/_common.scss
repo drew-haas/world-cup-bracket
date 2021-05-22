@@ -9,6 +9,33 @@ ul {
     list-style-type: none;
 }
 
+form {
+    width: 85%;
+    max-width: 400px;
+    margin: 45px auto 0;
+
+    .button {
+        margin-top: 10px;
+    }
+
+    input, label {
+        width: 100%;
+    }
+
+    label {
+        display: block;
+        text-align: left;
+        margin-bottom: 9px;
+    }
+
+    input {
+        padding: 10px;
+        font-size: 18px;
+        margin-bottom: 26px;
+        box-sizing: border-box;
+    }
+}
+
 // Buttons and Links
 .button {
     --button-color: #{$gray-dark};
@@ -39,4 +66,21 @@ ul {
 // Re-usable classes
 .visually-hidden {
     display: none;
+}
+
+.status {
+    padding: 0 0 20px;
+}
+
+.status-message {
+    color: $red;
+    padding: 20px;
+
+    &.error {
+        color: $red;
+    }
+
+    &.success {
+        color: $green;
+    }
 }
