@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img class="logo" alt="Fifa World Cup Qatar 2022 Logo" src="../assets/wc-logo.png">
-    <h1 class="visually-hidden">Fifa World Cup Bracket Challenge</h1>
+    <!-- <img class="logo" alt="Fifa World Cup Qatar 2022 Logo" src="../assets/wc-logo.png"> -->
+    <h1>Make Your Selections</h1>
     <GroupStage/>
     <KnockoutStage/>
   </div>
