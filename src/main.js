@@ -4,40 +4,52 @@ import router from './router'
 import store from './store'
 import { db, auth } from './firebase'
 
-console.log(db);
+// function writeNewUser(uid, email) {
+//   // A new User Entry
+//   var userData = {
+//     uid,
+//     email,
+//     gameData
+//   };
 
-function writeNewUser(uid, email) {
-  // A new User Entry
-  var userData = {
-    uid,
-    email
-  };
+//   // Get a key for a new Post.
+//   var newPostKey = database.ref().child('users').push().key;
+//   console.log(newPostKey);
 
-  // Get a key for a new Post.
-  var newPostKey = database.ref().child('users').push().key;
-  console.log(newPostKey);
+//   // Write the new user's data to the list of users
+//   var updates = {};
+//   updates['/users/' + newPostKey] = userData;
 
-  // Write the new user's data to the list of users
-  var updates = {};
-  updates['/users/' + newPostKey] = userData;
-
-  return database.ref().update({updates}, (error) => {
-    if (error) {
-      // the write failed.
-      console.log(error);
-    } else {
-      // Data saved successfully
-    }
-  });
-}
+//   return database.ref().update({updates}, (error) => {
+//     if (error) {
+//       // the write failed.
+//       console.log(error);
+//     } else {
+//       // Data saved successfully
+//       console.log('Data saved Successfully');
+//     }
+//   });
+// }
 
 // TEST
 // writeNewUser(1, 'drew@gmail.com');
 
+console.log(db);
+
+
+// ===================================
+//
 // Create Vue App
+//
+// ===================================
 createApp(App).use(store).use(router).mount('#app');
 
+
+// ===================================
+//
 // Check for firebase user data
+//
+// ===================================
 auth.onAuthStateChanged((user) => {
     const signInStatus = document.getElementById('sign-in-status');
     const signInButton = document.getElementById('sign-in');
@@ -56,6 +68,7 @@ auth.onAuthStateChanged((user) => {
       // update store
       store.commit('updateSignin', true);
       store.commit('updateUser', user);
+      // TODO: check for user.gameData and commit to store
 
       user.getIdToken().then(function(accessToken) {
         signInStatus.textContent = 'Signed in as ' + email;
@@ -87,6 +100,7 @@ auth.onAuthStateChanged((user) => {
   }, function(error) {
     console.log(error);
   });
+
 
 // ===================================
 //

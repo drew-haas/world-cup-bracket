@@ -4,11 +4,17 @@
             <div class="knockout-stage-description">
                 <h2>Knockout Stage</h2>
                 <p>Click on the team that you think will win and advance to the next game.</p>
-                <p>+40 points for each first round game</p>
+                <!-- <p>+40 points for each first round game</p>
                 <p>+80 points for each quarter-final game</p>
                 <p>+120 points for each semi-final game</p>
-                <p>+200 points for predicting the final</p>
+                <p>+200 points for predicting the final</p> -->
             </div>
+        </div>
+        <div class="knockout-stage-titles">
+            <div class="title">Round of 16</div>
+            <div class="title">Quarterfinals</div>
+            <div class="title">Semifinals</div>
+            <div class="title">Final</div>
         </div>
         <div class="games-container">
             <div class="column col-g-8">
@@ -69,6 +75,10 @@ export default {
         submitData() {
             // Submit data to database?
             console.log('Submit and Save Data to Database');
+            console.log('-------------------------');
+            console.log('Knockout/Game Data:');
+            console.log(this.games);
+            console.log('-------------------------');
         },
 
         // Reset the groups to the default value
@@ -148,7 +158,7 @@ export default {
     text-align: left;
 }
 
-.games-container {
+.games-container, .knockout-stage-titles {
     --game-width: 200px;
     --game-height: 100px;
 
@@ -157,6 +167,20 @@ export default {
     grid-gap: 30px;
     max-width: 1120px;
     margin: 0 auto;
+}
+
+.knockout-stage-titles {
+    margin-bottom: 20px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 2;
+    padding: 10px;
+
+    .title {
+        opacity: .5;
+    }
 }
 
 .column {

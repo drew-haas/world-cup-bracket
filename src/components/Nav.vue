@@ -4,7 +4,7 @@
             <router-link to="/">World Cup Bracket Challenge</router-link>
         </div>
         <div class="nav-links">
-            <router-link to="/"><span class="fi fi-rr-apps"></span> Selections</router-link>
+            <router-link to="/" v-if="signedin"><span class="fi fi-rr-apps"></span> Selections</router-link>
             <router-link to="/signup" v-if="!signedin">Signup</router-link>
             <router-link to="/signin" v-if="!signedin">Signin</router-link>
             <router-link to="/account" v-if="signedin"><span class="fi fi-rr-user"></span>  Account</router-link>
@@ -50,6 +50,11 @@ export default {
             color: $accent;
         }
     }
+}
+
+.title {
+    display: flex;
+    align-items: center;
 }
 
 .nav-links {
