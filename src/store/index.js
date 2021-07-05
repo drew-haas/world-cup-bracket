@@ -20,7 +20,7 @@ export default createStore({
         "group": "b",
         "teams": [
           {"code": "ir", "name": "Iran"},
-          {"code": "ma", "name": "Morocco"},
+          {"code": "ca", "name": "Canada"},
           {"code": "pt", "name": "Portugal"},
           {"code": "es", "name": "Spain"}
         ]
@@ -58,7 +58,7 @@ export default createStore({
           {"code": "de", "name": "Germany"},
           {"code": "mx", "name": "Mexico"},
           {"code": "kr", "name": "South Korea"},
-          {"code": "se", "name": "Sweden"}
+          {"code": "it", "name": "Italy"}
         ]
       },
       {
@@ -66,7 +66,7 @@ export default createStore({
         "teams": [
           {"code": "be", "name": "Belgium"},
           {"code": "gb", "name": "England"},
-          {"code": "pa", "name": "Panama"},
+          {"code": "us", "name": "United States"},
           {"code": "tn", "name": "Tunisia"}
         ]
       },
