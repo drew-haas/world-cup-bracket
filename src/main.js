@@ -4,39 +4,6 @@ import router from './router'
 import store from './store'
 import { db, auth } from './firebase'
 
-// function writeNewUser(uid, email) {
-//   // A new User Entry
-//   var userData = {
-//     uid,
-//     email,
-//     gameData
-//   };
-
-//   // Get a key for a new Post.
-//   var newPostKey = database.ref().child('users').push().key;
-//   console.log(newPostKey);
-
-//   // Write the new user's data to the list of users
-//   var updates = {};
-//   updates['/users/' + newPostKey] = userData;
-
-//   return database.ref().update({updates}, (error) => {
-//     if (error) {
-//       // the write failed.
-//       console.log(error);
-//     } else {
-//       // Data saved successfully
-//       console.log('Data saved Successfully');
-//     }
-//   });
-// }
-
-// TEST
-// writeNewUser(1, 'drew@gmail.com');
-
-console.log(db);
-
-
 // ===================================
 //
 // Create Vue App
@@ -87,6 +54,7 @@ auth.onAuthStateChanged((user) => {
         }, null, '  ');
       });
     } else {
+      // User not signed in.
       // update store
       store.commit('updateSignin', false);
 

@@ -1,11 +1,12 @@
 import { createStore } from 'vuex'
-import Vue from 'vue'
+// import Vue from 'vue'
 
 export default createStore({
   state: {
     signedin: false,
     user: [],
     userGroupData: [],
+    gameDataSaved: false,
     ogGroupData: [
       {
         "group": "a",
@@ -305,7 +306,7 @@ export default createStore({
     // * payload.gameId
     // * payload.teamIndex
     // =====================
-    removeTeamFromGame: (state,payload) => {
+    removeTeamFromGame: (state, payload) => {
       // remove team
       let game = state.games.filter(game => game.gameId === payload.gameId);
 
@@ -344,6 +345,10 @@ export default createStore({
     // Change signedin state with passed in boolean
     updateUser: (state, userInformation) => {
       state.user = userInformation;
+    },
+
+    updateGameDataSaved: (state, bool) => {
+      state.gameDataSaved = bool;
     }
   },
   actions: {

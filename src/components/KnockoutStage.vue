@@ -4,18 +4,24 @@
             <div class="knockout-stage-description">
                 <h2>Knockout Stage</h2>
                 <p>Click on the team that you think will win and advance to the next game.</p>
-                <!-- <p>+40 points for each first round game</p>
+
+                <!--
+                <p>+40 points for each first round game</p>
                 <p>+80 points for each quarter-final game</p>
                 <p>+120 points for each semi-final game</p>
-                <p>+200 points for predicting the final</p> -->
+                <p>+200 points for predicting the final</p>
+                -->
+
             </div>
         </div>
+
         <div class="knockout-stage-titles">
             <div class="title">Round of 16</div>
             <div class="title">Quarterfinals</div>
             <div class="title">Semifinals</div>
             <div class="title">Final</div>
         </div>
+
         <div class="games-container">
             <div class="column col-g-8">
                 <Game v-for="(game, i) in roundOne" :key="game.gameId" :game="game" :round="roundOne" :index="i"/>
@@ -30,15 +36,18 @@
                 <Game v-for="(game, i) in roundFour" :key="game.gameId" :game="game" :round="roundFour" :index="i"/>
             </div>
         </div>
+
         <div class="knockout-actions">
             <button id="resetBracket" class="button button-alert" @click="resetBracketData">Reset Bracket</button>
-            <button id="submit" class="button button-submit" @click="submitData">Save & Submit</button>
+            <button id="submit" class="button button-submit" v-if="!gameDataSaved" @click="submitData">Save & Submit</button>
+            <p v-if="gameDataSaved">Game Data Saved!</p>
         </div>
         <div class="final-celebration"></div>
     </div>
 </template>
 
 <script>
+import { auth, db } from '../firebase'
 import Game from '@/components/Game.vue'
 
 export default {
@@ -64,6 +73,15 @@ export default {
         },
         games() {
             return this.$store.state.games
+        },
+        uid() {
+            return this.$store.state.user.uid
+        },
+        email() {
+            return this.$store.state.user.email
+        },
+        gameDataSaved() {
+            return this.$store.gameDataSaved
         }
     },
     mounted() {
@@ -76,9 +94,35 @@ export default {
             // Submit data to database?
             console.log('Submit and Save Data to Database');
             console.log('-------------------------');
-            console.log('Knockout/Game Data:');
-            console.log(this.games);
-            console.log('-------------------------');
+            console.log(this.gameDataSaved)
+
+            // update store
+            this.$store.commit('updateGameDataSaved', true);
+            console.log(this.gameDataSaved)
+
+            // Write new game data to firebase
+            this.updateFirebase();
+        },
+
+        updateFirebase() {
+            let gameData = this.games;
+
+            // "set" new user to db
+            // FIXME: update just gameData
+            db.ref('users/' + this.uid).set({
+                uid: this.uid,
+                email: this.email,
+                gameData
+            }, (error) => {
+                if (error) {
+                    // The write failed...
+                    console.log('Write Failed', error);
+                } else {
+                    // Data saved successfully!
+                    console.log('Data Saved Successfully');
+                    // update HTML
+                }
+            });
         },
 
         // Reset the groups to the default value
