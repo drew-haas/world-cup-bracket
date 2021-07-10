@@ -17,7 +17,7 @@ createApp(App).use(store).use(router).mount('#app');
 // Check for firebase user data
 //
 // ===================================
-auth.onAuthStateChanged((user) => {
+auth.onAuthStateChanged(async (user) => {
   const signInStatus = document.getElementById('sign-in-status');
   const signInButton = document.getElementById('sign-in');
   const accountDetails = document.getElementById('account-details');
@@ -38,7 +38,7 @@ auth.onAuthStateChanged((user) => {
     store.commit('updateUser', user);
 
     // TODO: check for user.gameData and commit to store
-    const gameData = getGameData(uid);
+    const gameData = await getGameData(uid);
     console.log('gameData', gameData);
 
     user.getIdToken().then(function(accessToken) {
@@ -106,8 +106,8 @@ if (lsKnockoutData) {
 // Return user saved game data
 //
 // ===================================
-function getGameData(uid) {
-  db.ref('users/' + uid + '/gameData').once('value').then((snapshot) => {
+async function getGameData(uid) {
+  return await db.ref('users/' + uid + '/gameData').once('value').then((snapshot) => {
     console.log('snapshot value', snapshot.val());
     const data = snapshot.val();
     return data;
