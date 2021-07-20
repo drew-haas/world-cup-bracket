@@ -1,9 +1,15 @@
 <template>
-  <div class="home">
+  <div class="view home">
     <!-- <img class="logo" alt="Fifa World Cup Qatar 2022 Logo" src="../assets/wc-logo.png"> -->
-    <h1>Make Your Selections</h1>
-    <GroupStage/>
-    <KnockoutStage/>
+    <div v-if="!signedin" class="signed-out-home content-wrapper">
+      <h1>Welcome to World Cup Brackets.</h1>
+      <p>Fill out your bracket and join the party! Sign up or Sign in to get started</p>
+    </div>
+
+    <div v-if="signedin" class="signed-in-home content-wrapper">
+      <h1>Welcome, <span v-if="user.displayName">{{user.displayName}}</span><span v-if="!user.displayName">{{user.email}}</span></h1>
+      <p>Check out your <router-link to="/selections">selections</router-link>.</p>
+    </div>
   </div>
 </template>
 
@@ -17,6 +23,14 @@ export default {
   components: {
     GroupStage,
     KnockoutStage
+  },
+  computed: {
+    signedin() {
+      return this.$store.state.signedin
+    },
+    user() {
+      return this.$store.state.user
+    }
   }
 }
 </script>
@@ -24,9 +38,5 @@ export default {
 <style scoped lang="scss">
 .logo {
   max-width: 200px;
-}
-
-h1 {
-  color: $red;
 }
 </style>

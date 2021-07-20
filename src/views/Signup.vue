@@ -1,18 +1,22 @@
 <template>
-  <div class="signup">
-    <h1>Create an Account</h1>
-    <div>Already have an account? Click here to Sign In!</div>
-    <form id="signupForm">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password">
-        <button class="button" type="submit">Submit</button>
-    </form>
-    <div class="form-information">
-        <div class="status-message"></div>
+    <div class="view view-centered signup">
+        <div class="content-wrapper">
+            <h1>Create an Account</h1>
+            <div>Already have an account? Click here to Sign In!</div>
+
+            <form id="signupForm">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+                <button class="button" type="submit">Submit</button>
+            </form>
+
+            <div class="form-information">
+                <div class="status-message"></div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -82,8 +86,8 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-h1 {
-  color: $red;
+<style scoped>
+.signup {
+    text-align: center;
 }
 </style>

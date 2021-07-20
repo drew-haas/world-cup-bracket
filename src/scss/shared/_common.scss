@@ -1,6 +1,8 @@
 // HTML tags
 h1, h2, h3, h4, h5 {
     font-weight: 500;
+    margin: 0;
+    color: $accent;
 }
 
 a {
@@ -71,12 +73,18 @@ form {
     display: none;
 }
 
+.content-wrapper {
+    max-width: $container-size;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 .status {
     padding: 0 0 20px;
 }
 
 .status-message {
-    color: $red;
+    color: $accent;
     padding: 20px;
 
     &.error {
@@ -86,4 +94,11 @@ form {
     &.success {
         color: $green;
     }
+}
+
+// Shared Page Styles (Views)
+.view {
+    padding: 60px 20px;
+    text-align: left;
+
 }

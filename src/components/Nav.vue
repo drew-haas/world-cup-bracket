@@ -1,13 +1,34 @@
 <template>
     <nav id="nav">
-        <div class="title">
-            <router-link to="/">World Cup Bracket Challenge</router-link>
+        <div class="logo-container">
+            <router-link to="/"><div class="logo">wcb</div></router-link>
         </div>
         <div class="nav-links">
-            <router-link to="/" v-if="signedin"><span class="fi fi-rr-apps"></span> Selections</router-link>
-            <router-link to="/signup" v-if="!signedin">Signup</router-link>
-            <router-link to="/signin" v-if="!signedin">Signin</router-link>
-            <router-link to="/account" v-if="signedin"><span class="fi fi-rr-user"></span>  Account</router-link>
+            <router-link to="/">
+                <span class="fi fi-rr-home"></span>
+                <span class="nav-link-text">Home</span>
+            </router-link>
+            <router-link to="/selections" v-if="signedin">
+                <span class="fi fi-rr-apps"></span>
+                <span class="nav-link-text">Selections</span>
+            </router-link>
+            <router-link to="/groups" v-if="signedin">
+                <span class="fi fi-rr-users"></span>
+                <span class="nav-link-text">Groups</span>
+            </router-link>
+            <router-link to="/account" v-if="signedin">
+                <span class="fi fi-rr-user"></span>
+                <span class="nav-link-text">Account</span>
+            </router-link>
+
+            <router-link to="/signin" v-if="!signedin">
+                <span class="fi fi-rr-sign-in"></span>
+                <span class="nav-link-text">Signin</span>
+            </router-link>
+            <router-link to="/signup" v-if="!signedin">
+                <span class="fi fi-rr-user-add"></span>
+                <span class="nav-link-text">Signup</span>
+            </router-link>
         </div>
     </nav>
 </template>
@@ -29,35 +50,68 @@ export default {
 
 <style scoped lang="scss">
 #nav {
-    padding: 30px;
-    background-color: $bg-light;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 50px;
+    height: 100vh;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    box-sizing: border-box;
+    text-align: left;
+    border-right: 1px solid $border-color;
+    background: #fff;
+}
 
+.nav-links {
     a {
-        // font-weight: bold;
         color: $gray-dark;
-        margin-right: 20px;
         display: flex;
-        flex-direction: column;
+        padding: 20px;
 
         &.router-link-exact-active {
-            color: $red;
+            color: $accent;
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 10%;
+                height: 80%;
+                width: 2px;
+                background-color: $accent;
+            }
         }
 
         &:hover {
             color: $accent;
+            background: $bg-light;
         }
     }
 }
 
-.title {
-    display: flex;
-    align-items: center;
+.nav-link-text {
+    margin-left: 20px;
 }
 
-.nav-links {
+.logo-container {
+    height: $top-bar-height;
+    border-bottom: 1px solid $border-color;
     display: flex;
+    align-items: center;
+    padding-left: 18px;
+
+    .logo {
+        color: white;
+        font-weight: 400;
+        font-size: 26px;
+        --logo-size: 52px;
+        width: var(--logo-size);
+        height: var(--logo-size);
+        background-color: $accent;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
 }
 </style>

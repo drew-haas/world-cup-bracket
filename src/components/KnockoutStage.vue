@@ -215,7 +215,6 @@ export default {
 
 .knockout-stage-titles {
     margin-bottom: 20px;
-    // font-weight: bold;
     position: sticky;
     top: 0;
     background-color: #fff;
@@ -256,13 +255,14 @@ export default {
     align-items: center;
 }
 
-.button {
-    margin: 0 auto;
+.knockout-actions {
+    margin: 40px 0;
+    display: flex;
 }
 
 .button-submit {
     display: none;
-    margin-top: 40px;
+    margin-left: 40px;
 
     &.active {
         display: block;

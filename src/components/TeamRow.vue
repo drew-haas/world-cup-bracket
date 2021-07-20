@@ -27,10 +27,11 @@ export default {
     display: grid;
     grid-template-columns: 50px 1fr 1fr;
     text-align: left;
-    color: #000;
+    color: $gray-dark;
     border-bottom: 1px solid $gray;
+    border-right: 1px solid $gray;
     padding-left: var(--color-padding-size);
-    background: #fff;
+    background: $bg-light;
     position: relative;
     cursor: grab;
 
@@ -42,11 +43,11 @@ export default {
         border-top: 1px solid $gray;
     }
 
-    // Advancing Icon
+    // Advancing/Eliminated Icon
     &:before {
         content: '';
         width: var(--color-padding-size);
-        background-color: $red;
+        background-color: $gray;
         position: absolute;
         left: 0;
         z-index: 1;
@@ -65,14 +66,13 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        // font-weight: bold;
         opacity: .4;
     }
 
-    &:last-of-type {
-        border-bottom: none;
-        border-radius: 0 0 $radius $radius;
-    }
+    // &:last-of-type {
+    //     border-bottom: none;
+    //     border-radius: 0 0 $radius $radius;
+    // }
 
     &:nth-child(1), &:nth-child(2) {
         &:before {
@@ -92,7 +92,7 @@ export default {
 }
 
 .team-name {
-    padding: 5px;
+    padding: 10px 5px;
 }
 
 .team-flag {

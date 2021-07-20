@@ -8,4 +8,7 @@ html, body {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: $gray-dark;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    background-color: $bg-light;
 }

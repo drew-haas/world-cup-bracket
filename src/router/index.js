@@ -34,6 +34,26 @@ const routes = [
     }
   },
   {
+    path: '/selections',
+    name: 'Selections',
+    component: () => {
+      return import('../views/Selections.vue')
+    },
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/groups',
+    name: 'Groups',
+    component: () => {
+      return import('../views/Groups.vue')
+    },
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

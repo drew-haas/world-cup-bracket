@@ -23,7 +23,7 @@
         </div>
         <div class="group-stage-grid">
             <div v-for="group in userGroupData" :key="group.group" class="group" :data-group="group.group">
-                <h2 class="group-name">Group <span>{{group.group}}</span></h2>
+                <div class="group-name"><span>{{group.group}}</span></div>
                 <draggable class="group-teams" v-model="group.teams" item-key="team" @change="onMoveCallback">
                     <template #item="{element}">
                         <TeamRow :key="element" :team="element"/>
@@ -93,14 +93,15 @@ export default {
 <style scoped lang="scss">
 .group-stage-container {
     --group-width: 1200px;
-    --grid-gap: 40px;
+    --grid-row-gap: 30px;
+    --grid-column-gap: 100px;
 }
 
 .group-stage-information {
     max-width: var(--group-width);
     text-align: left;
     margin: 0 auto 70px;
-    padding: 0 var(--grid-gap);
+    padding: 0 var(--grid-row-gap);
     display: flex;
     justify-content: space-between;
 
@@ -112,10 +113,10 @@ export default {
 .group-stage-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: var(--grid-gap);
+    grid-gap: var(--grid-row-gap) var(--grid-column-gap);
     max-width: var(--group-width);
     margin: 0 auto;
-    padding: 0 var(--grid-gap);
+    padding: 0 var(--grid-row-gap);
 
     @include viewport(medium) {
         grid-template-columns: 1fr;
@@ -126,21 +127,20 @@ export default {
     padding: 5px 0 0;
 }
 
-.group {
-    border: 1px solid $gray;
-    border-radius: $radius;
-}
-
 .group-name {
     span {
+        display: block;
         text-transform: uppercase;
+        font-size: 40px;
+        font-weight: lighter;
+        padding: 6px 0;
     }
 }
 
 .group-key {
     text-align: left;
     max-width: var(--group-width);
-    padding: 0 var(--grid-gap);
+    padding: 0 var(--grid-row-gap);
 
     h2 {
         margin: 10px 0;
@@ -160,7 +160,7 @@ export default {
 
     &-red {
         .key-item-icon {
-            background: $red;
+            background: $primary;
         }
     }
 }

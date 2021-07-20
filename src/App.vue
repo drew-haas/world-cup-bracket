@@ -1,7 +1,7 @@
 <template>
   <Nav/>
   <router-view/>
-  <Footer/>
+  <!-- <Footer/> -->
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
-  <div class="account">
-    <div class="user-information">
+  <div class="view account">
+    <div class="user-information content-wrapper">
       <h1>Your Account</h1>
 
       <div class="user-item locked">
@@ -68,15 +68,7 @@ export default {
 
 <style scoped lang="scss">
 h1 {
-  color: $red;
-  margin-bottom: 50px;
-}
-
-.user-information {
-  max-width: 500px;
-  width: 100%;
-  margin: 0 auto;
-  text-align: left;
+  margin-bottom: 30px;
 }
 
 .user-item {
@@ -100,7 +92,7 @@ h1 {
     cursor: pointer;
 
     &:hover {
-      color: $red;
+      color: $accent;
     }
   }
 
