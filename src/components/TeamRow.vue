@@ -65,7 +65,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        font-weight: bold;
+        // font-weight: bold;
         opacity: .4;
     }
 

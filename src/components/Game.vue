@@ -218,7 +218,7 @@ export default {
     justify-content: space-evenly;
     flex-direction: column;
     opacity: .4;
-    font-weight: bold;
+    // font-weight: bold;
     display: none;
 
     span {

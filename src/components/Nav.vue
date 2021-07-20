@@ -36,7 +36,7 @@ export default {
     margin-bottom: 50px;
 
     a {
-        font-weight: bold;
+        // font-weight: bold;
         color: $gray-dark;
         margin-right: 20px;
         display: flex;

@@ -51,10 +51,6 @@ export default {
   max-width: 60px;
 }
 
-.status {
-  font-weight: bold;
-}
-
 .user-details {
   padding-top: 20px;
 }

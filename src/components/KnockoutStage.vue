@@ -215,7 +215,7 @@ export default {
 
 .knockout-stage-titles {
     margin-bottom: 20px;
-    font-weight: bold;
+    // font-weight: bold;
     position: sticky;
     top: 0;
     background-color: #fff;
