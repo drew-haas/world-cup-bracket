@@ -11,7 +11,7 @@
                     <div class="key-item-icon"></div>
                     <div class="key-item-info">Advancing to knockout stage</div>
                 </div>
-                <div class="key-item key-item-red">
+                <div class="key-item key-item-gray">
                     <div class="key-item-icon"></div>
                     <div class="key-item-info">Eliminated from tournament</div>
                 </div>
@@ -158,9 +158,9 @@ export default {
         }
     }
 
-    &-red {
+    &-gray {
         .key-item-icon {
-            background: $primary;
+            background: $gray;
         }
     }
 }

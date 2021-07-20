@@ -18,45 +18,45 @@ createApp(App).use(store).use(router).mount('#app');
 //
 // ===================================
 auth.onAuthStateChanged(async (user) => {
-  const signInStatus = document.getElementById('sign-in-status');
-  const signInButton = document.getElementById('sign-in');
-  const accountDetails = document.getElementById('account-details');
+  // const signInStatus = document.getElementById('sign-in-status');
+  // const signInButton = document.getElementById('sign-in');
+  // const accountDetails = document.getElementById('account-details');
 
   if (user) {
     // User is signed in
     // Show information:
-    var displayName = user.displayName;
-    var email = user.email;
-    var emailVerified = user.emailVerified;
-    var photoURL = user.photoURL;
-    var uid = user.uid;
-    var phoneNumber = user.phoneNumber;
-    var providerData = user.providerData;
+    // var displayName = user.displayName;
+    // var email = user.email;
+    // var emailVerified = user.emailVerified;
+    // var photoURL = user.photoURL;
+    // var uid = user.uid;
+    // var phoneNumber = user.phoneNumber;
+    // var providerData = user.providerData;
 
     // Update Store
     store.commit('updateSignin', true);
     store.commit('updateUser', user);
 
     // TODO: check for user.gameData and commit to store
-    const gameData = await getGameData(uid);
-    console.log('gameData', gameData);
+    // const gameData = await getGameData(uid);
+    // console.log('gameData', gameData);
 
-    user.getIdToken().then(function(accessToken) {
-      signInStatus.textContent = 'Signed in as ' + email;
-      signInStatus.dataset.status = 'signed-in';
-      signInButton.textContent = 'Sign out';
-      signInButton.dataset.functionality = 'sign-out';
-      accountDetails.textContent = JSON.stringify({
-        displayName: displayName,
-        email: email,
-        emailVerified: emailVerified,
-        phoneNumber: phoneNumber,
-        photoURL: photoURL,
-        uid: uid,
-        accessToken: accessToken,
-        providerData: providerData
-      }, null, '  ');
-    });
+    // user.getIdToken().then(function(accessToken) {
+    //   signInStatus.textContent = 'Signed in as ' + email;
+    //   signInStatus.dataset.status = 'signed-in';
+    //   signInButton.textContent = 'Sign out';
+    //   signInButton.dataset.functionality = 'sign-out';
+    //   accountDetails.textContent = JSON.stringify({
+    //     displayName: displayName,
+    //     email: email,
+    //     emailVerified: emailVerified,
+    //     phoneNumber: phoneNumber,
+    //     photoURL: photoURL,
+    //     uid: uid,
+    //     accessToken: accessToken,
+    //     providerData: providerData
+    //   }, null, '  ');
+    // });
 
   } else {
     // User not signed in.
@@ -64,11 +64,11 @@ auth.onAuthStateChanged(async (user) => {
     store.commit('updateSignin', false);
 
     // Show Information:
-    signInStatus.textContent = 'Signed out';
-    signInStatus.dataset.status = 'signed-out';
-    signInButton.textContent = 'Sign in';
-    signInButton.dataset.functionality = 'sign-in';
-    accountDetails.textContent = 'user data null';
+    // signInStatus.textContent = 'Signed out';
+    // signInStatus.dataset.status = 'signed-out';
+    // signInButton.textContent = 'Sign in';
+    // signInButton.dataset.functionality = 'sign-in';
+    // accountDetails.textContent = 'user data null';
   }
 }, function(error) {
   console.log(error);
