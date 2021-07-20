@@ -1,6 +1,6 @@
 <template>
-  <div class="signin">
-    <div class="signin-container" v-if="!signedin">
+  <div class="view view-centered signin">
+    <div class="signin-container content-wrapper" v-if="!signedin">
         <h1>Sign in to your account</h1>
         <div>Don't have an account? Click here to Sign Up!</div>
         <form id="signinForm">
@@ -101,8 +101,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-h1 {
-  color: $red;
+.signin {
+    text-align: center;
 }
 
 .form-information {
