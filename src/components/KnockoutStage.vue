@@ -194,6 +194,15 @@ export default {
     width: 100%;
     height: auto;
     position: relative;
+
+    .button-submit {
+        display: none;
+        margin-left: 40px;
+
+        &.active {
+            display: block;
+        }
+    }
 }
 
 .knockout-stage-information {
@@ -260,14 +269,7 @@ export default {
     display: flex;
 }
 
-.button-submit {
-    display: none;
-    margin-left: 40px;
 
-    &.active {
-        display: block;
-    }
-}
 
 .final-celebration {
   position: absolute;

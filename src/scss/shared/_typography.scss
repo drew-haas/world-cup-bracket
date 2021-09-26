@@ -1,6 +1,58 @@
-// All Typography Classes Here
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+// All Typography and Font Face Classes Here
+$font_path: '~@/assets/webfonts/';
+
+// Light
+@font-face {
+    font-family: "Satoshi-Light";
+    src: local("Satoshi-Light"),
+    url($font_path + 'Satoshi-Light.otf') format("otf");
+}
+
+// Medium -- (Regular)
+@font-face {
+    font-family: "Satoshi-Medium";
+    src: local("Satoshi-Medium"),
+    url($font_path + 'Satoshi-Medium.otf') format("otf");
+}
+
+// Bold
+@font-face {
+    font-family: "Satoshi-Bold";
+    src: local("Satoshi-Bold"),
+    url($font_path + 'Satoshi-Bold.otf') format("otf");
+}
+
+// Black
+@font-face {
+    font-family: "Satoshi-Black";
+    src: local("Satoshi-Black"),
+    url($font_path + 'Satoshi-Black.otf') format("otf");
+}
 
 #app {
-    font-family: 'Rubik';
+    font-family: 'Satoshi-Medium';
+}
+
+// TODO: figure out the rem values for these
+.typography-headline, h1 {
+    font-family: 'Satoshi-Medium';
+    font-size: 68px;
+    line-height: 76px;
+    letter-spacing: -2px;
+}
+
+// .typography-headline-reduced {}
+
+// TODO: figure out the rem values for these
+.typography-body, p {
+    font-family: 'Satoshi-Medium';
+    font-size: 18px;
+    line-height: 29px;
+}
+
+// TODO: figure out the rem values for these
+.typography-link {
+    font-family: 'Satoshi-Bold';
+    font-size: 17px;
+    line-height: 1;
 }

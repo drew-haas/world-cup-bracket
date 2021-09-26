@@ -1,8 +1,9 @@
 <template>
     <nav id="nav">
         <div class="logo-container">
-            <router-link to="/"><div class="logo">wcb</div></router-link>
+            <router-link to="/"><img class="logo" alt="World Cup Bracket App Logo" src="../assets/wcba-logo.svg"></router-link>
         </div>
+        <!-- TODO: loop through these? -->
         <div class="nav-links">
             <router-link to="/">
                 <span class="fi fi-rr-home"></span>
@@ -20,7 +21,6 @@
                 <span class="fi fi-rr-user"></span>
                 <span class="nav-link-text">Account</span>
             </router-link>
-
             <router-link to="/signin" v-if="!signedin">
                 <span class="fi fi-rr-sign-in"></span>
                 <span class="nav-link-text">Signin</span>
@@ -28,6 +28,10 @@
             <router-link to="/signup" v-if="!signedin">
                 <span class="fi fi-rr-user-add"></span>
                 <span class="nav-link-text">Signup</span>
+            </router-link>
+            <router-link to="/style-guide">
+                <span class="fi fi-rr-apps"></span>
+                <span class="nav-link-text">Style Guide</span>
             </router-link>
         </div>
     </nav>
@@ -56,62 +60,44 @@ export default {
     top: 0;
     box-sizing: border-box;
     text-align: left;
-    border-right: 1px solid $border-color;
-    background: #fff;
+    background-color: $bg-light;
 }
 
 .nav-links {
     a {
-        color: $gray-dark;
         display: flex;
-        padding: 20px;
+        text-decoration: none;
+        padding: 20px 20px 20px 36px;
+        color: black;
+        transition: color .3s;
+        font-family: 'Satoshi-Bold';
+        font-size: 16px;
+        letter-spacing: .1px;
 
         &.router-link-exact-active {
-            color: $accent;
-            position: relative;
-
-            &:after {
-                content: '';
-                position: absolute;
-                right: 0;
-                top: 10%;
-                height: 80%;
-                width: 2px;
-                background-color: $accent;
-            }
+            background-color: #fff;
         }
 
         &:hover {
             color: $accent;
-            background: $bg-light;
+            transition: color .25s;
         }
     }
 }
 
 .nav-link-text {
-    margin-left: 20px;
+    margin-left: 25px;
 }
 
 .logo-container {
-    height: $top-bar-height;
-    border-bottom: 1px solid $border-color;
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding-left: 18px;
 
     .logo {
-        color: white;
-        font-weight: 400;
-        font-size: 26px;
-        --logo-size: 52px;
-        width: var(--logo-size);
-        height: var(--logo-size);
-        background-color: $accent;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+        width: 100px;
+        height: auto;
+        padding: 20px 0;
     }
 }
 </style>

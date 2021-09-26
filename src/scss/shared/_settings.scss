@@ -1,13 +1,13 @@
 // =========================
 // Colors
 // =========================
-$red: #Db5262;
+$red: #e54242;
 $maroon: #530312;
 $red-light: #dd5953;
 $red-dark: $maroon;
 $warning: $red;
 
-$green: #00cf99;
+$green: #0fa372;
 $green-dark: #098074;
 $success: $green;
 
@@ -15,17 +15,18 @@ $blurple: #5251fa;
 
 $gold: #F7B500;
 
-$gray: #ccc;
-$gray-dark: #666;
+$gray: #c6c6c6;
+$gray-bg: #f7f7f7;
+// $gray-dark: #d8d8d8;
 
-$bg-light: #f7fafc;
+$bg-light: #f1f1f1;
 $bg-dark: #1b1c31;
 
-$border-color: #f1f1f1;
+$border-color: #fafafa;
 
 // Set Primary and Accent Colors
 $primary: $blurple;
-$accent: $blurple;
+$accent: $green;
 
 // =========================
 // Spacing

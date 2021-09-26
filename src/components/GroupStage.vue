@@ -124,15 +124,17 @@ export default {
 }
 
 .group-teams {
-    padding: 5px 0 0;
+    padding: 0;
+    border: 1px solid $gray-bg;
 }
 
 .group-name {
     span {
         display: block;
         text-transform: uppercase;
-        font-size: 40px;
-        font-weight: lighter;
+        color: $gray;
+        font-family: 'Satoshi-Light';
+        font-size: 80px;
         padding: 6px 0;
     }
 }

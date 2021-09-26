@@ -24,6 +24,13 @@ const routes = [
     }
   },
   {
+    path: '/style-guide',
+    name: 'StyleGuide',
+    component: () => {
+      return import('../views/StyleGuide.vue')
+    }
+  },
+  {
     path: '/account',
     name: 'Account',
     component: () => {
