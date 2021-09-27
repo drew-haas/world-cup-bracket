@@ -2,8 +2,9 @@
     <div class="group-stage-container">
         <div class="group-stage-information">
             <div class="group-stage-description">
-                <h2>Group Stage</h2>
-                <p>Drag and drop the teams to arrange them in the order you expect them to finish. When you are happy with your selections move on to the knockout stage.</p>
+                <h2 class="visually-hidden">Group Stage</h2>
+                <p>Drag and drop the teams in the order you expect them to finish. When you are happy with your selections click Save and move on to the knockout stage.</p>
+                <p>You may reset the groups to the default position at anytime.</p>
             </div>
             <div class="group-key">
                 <h2 class="key-item-header">Key</h2>
@@ -40,7 +41,7 @@
 <script>
 import TeamRow from '@/components/TeamRow.vue'
 import draggable from "vuedraggable"
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 
 export default {
     name: 'GroupStage',
@@ -102,11 +103,9 @@ export default {
     text-align: left;
     margin: 0 auto 70px;
     padding: 0 var(--grid-row-gap);
-    display: flex;
-    justify-content: space-between;
 
     p {
-        max-width: 400px;
+        max-width: 700px;
     }
 }
 
@@ -142,7 +141,7 @@ export default {
 .group-key {
     text-align: left;
     max-width: var(--group-width);
-    padding: 0 var(--grid-row-gap);
+    padding: 0 3px;
 
     h2 {
         margin: 10px 0;

@@ -1,14 +1,14 @@
 <template>
   <div class="view view-centered signin">
     <div class="signin-container content-wrapper" v-if="!signedin">
-        <h1>Sign in to your account</h1>
-        <div>Don't have an account? Click here to Sign Up!</div>
+        <h1>Sign In</h1>
+        <p>Don't have an account? Click here to Sign Up.</p>
         <form id="signinForm">
             <label for="email">Email</label>
             <input type="email" id="email" name="email">
             <label for="password">Password</label>
             <input type="password" id="password" name="password">
-            <button class="button" type="submit">Submit</button>
+            <button class="button button-submit" type="submit">Submit</button>
         </form>
         <div class="form-information">
             <div class="status-message"></div>
@@ -101,8 +101,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.signin {
-    text-align: center;
+p {
+    max-width: 700px;
+    margin: 20px 0 44px;
 }
 
 .form-information {

@@ -1,15 +1,15 @@
 <template>
   <div class="view selections">
     <div class="content-wrapper">
-        <h1>Your Selections</h1>
-    </div>
+        <h1 class="typography-headline-reduced">Your Selections</h1>
 
-    <!-- <div class="tab-nav">
-        <ul>
-            <li>Group Stage</li>
-            <li>Knockout Stage</li>
-        </ul>
-    </div> -->
+        <div class="tab-nav">
+          <ul>
+            <li class="typography-headline tab-active">Group <br>Stage</li>
+            <li class="typography-headline">Knockout <br>Stage</li>
+          </ul>
+        </div>
+    </div>
 
     <div class="tab-area content-wrapper">
         <GroupStage/>
@@ -31,3 +31,29 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.view.selections {
+  padding-left: 0;
+}
+
+.tab-nav {
+  background-color: white;
+  margin: 50px 0;
+
+  ul {
+    display: flex;
+  }
+
+  li {
+    padding: 40px 50px;
+    cursor: pointer;
+  }
+}
+
+.tab-active {
+  background-color: black;
+  color: white;
+}
+
+</style>

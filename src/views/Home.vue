@@ -10,6 +10,16 @@
       <h1>Welcome<span v-if="user.displayName">, {{user.displayName}}</span><span v-if="!user.displayName"> to the World Cup Bracket App.</span></h1>
       <p>Check out your <router-link to="/selections">selections</router-link>.</p>
     </div>
+
+    <div class="more content-wrapper">
+      <p>The World Cup starts in ### days.</p>
+      <p v-if="user.email">You are signed in as: {{user.email}}</p>
+      <h2 class="typography-headline-reduced">Useful Links</h2>
+      <ul>
+        <li><a class="link" href="https://www.fifa.com/tournaments/mens/worldcup/qatar2022" target="_blank">FIFA World Cup Website</a></li>
+        <li><a class="link" href="https://www.espn.com/soccer/" target="_blank">ESPN Soccer</a></li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -42,5 +52,15 @@ export default {
 
 h1 {
   max-width: 760px;
+}
+
+.more {
+  h2 {
+    margin: 100px 0 0;
+  }
+
+  ul li {
+    margin: 15px 0;
+  }
 }
 </style>

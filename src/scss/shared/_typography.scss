@@ -41,13 +41,19 @@ $font_path: '~@/assets/webfonts/';
     letter-spacing: -2px;
 }
 
-// .typography-headline-reduced {}
+// TODO: figure out the rem values for these
+.typography-headline-reduced {
+    font-family: 'Satoshi-Medium';
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -.2px;
+}
 
 // TODO: figure out the rem values for these
 .typography-body, p {
     font-family: 'Satoshi-Medium';
-    font-size: 18px;
-    line-height: 29px;
+    font-size: 17px;
+    line-height: 28px;
 }
 
 // TODO: figure out the rem values for these

@@ -26,8 +26,7 @@ ul {
 // Forms
 // =======================
 form {
-    width: 85%;
-    max-width: 400px;
+    max-width: 500px;
 
     .button {
         margin-top: 10px;
@@ -50,6 +49,10 @@ form {
         box-sizing: border-box;
         background-color: $bg-light;
         border: none;
+    }
+
+    input:-internal-autofill-selected {
+        background-color: $bg-light !important;
     }
 }
 
@@ -132,7 +135,6 @@ form {
 // =======================
 .visually-hidden {
     display: none;
-    visibility: hidden;
 }
 
 .status {

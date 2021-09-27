@@ -1,15 +1,15 @@
 <template>
     <div class="view view-centered signup">
         <div class="content-wrapper">
-            <h1>Create an Account</h1>
-            <div>Already have an account? Click here to Sign In!</div>
+            <h1>Sign Up</h1>
+            <p>Sign up to save and submit your selections. <br>Already have an account? Click here to Sign In.</p>
 
             <form id="signupForm">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password">
-                <button class="button" type="submit">Submit</button>
+                <button class="button button-submit" type="submit">Submit</button>
             </form>
 
             <div class="form-information">
@@ -86,8 +86,9 @@ export default {
 }
 </script>
 
-<style scoped>
-.signup {
-    text-align: center;
+<style scoped lang="scss">
+p {
+    max-width: 700px;
+    margin: 20px 0 44px;
 }
 </style>
