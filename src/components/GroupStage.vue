@@ -1,5 +1,5 @@
 <template>
-    <div class="group-stage-container">
+    <div class="group-stage-container tab-nav-content tab-nav-content-active">
         <div class="group-stage-information">
             <div class="group-stage-description">
                 <h2 class="visually-hidden">Group Stage</h2>
@@ -102,7 +102,6 @@ export default {
     max-width: var(--group-width);
     text-align: left;
     margin: 0 auto 70px;
-    padding: 0 var(--grid-row-gap);
 
     p {
         max-width: 700px;
@@ -115,7 +114,7 @@ export default {
     grid-gap: var(--grid-row-gap) var(--grid-column-gap);
     max-width: var(--group-width);
     margin: 0 auto;
-    padding: 0 var(--grid-row-gap);
+    // padding: 0 var(--grid-row-gap);
 
     @include viewport(medium) {
         grid-template-columns: 1fr;
@@ -141,7 +140,6 @@ export default {
 .group-key {
     text-align: left;
     max-width: var(--group-width);
-    padding: 0 3px;
 
     h2 {
         margin: 10px 0;
@@ -174,9 +172,5 @@ export default {
 
 .group-stage-actions {
     margin: 70px 0;
-
-    .button {
-        margin: 0 10px;
-    }
 }
 </style>

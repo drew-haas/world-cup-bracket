@@ -1,16 +1,12 @@
 <template>
-    <div class="knockout-stage-container">
+    <div class="knockout-stage-container tab-nav-content">
         <div class="knockout-stage-information">
             <div class="knockout-stage-description">
-                <h2>Knockout Stage</h2>
                 <p>Click on the team that you think will win and advance to the next game.</p>
-
-                <!--
                 <p>+40 points for each first round game</p>
                 <p>+80 points for each quarter-final game</p>
                 <p>+120 points for each semi-final game</p>
                 <p>+200 points for predicting the final</p>
-                -->
 
             </div>
         </div>
