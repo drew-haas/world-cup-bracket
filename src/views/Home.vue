@@ -1,24 +1,56 @@
 <template>
   <div class="view home">
-    <!-- <img class="logo" alt="Fifa World Cup Qatar 2022 Logo" src="../assets/wc-logo.png"> -->
     <div v-if="!signedin" class="signed-out-home content-wrapper">
-      <h1>Welcome to the World Cup Bracket App.</h1>
-      <p>Created to get the same excitement as a March Madness Bracket but for the World Cup. Sign up or sign in to get started.</p>
+      <div class="hero-text">
+        <h1>Bringing Fantasy Football to the largest event.</h1>
+        <p>Welcome to World Brackets! This was created to capture the same excitement that March Madness brings but for the World Cup. Here you will be able to select your teams from the group stage and then fill out your knockout stage bracket. <router-link to="/signup">Sign up</router-link> or <router-link to="/signin">Sign in</router-link> to create your World Cup Bracket.</p>
+      </div>
     </div>
 
     <div v-if="signedin" class="signed-in-home content-wrapper">
-      <h1>Welcome<span v-if="user.displayName">, {{user.displayName}}</span><span v-if="!user.displayName"> to the World Cup Bracket App.</span></h1>
-      <p>Check out your <router-link to="/selections">selections</router-link>.</p>
+      <div class="hero-text">
+        <h1>Welcome<span v-if="user.displayName">, {{user.displayName}}</span><span v-if="!user.displayName"> to World Brackets.</span></h1>
+        <p>Thank you for joining! This will be your hub for the World Cup and your World Cup Bracket. Check out your current <router-link to="/selections">selections</router-link>.</p>
+      </div>
     </div>
 
-    <div class="more content-wrapper">
-      <p>The World Cup starts in ### days.</p>
-      <p v-if="user.email">You are signed in as: {{user.email}}</p>
-      <h2 class="typography-headline-reduced">Useful Links</h2>
-      <ul>
-        <li><a class="link" href="https://www.fifa.com/tournaments/mens/worldcup/qatar2022" target="_blank">FIFA World Cup Website</a></li>
-        <li><a class="link" href="https://www.espn.com/soccer/" target="_blank">ESPN Soccer</a></li>
-      </ul>
+    <div class="content-wrapper">
+      <div class="dashboard-grid">
+        <div class="grid-item selections large-span-8">
+          <h3 class="grid-item-title">You have made <span>0</span>/48 selections.</h3>
+          <p>Go To your <router-link to="/selections">selections</router-link></p>
+          <div class="grid-item-inner">
+            <div class="groups">
+              <h3>Your Groups</h3>
+            </div>
+            <div class="winner">
+              <h3>Your Winner</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-item countdown large-span-4">
+          <p>The World Cup starts in ### days.</p>
+        </div>
+
+        <div class="grid-item matches large-span-4">
+          <h3>Upcoming Matches</h3>
+          <div class="matches"></div>
+          <router-link to="/selections">view all</router-link>
+        </div>
+
+        <div class="grid-item links large-span-4">
+          <h3 class="typography-headline-reduced">Useful Links</h3>
+          <ul>
+            <li><a class="link" href="https://www.fifa.com/tournaments/mens/worldcup/qatar2022" target="_blank">FIFA World Cup Website</a></li>
+            <li><a class="link" href="https://www.espn.com/soccer/" target="_blank">ESPN Soccer</a></li>
+          </ul>
+        </div>
+
+        <div class="grid-item account large-span-4">
+          <p v-if="user.email">You are signed in as: {{user.email}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -33,6 +65,17 @@ export default {
   components: {
     GroupStage,
     KnockoutStage
+  },
+  methods: {
+    getDate() {
+      var now = new Date().getTime();
+      var timeleft = countDownDate - now;
+
+      var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    }
   },
   computed: {
     signedin() {
@@ -50,17 +93,48 @@ export default {
   max-width: 200px;
 }
 
+.home {
+  padding-top: 150px;
+}
+
 h1 {
   max-width: 760px;
 }
 
-.more {
-  h2 {
-    margin: 100px 0 0;
-  }
+.hero-text {
+  max-width: 600px;
+}
 
-  ul li {
-    margin: 15px 0;
+.dashboard-grid {
+  $columns: 12;
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  grid-gap: 25px;
+  margin-top: 100px;
+
+  @for $i from 1 through $columns {
+    .large-span-#{$i} {
+      grid-column: span #{$i};
+    }
+
+    @include viewport(medium) {
+      .medium-span-#{$i} {
+        grid-column: span #{$i};
+      }
+    }
+
+    @include viewport(small) {
+      .small-span-#{$i} {
+        grid-column: span #{$i};
+      }
+    }
   }
+}
+
+.grid-item {
+  background-color: $bg-light;
+  border-radius: 18px;
+  padding: 20px;
+  min-height: 300px;
 }
 </style>

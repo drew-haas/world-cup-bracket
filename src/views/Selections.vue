@@ -5,10 +5,10 @@
 
         <div class="tab-nav">
           <ul>
-            <li class="typography-headline tab-nav-item tab-nav-active" v-on:click="toggleStage" data-tab-content="group-stage-container">
+            <li class="typography-headline tab-nav-item tab-nav-active" v-on:click="toggleStage('groups', $event)" data-tab-content="group-stage-container">
               <h2>Group <br>Stage</h2>
             </li>
-            <li class="typography-headline tab-nav-item" v-on:click="toggleStage" data-tab-content="knockout-stage-container">
+            <li class="typography-headline tab-nav-item" v-on:click="toggleStage('knockout', $event)" data-tab-content="knockout-stage-container">
               <h2>Knockout <br>Stage</h2>
             </li>
           </ul>
@@ -34,10 +34,9 @@ export default {
     KnockoutStage
   },
   methods: {
-    toggleStage: (event) => {
+    toggleStage: (toggleVal, event) => {
       // handle tab nav
       let tabs = document.querySelectorAll('.tab-nav-item');
-
       tabs.forEach(tab => {
         tab.classList.remove('tab-nav-active');
       });
@@ -52,6 +51,9 @@ export default {
 
       let tabContent = document.querySelector('.' + event.srcElement.parentElement.dataset.tabContent);
       tabContent.classList.add('tab-nav-content-active');
+
+      // handle router
+      this.$route.push({ path: 'selections', query: { tab: toggleVal } })
     }
   }
 }

@@ -36,8 +36,8 @@
         <div class="knockout-actions">
             <button id="resetBracket" class="button button-alert" @click="resetBracketData">Reset Bracket</button>
             <button id="submit" class="button button-submit" v-if="!gameDataSaved" @click="submitData">Save & Submit</button>
-            <p v-if="gameDataSaved">Game Data Saved!</p>
         </div>
+        <p id="submitInfo" class="submit-info"></p>
         <div class="final-celebration"></div>
     </div>
 </template>
@@ -82,6 +82,7 @@ export default {
     },
     mounted() {
         this.checkForCompletion();
+        this.submitInfo = document.querySelector('#submitInfo');
     },
     methods: {
 
@@ -100,6 +101,12 @@ export default {
             this.updateFirebase();
         },
 
+        updateSubmitInfo(string, action) {
+            this.submitInfo.innerHTML = string;
+            this.submitInfo.classList.remove('submit-info-success submit-info-alert');
+            this.submitInfo.classList.add('submit-info-' + action);
+        },
+
         updateFirebase() {
             let gameData = this.games;
 
@@ -113,10 +120,13 @@ export default {
                 if (error) {
                     // The write failed...
                     console.log('Write Failed', error);
+                    this.updateSubmitInfo('Knockout Data Not Saved Successfully!', 'alert');
+
                 } else {
                     // Data saved successfully!
                     console.log('Data Saved Successfully');
                     // update HTML
+                    this.updateSubmitInfo('Knockout Data Saved Successfully!', 'success');
                 }
             });
         },
@@ -265,7 +275,17 @@ export default {
     display: flex;
 }
 
+.submit-info {
+    display: block;
 
+    &-success {
+        color: $green;
+    }
+
+    &-error {
+        color: $red;
+    }
+}
 
 .final-celebration {
   position: absolute;

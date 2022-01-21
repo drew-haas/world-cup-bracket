@@ -3,7 +3,8 @@
         <div class="group-stage-information">
             <div class="group-stage-description">
                 <h2 class="visually-hidden">Group Stage</h2>
-                <p>Drag and drop the teams in the order you expect them to finish. When you are happy with your selections click Save and move on to the knockout stage.</p>
+                <h3 class="typography-headline-reduced bold">Drag and drop the teams in the order you expect them to finish.</h3>
+                <p>When you are happy with your selections click Save and move on to the knockout stage.</p>
                 <p>You may reset the groups to the default position at anytime.</p>
             </div>
             <div class="group-key">
@@ -48,6 +49,23 @@ export default {
     components: {
         TeamRow,
         draggable
+    },
+    mounted() {
+        fetch("https://v3.football.api-sports.io/leagues", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+                "x-rapidapi-key": "0d661a53adfc883c850de30a2ba55e8d"
+            }
+        })
+        .then(response => {
+            console.log('Success!')
+            console.log(response);
+        })
+        .catch(err => {
+            console.log('Error!')
+            console.error(err);
+        });
     },
     computed: {
         userGroupData: {
@@ -99,12 +117,18 @@ export default {
 }
 
 .group-stage-information {
-    max-width: var(--group-width);
+    // max-width: var(--group-width);
+    max-width: 500px;
     text-align: left;
-    margin: 0 auto 70px;
+    margin: 0 0 70px 0;
 
     p {
         max-width: 700px;
+    }
+
+    .typography-headline-reduced {
+        margin-bottom: 50px;
+        line-height: 1.3;
     }
 }
 
@@ -114,7 +138,6 @@ export default {
     grid-gap: var(--grid-row-gap) var(--grid-column-gap);
     max-width: var(--group-width);
     margin: 0 auto;
-    // padding: 0 var(--grid-row-gap);
 
     @include viewport(medium) {
         grid-template-columns: 1fr;

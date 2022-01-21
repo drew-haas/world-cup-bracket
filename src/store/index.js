@@ -11,8 +11,8 @@ export default createStore({
       {
         "group": "a",
         "teams": [
-          {"code": "eg", "name": "Egypt"},
           {"code": "qa", "name": "Qatar"},
+          {"code": "eg", "name": "Egypt"},
           {"code": "ru", "name": "Russia"},
           {"code": "uy", "name": "Uruguay"}
         ]

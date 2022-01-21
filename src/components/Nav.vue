@@ -1,7 +1,7 @@
 <template>
     <nav id="nav">
         <div class="logo-container">
-            <router-link to="/"><img class="logo" alt="World Cup Bracket App Logo" src="../assets/wcba-logo.svg"></router-link>
+            <router-link to="/"><img class="logo" alt="World Brackets Logo" src="../assets/worldbrackets-logo.svg"></router-link>
         </div>
         <!-- TODO: loop through these? -->
         <div class="nav-links">
