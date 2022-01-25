@@ -81,13 +81,13 @@ export default {
       // const API_KEY = '2XfATHINJMuaC9JV';
       // const API_SECRET = 'utjPmUCIvDOFhRPjP5UIMDvwp0G29qXE';
 
-      fetch('https://livescore-api.com/api-client/competitions/list.json&key=2XfATHINJMuaC9JV&secret=utjPmUCIvDOFhRPjP5UIMDvwp0G29qXE').then((response) => {
-        console.log(response);
-        // return response.json();
-      }).then(function(data) {
-        console.log(data);
-      }).catch(function() {
-        console.log("Booo Catch");
+      fetch('https://cors-anywhere.herokuapp.com/https://livescore-api.com/api-client/competitions/list.json&key=2XfATHINJMuaC9JV&secret=utjPmUCIvDOFhRPjP5UIMDvwp0G29qXE', {
+        headers: { 'Content-Type': 'application/json' }
+      }).then((response) => {
+        if (response.ok) {
+          console.log('OK')
+          console.log(response)
+        }
       });
     }
   },
