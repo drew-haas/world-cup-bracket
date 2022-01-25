@@ -67,15 +67,32 @@ export default {
     KnockoutStage
   },
   methods: {
-    getDate() {
-      var now = new Date().getTime();
-      var timeleft = countDownDate - now;
+    // getDate() {
+    //   var now = new Date().getTime();
+    //   var timeleft = countDownDate - now;
 
-      var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    //   var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+    //   var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    //   var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+    //   var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    // }
+    getData() {
+      console.log('in getData')
+      // const API_KEY = '2XfATHINJMuaC9JV';
+      // const API_SECRET = 'utjPmUCIvDOFhRPjP5UIMDvwp0G29qXE';
+
+      fetch('https://livescore-api.com/api-client/competitions/list.json&key=2XfATHINJMuaC9JV&secret=utjPmUCIvDOFhRPjP5UIMDvwp0G29qXE').then((response) => {
+        console.log(response);
+        // return response.json();
+      }).then(function(data) {
+        console.log(data);
+      }).catch(function() {
+        console.log("Booo Catch");
+      });
     }
+  },
+  mounted() {
+    this.getData();
   },
   computed: {
     signedin() {
