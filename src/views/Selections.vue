@@ -1,15 +1,15 @@
 <template>
   <div class="view selections">
     <div class="content-wrapper">
-        <h1 class="typography-headline-reduced">Your Selections</h1>
+        <h1 class="typography-headline">Your Selections</h1>
 
         <div class="tab-nav">
           <ul>
-            <li class="typography-headline tab-nav-item tab-nav-active" v-on:click="toggleStage('groups', $event)" data-tab-content="group-stage-container">
-              <h2>Group <br>Stage</h2>
+            <li class="typography-headline-reduced tab-nav-item tab-nav-active" v-on:click="toggleStage('groups', $event)" data-tab-content="group-stage-container">
+              <h2>Group Stage</h2>
             </li>
-            <li class="typography-headline tab-nav-item" v-on:click="toggleStage('knockout', $event)" data-tab-content="knockout-stage-container">
-              <h2>Knockout <br>Stage</h2>
+            <li class="typography-headline-reduced tab-nav-item" v-on:click="toggleStage('knockout', $event)" data-tab-content="knockout-stage-container">
+              <h2>Knockout Stage</h2>
             </li>
           </ul>
         </div>
@@ -65,6 +65,8 @@ export default {
 }
 
 .tab-nav {
+  position: sticky;
+  top: 0;
   background-color: white;
   margin: 50px 0;
 

@@ -2,14 +2,14 @@
   <div class="view home">
     <div v-if="!signedin" class="signed-out-home content-wrapper">
       <div class="hero-text">
-        <h1>Bringing Fantasy Football to the largest event.</h1>
+        <h1>Bringing Fantasy Football to the World Cup.</h1>
         <p>Welcome to World Brackets! This was created to capture the same excitement that March Madness brings but for the World Cup. Here you will be able to select your teams from the group stage and then fill out your knockout stage bracket. <router-link to="/signup">Sign up</router-link> or <router-link to="/signin">Sign in</router-link> to create your World Cup Bracket.</p>
       </div>
     </div>
 
     <div v-if="signedin" class="signed-in-home content-wrapper">
       <div class="hero-text">
-        <h1>Welcome<span v-if="user.displayName">, {{user.displayName}}</span><span v-if="!user.displayName"> to World Brackets.</span></h1>
+        <h1>Welcome<span v-if="user.displayName"> {{user.displayName}}</span><span v-if="!user.displayName"> to your World Brackets Dashboard.</span></h1>
         <p>Thank you for joining! This will be your hub for the World Cup and your World Cup Bracket. Check out your current <router-link to="/selections">selections</router-link>.</p>
       </div>
     </div>
@@ -49,6 +49,7 @@
 
         <div class="grid-item account large-span-4">
           <p v-if="user.email">You are signed in as: {{user.email}}</p>
+          <p>go to your Account</p>
         </div>
       </div>
     </div>
