@@ -1,9 +1,9 @@
 import axios from "axios"
 const API_ENDPOINT = "https://livescore-api.com/api-client/competitions/list.json&key=2XfATHINJMuaC9JV&secret=utjPmUCIvDOFhRPjP5UIMDvwp0G29qXE"
 
-export default function handler(event, context) {
+export default async function handler(event, context) {
 	try {
-		const response = axios.get(API_ENDPOINT, { headers: { Accept: "application/json" } })
+		const response = await axios.get(API_ENDPOINT, { headers: { Accept: "application/json" } })
 		const data = response.data
 		return {
 			statusCode: 200,
