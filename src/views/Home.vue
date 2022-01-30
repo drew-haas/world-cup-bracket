@@ -80,9 +80,8 @@ export default {
     // }
     getData() {
       console.log('in getData')
-      // const API_KEY = '2XfATHINJMuaC9JV';
-      // const API_SECRET = 'utjPmUCIvDOFhRPjP5UIMDvwp0G29qXE';
 
+      // Competitions List id = 362 - Fifa World Cup
       fetch('api/api-helper')
       .then(res => res.json())
       .then(res => {
