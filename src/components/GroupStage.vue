@@ -1,9 +1,11 @@
 <template>
-    <div class="group-stage-container">
+    <div class="group-stage-container tab-nav-content tab-nav-content-active">
         <div class="group-stage-information">
             <div class="group-stage-description">
-                <h2>Group Stage</h2>
-                <p>Drag and drop the teams to arrange them in the order you expect them to finish. When you are happy with your selections move on to the knockout stage.</p>
+                <h2 class="visually-hidden">Group Stage</h2>
+                <h3 class="bold">Drag and drop the teams in the order you expect them to finish.</h3>
+                <p>When you are happy with your selections click Save and move on to the knockout stage.</p>
+                <p>You may reset the groups to the default position at anytime.</p>
             </div>
             <div class="group-key">
                 <h2 class="key-item-header">Key</h2>
@@ -11,7 +13,7 @@
                     <div class="key-item-icon"></div>
                     <div class="key-item-info">Advancing to knockout stage</div>
                 </div>
-                <div class="key-item key-item-red">
+                <div class="key-item key-item-gray">
                     <div class="key-item-icon"></div>
                     <div class="key-item-info">Eliminated from tournament</div>
                 </div>
@@ -23,7 +25,7 @@
         </div>
         <div class="group-stage-grid">
             <div v-for="group in userGroupData" :key="group.group" class="group" :data-group="group.group">
-                <h2 class="group-name">Group <span>{{group.group}}</span></h2>
+                <div class="group-name"><span>{{group.group}}</span></div>
                 <draggable class="group-teams" v-model="group.teams" item-key="team" @change="onMoveCallback">
                     <template #item="{element}">
                         <TeamRow :key="element" :team="element"/>
@@ -40,13 +42,30 @@
 <script>
 import TeamRow from '@/components/TeamRow.vue'
 import draggable from "vuedraggable"
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 
 export default {
     name: 'GroupStage',
     components: {
         TeamRow,
         draggable
+    },
+    mounted() {
+        fetch("https://v3.football.api-sports.io/leagues", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+                "x-rapidapi-key": "0d661a53adfc883c850de30a2ba55e8d"
+            }
+        })
+        .then(response => {
+            console.log('Success!')
+            console.log(response);
+        })
+        .catch(err => {
+            console.log('Error!')
+            console.error(err);
+        });
     },
     computed: {
         userGroupData: {
@@ -93,29 +112,33 @@ export default {
 <style scoped lang="scss">
 .group-stage-container {
     --group-width: 1200px;
-    --grid-gap: 40px;
+    --grid-row-gap: 30px;
+    --grid-column-gap: 100px;
+    margin-bottom: 200px;
 }
 
 .group-stage-information {
-    max-width: var(--group-width);
+    // max-width: var(--group-width);
+    max-width: 500px;
     text-align: left;
-    margin: 0 auto 70px;
-    padding: 0 var(--grid-gap);
-    display: flex;
-    justify-content: space-between;
+    margin: 0 0 70px 0;
 
     p {
-        max-width: 400px;
+        max-width: 700px;
+    }
+
+    .typography-headline-reduced {
+        margin-bottom: 50px;
+        line-height: 1.3;
     }
 }
 
 .group-stage-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: var(--grid-gap);
+    grid-gap: var(--grid-row-gap) var(--grid-column-gap);
     max-width: var(--group-width);
     margin: 0 auto;
-    padding: 0 var(--grid-gap);
 
     @include viewport(medium) {
         grid-template-columns: 1fr;
@@ -123,24 +146,24 @@ export default {
 }
 
 .group-teams {
-    padding: 5px 0 0;
-}
-
-.group {
-    border: 1px solid $gray;
-    border-radius: $radius;
+    padding: 0;
+    border: 1px solid $gray-bg;
 }
 
 .group-name {
     span {
+        display: block;
         text-transform: uppercase;
+        color: $gray;
+        font-family: 'Satoshi-Light';
+        font-size: 80px;
+        padding: 6px 0;
     }
 }
 
 .group-key {
     text-align: left;
     max-width: var(--group-width);
-    padding: 0 var(--grid-gap);
 
     h2 {
         margin: 10px 0;
@@ -158,9 +181,9 @@ export default {
         }
     }
 
-    &-red {
+    &-gray {
         .key-item-icon {
-            background: $red;
+            background: $gray;
         }
     }
 }
@@ -173,9 +196,5 @@ export default {
 
 .group-stage-actions {
     margin: 70px 0;
-
-    .button {
-        margin: 0 10px;
-    }
 }
 </style>

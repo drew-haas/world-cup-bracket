@@ -1,24 +1,31 @@
 // =========================
 // Colors
 // =========================
-$red: #8b0c2f;
+$red: #e54242;
 $maroon: #530312;
 $red-light: #dd5953;
 $red-dark: $maroon;
 $warning: $red;
 
-$green: #11b19e;
+$green: #0fa372;
 $green-dark: #098074;
 $success: $green;
 
-$gold: #e7ba66;
-$accent: $gold;
+$blurple: #5251fa;
 
-$gray: #ccc;
-$gray-dark: #666;
+$gold: #F7B500;
+
+$gray: #c6c6c6;
+$gray-bg: #f7f7f7;
 
 $bg-light: #f1f1f1;
-$bg-dark: #222;
+$bg-dark: #1b1c31;
+
+$border-color: #fafafa;
+
+// Set Primary and Accent Colors
+$primary: $blurple;
+$accent: $green;
 
 // =========================
 // Spacing
@@ -26,6 +33,7 @@ $bg-dark: #222;
 $section-spacing: 70px;
 $container-size: 1200px;
 $radius: 5px;
+$top-bar-height: 90px;
 
 // =========================
 // Viewports

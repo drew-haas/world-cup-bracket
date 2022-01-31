@@ -18,3 +18,36 @@
         }
     }
 }
+
+
+// ============================================
+// Absolute Vertical Centering Mixin
+// ============================================
+@mixin vertical-center() {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+// ============================================
+// Text Mask Hover Effect
+// ============================================
+@mixin text-mask-hover() {
+    background: #ddd;
+    background-image: url("https://images.unsplash.com/photo-1545486332-9e0999c535b2?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYzMzUzODEyOQ&ixlib=rb-1.2.1&q=85");
+    background-position: -425px 0px; // TODO: determine actual width instead of hardcoding
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-position 0.6s;
+
+    &:hover {
+        background-position: 0px 0px;
+        transition: background-position 0.6s;
+    }
+}

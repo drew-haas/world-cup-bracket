@@ -1,15 +1,24 @@
 <template>
-    <div class="knockout-stage-container">
+    <div class="knockout-stage-container tab-nav-content">
         <div class="knockout-stage-information">
             <div class="knockout-stage-description">
-                <h2>Knockout Stage</h2>
-                <p>Click on the team that you think will win and advance to the next game.</p>
+                <h3 class="bold">Knockout Stage</h3>
+                <p>Click on the team that you think will win and advance to the next game. The teams are placed in the bracket based on your Group selections.</p>
                 <p>+40 points for each first round game</p>
                 <p>+80 points for each quarter-final game</p>
                 <p>+120 points for each semi-final game</p>
                 <p>+200 points for predicting the final</p>
+
             </div>
         </div>
+
+        <div class="knockout-stage-titles">
+            <div class="title">Round of 16</div>
+            <div class="title">Quarterfinals</div>
+            <div class="title">Semifinals</div>
+            <div class="title">Final</div>
+        </div>
+
         <div class="games-container">
             <div class="column col-g-8">
                 <Game v-for="(game, i) in roundOne" :key="game.gameId" :game="game" :round="roundOne" :index="i"/>
@@ -24,15 +33,18 @@
                 <Game v-for="(game, i) in roundFour" :key="game.gameId" :game="game" :round="roundFour" :index="i"/>
             </div>
         </div>
+
         <div class="knockout-actions">
             <button id="resetBracket" class="button button-alert" @click="resetBracketData">Reset Bracket</button>
-            <button id="submit" class="button button-submit" @click="submitData">Submit</button>
+            <button id="submit" class="button button-submit" v-if="!gameDataSaved" @click="submitData">Save & Submit</button>
         </div>
+        <p id="submitInfo" class="submit-info"></p>
         <div class="final-celebration"></div>
     </div>
 </template>
 
 <script>
+import { auth, db } from '../firebase'
 import Game from '@/components/Game.vue'
 
 export default {
@@ -58,10 +70,20 @@ export default {
         },
         games() {
             return this.$store.state.games
+        },
+        uid() {
+            return this.$store.state.user.uid
+        },
+        email() {
+            return this.$store.state.user.email
+        },
+        gameDataSaved() {
+            return this.$store.gameDataSaved
         }
     },
     mounted() {
         this.checkForCompletion();
+        this.submitInfo = document.querySelector('#submitInfo');
     },
     methods: {
 
@@ -69,6 +91,45 @@ export default {
         submitData() {
             // Submit data to database?
             console.log('Submit and Save Data to Database');
+            console.log('-------------------------');
+            console.log(this.gameDataSaved)
+
+            // update store
+            this.$store.commit('updateGameDataSaved', true);
+            console.log(this.gameDataSaved)
+
+            // Write new game data to firebase
+            this.updateFirebase();
+        },
+
+        updateSubmitInfo(string, action) {
+            this.submitInfo.innerHTML = string;
+            this.submitInfo.classList.remove('submit-info-success submit-info-alert');
+            this.submitInfo.classList.add('submit-info-' + action);
+        },
+
+        updateFirebase() {
+            let gameData = this.games;
+
+            // "set" new user to db
+            // FIXME: update just gameData
+            db.ref('users/' + this.uid).set({
+                uid: this.uid,
+                email: this.email,
+                gameData
+            }, (error) => {
+                if (error) {
+                    // The write failed...
+                    console.log('Write Failed', error);
+                    this.updateSubmitInfo('Knockout Data Not Saved Successfully!', 'alert');
+
+                } else {
+                    // Data saved successfully!
+                    console.log('Data Saved Successfully');
+                    // update HTML
+                    this.updateSubmitInfo('Knockout Data Saved Successfully!', 'success');
+                }
+            });
         },
 
         // Reset the groups to the default value
@@ -140,6 +201,15 @@ export default {
     width: 100%;
     height: auto;
     position: relative;
+
+    .button-submit {
+        display: none;
+        margin-left: 40px;
+
+        &.active {
+            display: block;
+        }
+    }
 }
 
 .knockout-stage-information {
@@ -148,15 +218,34 @@ export default {
     text-align: left;
 }
 
-.games-container {
+.games-container, .knockout-stage-titles {
     --game-width: 200px;
     --game-height: 100px;
 
     display: grid;
     grid-template-columns: repeat(4, var(--game-width));
     grid-gap: 30px;
-    max-width: 1120px;
     margin: 0 auto;
+}
+
+.games-container {
+    max-width: 1120px;
+}
+
+.knockout-stage-titles {
+    $tabnav-height: 99px;
+    margin-bottom: 20px;
+    position: sticky;
+    top: $tabnav-height;
+    background-color: white;
+    border-bottom: 1px solid $gray;
+    z-index: 2;
+    padding: 10px 50px;
+    margin-bottom: 70px;
+
+    .title {
+        opacity: .5;
+    }
 }
 
 .column {
@@ -188,16 +277,20 @@ export default {
     align-items: center;
 }
 
-.button {
-    margin: 0 auto;
+.knockout-actions {
+    margin: 40px 0;
+    display: flex;
 }
 
-.button-submit {
-    display: none;
-    margin-top: 40px;
+.submit-info {
+    display: block;
 
-    &.active {
-        display: block;
+    &-success {
+        color: $green;
+    }
+
+    &-error {
+        color: $red;
     }
 }
 

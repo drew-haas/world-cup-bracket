@@ -1,17 +1,19 @@
 import { createStore } from 'vuex'
-import Vue from 'vue'
+// import Vue from 'vue'
 
 export default createStore({
   state: {
     signedin: false,
     user: [],
+    pointsPossible: 920,
     userGroupData: [],
+    gameDataSaved: false,
     ogGroupData: [
       {
         "group": "a",
         "teams": [
-          {"code": "eg", "name": "Egypt"},
           {"code": "qa", "name": "Qatar"},
+          {"code": "eg", "name": "Egypt"},
           {"code": "ru", "name": "Russia"},
           {"code": "uy", "name": "Uruguay"}
         ]
@@ -20,7 +22,7 @@ export default createStore({
         "group": "b",
         "teams": [
           {"code": "ir", "name": "Iran"},
-          {"code": "ma", "name": "Morocco"},
+          {"code": "ca", "name": "Canada"},
           {"code": "pt", "name": "Portugal"},
           {"code": "es", "name": "Spain"}
         ]
@@ -58,7 +60,7 @@ export default createStore({
           {"code": "de", "name": "Germany"},
           {"code": "mx", "name": "Mexico"},
           {"code": "kr", "name": "South Korea"},
-          {"code": "se", "name": "Sweden"}
+          {"code": "it", "name": "Italy"}
         ]
       },
       {
@@ -66,7 +68,7 @@ export default createStore({
         "teams": [
           {"code": "be", "name": "Belgium"},
           {"code": "gb", "name": "England"},
-          {"code": "pa", "name": "Panama"},
+          {"code": "us", "name": "United States"},
           {"code": "tn", "name": "Tunisia"}
         ]
       },
@@ -305,7 +307,7 @@ export default createStore({
     // * payload.gameId
     // * payload.teamIndex
     // =====================
-    removeTeamFromGame: (state,payload) => {
+    removeTeamFromGame: (state, payload) => {
       // remove team
       let game = state.games.filter(game => game.gameId === payload.gameId);
 
@@ -344,6 +346,10 @@ export default createStore({
     // Change signedin state with passed in boolean
     updateUser: (state, userInformation) => {
       state.user = userInformation;
+    },
+
+    updateGameDataSaved: (state, bool) => {
+      state.gameDataSaved = bool;
     }
   },
   actions: {

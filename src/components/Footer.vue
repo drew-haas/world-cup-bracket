@@ -6,12 +6,13 @@
         <br>
         <div id="sign-in-status" class="status" data-satus="signed-out"></div>
         <button id="sign-in" class="button" data-functionality="sign-in" @click="handleSignIn"></button>
+        <h3 style="margin: 30px 0 0;">Auth Data:</h3>
         <div id="account-details" class="user-details"></div>
     </footer>
 </template>
 
 <script>
-import firebase from 'firebase'
+import { auth } from '../firebase'
 
 export default {
   name: 'Footer',
@@ -19,7 +20,7 @@ export default {
     handleSignIn(event) {
       // Sign Out the user
       if (event.target.dataset.functionality == 'sign-out') {
-        firebase.auth().signOut().then(() => {
+        auth.signOut().then(() => {
           // Sign Out Success
           // update store
           this.$store.commit('updateSignin', false);
@@ -43,7 +44,9 @@ export default {
   background-color: $bg-light;
   text-align: left;
   padding: 50px 50px 45px;
+  overflow: hidden;
 }
+
 .dru-logo {
   max-width: 60px;
 }

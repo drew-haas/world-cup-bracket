@@ -4,89 +4,76 @@ import router from './router'
 import store from './store'
 import { db, auth } from './firebase'
 
-console.log(db);
-
-function writeNewUser(uid, email) {
-  // A new User Entry
-  var userData = {
-    uid,
-    email
-  };
-
-  // Get a key for a new Post.
-  var newPostKey = database.ref().child('users').push().key;
-  console.log(newPostKey);
-
-  // Write the new user's data to the list of users
-  var updates = {};
-  updates['/users/' + newPostKey] = userData;
-
-  return database.ref().update({updates}, (error) => {
-    if (error) {
-      // the write failed.
-      console.log(error);
-    } else {
-      // Data saved successfully
-    }
-  });
-}
-
-// TEST
-// writeNewUser(1, 'drew@gmail.com');
-
+// ===================================
+//
 // Create Vue App
+//
+// ===================================
 createApp(App).use(store).use(router).mount('#app');
 
+
+// ===================================
+//
 // Check for firebase user data
-auth.onAuthStateChanged((user) => {
-    const signInStatus = document.getElementById('sign-in-status');
-    const signInButton = document.getElementById('sign-in');
-    const accountDetails = document.getElementById('account-details');
+//
+// ===================================
+auth.onAuthStateChanged(async (user) => {
+  // const signInStatus = document.getElementById('sign-in-status');
+  // const signInButton = document.getElementById('sign-in');
+  // const accountDetails = document.getElementById('account-details');
 
-    if (user) {
-      // User is signed in.
-      var displayName = user.displayName;
-      var email = user.email;
-      var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL;
-      var uid = user.uid;
-      var phoneNumber = user.phoneNumber;
-      var providerData = user.providerData;
+  if (user) {
+    // User is signed in
+    // Show information:
+    // var displayName = user.displayName;
+    // var email = user.email;
+    // var emailVerified = user.emailVerified;
+    // var photoURL = user.photoURL;
+    // var uid = user.uid;
+    // var phoneNumber = user.phoneNumber;
+    // var providerData = user.providerData;
 
-      // update store
-      store.commit('updateSignin', true);
-      store.commit('updateUser', user);
+    // Update Store
+    store.commit('updateSignin', true);
+    store.commit('updateUser', user);
 
-      user.getIdToken().then(function(accessToken) {
-        signInStatus.textContent = 'Signed in as ' + email;
-        signInStatus.dataset.status = 'signed-in';
-        signInButton.textContent = 'Sign out';
-        signInButton.dataset.functionality = 'sign-out';
-        accountDetails.textContent = JSON.stringify({
-          displayName: displayName,
-          email: email,
-          emailVerified: emailVerified,
-          phoneNumber: phoneNumber,
-          photoURL: photoURL,
-          uid: uid,
-          accessToken: accessToken,
-          providerData: providerData
-        }, null, '  ');
-      });
-    } else {
-      // update store
-      store.commit('updateSignin', false);
+    // TODO: check for user.gameData and commit to store
+    // const gameData = await getGameData(uid);
+    // console.log('gameData', gameData);
 
-      // User is signed out.
-      signInStatus.textContent = 'Signed out';
-      signInStatus.dataset.status = 'signed-out';
-      signInButton.textContent = 'Sign in';
-      signInButton.dataset.functionality = 'sign-in';
-      accountDetails.textContent = 'user data null';
-    }
-  }, function(error) {
-    console.log(error);
-  });
+    // user.getIdToken().then(function(accessToken) {
+    //   signInStatus.textContent = 'Signed in as ' + email;
+    //   signInStatus.dataset.status = 'signed-in';
+    //   signInButton.textContent = 'Sign out';
+    //   signInButton.dataset.functionality = 'sign-out';
+    //   accountDetails.textContent = JSON.stringify({
+    //     displayName: displayName,
+    //     email: email,
+    //     emailVerified: emailVerified,
+    //     phoneNumber: phoneNumber,
+    //     photoURL: photoURL,
+    //     uid: uid,
+    //     accessToken: accessToken,
+    //     providerData: providerData
+    //   }, null, '  ');
+    // });
+
+  } else {
+    // User not signed in.
+    // update store
+    store.commit('updateSignin', false);
+
+    // Show Information:
+    // signInStatus.textContent = 'Signed out';
+    // signInStatus.dataset.status = 'signed-out';
+    // signInButton.textContent = 'Sign in';
+    // signInButton.dataset.functionality = 'sign-in';
+    // accountDetails.textContent = 'user data null';
+  }
+}, function(error) {
+  console.log(error);
+});
+
 
 // ===================================
 //
@@ -98,18 +85,31 @@ let lsKnockoutData = JSON.parse(localStorage.getItem('userKnockoutData'));
 
 // If lsGroupData is there use it!
 if (lsGroupData) {
-    // if lsGroupData exists - use it for userGroupData
-    store.commit('updateUserGroupData', lsGroupData);
+  // if lsGroupData exists - use it for userGroupData
+  store.commit('updateUserGroupData', lsGroupData);
 } else {
-    // otherwise Set userGroupData to match ogGroupData
-    store.commit('resetUserGroupData');
+  // otherwise Set userGroupData to match ogGroupData
+  store.commit('resetUserGroupData');
 }
 
 // if lsKnockoutData is there use it!
 if (lsKnockoutData) {
-    // update all games
-    store.commit('updateGames', lsKnockoutData);
+  // update all games
+  store.commit('updateGames', lsKnockoutData);
 } else {
-    // Set knockoutGames to match from start
-    store.commit('updateRoundOne');
+  // Set knockoutGames to match from start
+  store.commit('updateRoundOne');
+}
+
+// ===================================
+//
+// Return user saved game data
+//
+// ===================================
+async function getGameData(uid) {
+  return await db.ref('users/' + uid + '/gameData').once('value').then((snapshot) => {
+    console.log('snapshot value', snapshot.val());
+    const data = snapshot.val();
+    return data;
+  });
 }

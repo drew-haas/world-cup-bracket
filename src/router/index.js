@@ -24,10 +24,37 @@ const routes = [
     }
   },
   {
+    path: '/style-guide',
+    name: 'StyleGuide',
+    component: () => {
+      return import('../views/StyleGuide.vue')
+    }
+  },
+  {
     path: '/account',
     name: 'Account',
     component: () => {
       return import('../views/Account.vue')
+    },
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/selections',
+    name: 'Selections',
+    component: () => {
+      return import('../views/Selections.vue')
+    },
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/groups',
+    name: 'Groups',
+    component: () => {
+      return import('../views/Groups.vue')
     },
     meta: {
       requiresAuth: true
