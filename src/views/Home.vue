@@ -9,9 +9,9 @@
 
     <div v-if="signedin" class="signed-in-home content-wrapper">
       <div class="hero-text">
-        <!-- <h1>Welcome<span v-if="user.displayName"> {{user.displayName}}</span><span v-if="!user.displayName"> to your World Brackets Dashboard.</span></h1> -->
+        <!-- <h1>Welcome<span v-if="user.displayName"> {{user.displayName}}</span><span v-if="!user.displayName"> to your World Brackets Dashboard.</span></h1> -->
         <h1>Dashboard</h1>
-        <p>Thank you for joining! This will be your hub for the World Cup and your World Cup Bracket. Check out your current <router-link to="/selections">selections</router-link>.</p>
+        <p>Thank you for joining! This will be your hub for the World Cup and your World Cup Bracket. Check out your current <router-link class="link" to="/selections">selections</router-link>.</p>
       </div>
     </div>
 
@@ -19,7 +19,7 @@
       <div class="dashboard-grid">
         <div class="grid-item selections large-span-8">
           <h3 class="grid-item-title">You have made <span>0</span>/48 selections.</h3>
-          <p>Go To your <router-link to="/selections">selections</router-link></p>
+          <p>Go To your <router-link class="link" to="/selections">selections</router-link></p>
           <div class="grid-item-inner">
             <div class="groups">
               <h3>Your Groups</h3>
@@ -45,6 +45,8 @@
           <ul>
             <li><a class="link" href="https://www.fifa.com/tournaments/mens/worldcup/qatar2022" target="_blank">FIFA World Cup Website</a></li>
             <li><a class="link" href="https://www.espn.com/soccer/" target="_blank">ESPN Soccer</a></li>
+            <li><a class="link" href="https://www.instagram.com/433/" target="_blank">433 Instagram</a></li>
+            <li><a class="link" href="https://www.instagram.com/pubitysport/" target="_blank">Pubity Sport Instagram</a></li>
           </ul>
         </div>
 
@@ -53,6 +55,10 @@
           <p>go to your Account</p>
         </div>
       </div>
+    </div>
+
+    <div class="api-test-data">
+      {{standingsData}}
     </div>
   </div>
 </template>
@@ -68,6 +74,13 @@ export default {
     GroupStage,
     KnockoutStage
   },
+  data() {
+    return {
+      standingsData: 'null',
+      groups: null,
+      teams: null
+    }
+  },
   methods: {
     // getDate() {
     //   var now = new Date().getTime();
@@ -81,11 +94,11 @@ export default {
     getData() {
       console.log('in getData')
 
-      // Competitions List id = 362 - Fifa World Cup
-      fetch('api/api-helper')
+      fetch('api/standings')
       .then(res => res.json())
       .then(res => {
         console.log(res);
+        this.standingsData = res;
       });
     }
   },

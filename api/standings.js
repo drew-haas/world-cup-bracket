@@ -2,7 +2,8 @@ import axios from "axios"
 // const API_KEY = '2XfATHINJMuaC9JV'
 // const API_SECRET = 'utjPmUCIvDOFhRPjP5UIMDvwp0G29qXE'
 // Competitions List id = 362 - Fifa World Cup
-const API_ENDPOINT = "https://livescore-api.com/api-client/leagues/table.json?competition_id=2&key=2XfATHINJMuaC9JV&secret=utjPmUCIvDOFhRPjP5UIMDvwp0G29qXE"
+// Competitions List id = 244 - UEFA Champions Leage
+const API_ENDPOINT = "https://livescore-api.com/api-client/leagues/table.json?competition_id=244&key=2XfATHINJMuaC9JV&secret=utjPmUCIvDOFhRPjP5UIMDvwp0G29qXE"
 
 exports.handler = async function(event, context) {
 	try {

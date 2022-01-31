@@ -35,6 +35,10 @@
       <div class="account-actions">
         <button class="button" @click="handleSignOut">Sign Out</button>
       </div>
+
+      <div class="user-item-placeholder">
+        {{user}}
+      </div>
     </div>
   </div>
 </template>
@@ -107,5 +111,10 @@ h1 {
 
 .account-actions {
   margin-top: 50px;
+}
+
+.user-item-placeholder {
+  margin: 100px auto;
+  word-break: break-all;
 }
 </style>

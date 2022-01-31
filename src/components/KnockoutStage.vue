@@ -2,7 +2,8 @@
     <div class="knockout-stage-container tab-nav-content">
         <div class="knockout-stage-information">
             <div class="knockout-stage-description">
-                <p>Click on the team that you think will win and advance to the next game.</p>
+                <h3 class="bold">Knockout Stage</h3>
+                <p>Click on the team that you think will win and advance to the next game. The teams are placed in the bracket based on your Group selections.</p>
                 <p>+40 points for each first round game</p>
                 <p>+80 points for each quarter-final game</p>
                 <p>+120 points for each semi-final game</p>
@@ -224,17 +225,23 @@ export default {
     display: grid;
     grid-template-columns: repeat(4, var(--game-width));
     grid-gap: 30px;
-    max-width: 1120px;
     margin: 0 auto;
 }
 
+.games-container {
+    max-width: 1120px;
+}
+
 .knockout-stage-titles {
+    $tabnav-height: 99px;
     margin-bottom: 20px;
     position: sticky;
-    top: 0;
-    background-color: #fff;
+    top: $tabnav-height;
+    background-color: white;
+    border-bottom: 1px solid $gray;
     z-index: 2;
-    padding: 10px;
+    padding: 10px 50px;
+    margin-bottom: 70px;
 
     .title {
         opacity: .5;

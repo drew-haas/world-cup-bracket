@@ -94,28 +94,13 @@ form {
     --link-color: black;
     color: var(--link-color);
     position: relative;
-    text-decoration: none;
-    font-family: 'Satoshi-Medium';
-    font-size: 19px;
-    padding-bottom: 4px;
-
-    &:after {
-        --width-offset: 2px; // 100% width + this variable
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: calc(var(--width-offset) / 2 * -1);
-        width: calc(100% + var(--width-offset));
-        height: 2px;
-        background-color: var(--link-color);
-        transition: transform .2s;
-    }
+    // font-family: 'Satoshi-Medium';
+    // font-size: 19px;
+    transition: color .3s;
 
     &:hover {
-        &:after {
-            transform: scaleX(1.1);
-            transition: transform .2s;
-        }
+        color: $primary;
+        transition: color .3s;
     }
 
     &-submit {

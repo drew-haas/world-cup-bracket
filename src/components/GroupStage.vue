@@ -3,7 +3,7 @@
         <div class="group-stage-information">
             <div class="group-stage-description">
                 <h2 class="visually-hidden">Group Stage</h2>
-                <h3 class="typography-headline-reduced bold">Drag and drop the teams in the order you expect them to finish.</h3>
+                <h3 class="bold">Drag and drop the teams in the order you expect them to finish.</h3>
                 <p>When you are happy with your selections click Save and move on to the knockout stage.</p>
                 <p>You may reset the groups to the default position at anytime.</p>
             </div>
@@ -114,6 +114,7 @@ export default {
     --group-width: 1200px;
     --grid-row-gap: 30px;
     --grid-column-gap: 100px;
+    margin-bottom: 200px;
 }
 
 .group-stage-information {

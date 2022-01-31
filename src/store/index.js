@@ -5,6 +5,7 @@ export default createStore({
   state: {
     signedin: false,
     user: [],
+    pointsPossible: 920,
     userGroupData: [],
     gameDataSaved: false,
     ogGroupData: [

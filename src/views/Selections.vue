@@ -2,17 +2,17 @@
   <div class="view selections">
     <div class="content-wrapper">
         <h1 class="typography-headline">Your Selections</h1>
+    </div>
 
-        <div class="tab-nav">
-          <ul>
-            <li class="typography-headline-reduced tab-nav-item tab-nav-active" v-on:click="toggleStage('groups', $event)" data-tab-content="group-stage-container">
-              <h2>Group Stage</h2>
-            </li>
-            <li class="typography-headline-reduced tab-nav-item" v-on:click="toggleStage('knockout', $event)" data-tab-content="knockout-stage-container">
-              <h2>Knockout Stage</h2>
-            </li>
-          </ul>
-        </div>
+    <div class="content-wrapper tab-nav">
+    <ul>
+    <li class="typography-headline-reduced tab-nav-item tab-nav-active" v-on:click="toggleStage('groups', $event)" data-tab-content="group-stage-container">
+    <h2>Group Stage</h2>
+    </li>
+    <li class="typography-headline-reduced tab-nav-item" v-on:click="toggleStage('knockout', $event)" data-tab-content="knockout-stage-container">
+    <h2>Knockout Stage</h2>
+    </li>
+    </ul>
     </div>
 
     <div class="tab-area content-wrapper">
@@ -35,25 +35,27 @@ export default {
   },
   methods: {
     toggleStage: (toggleVal, event) => {
-      // handle tab nav
-      let tabs = document.querySelectorAll('.tab-nav-item');
-      tabs.forEach(tab => {
-        tab.classList.remove('tab-nav-active');
-      });
+      // // handle tab nav
+      // let tabs = document.querySelectorAll('.tab-nav-item');
+      // tabs.forEach(tab => {
+      //   tab.classList.remove('tab-nav-active');
+      // });
 
-      event.srcElement.parentElement.classList.add('tab-nav-active');
+      // event.srcElement.parentElement.classList.add('tab-nav-active');
 
-      // handle tab items
-      let tabContents = document.querySelectorAll('.tab-nav-content');
-      tabContents.forEach(el => {
-        el.classList.remove('tab-nav-content-active');
-      })
+      // // handle tab items
+      // let tabContents = document.querySelectorAll('.tab-nav-content');
+      // tabContents.forEach(el => {
+      //   el.classList.remove('tab-nav-content-active');
+      // })
 
-      let tabContent = document.querySelector('.' + event.srcElement.parentElement.dataset.tabContent);
-      tabContent.classList.add('tab-nav-content-active');
+      // let tabContent = document.querySelector('.' + event.srcElement.parentElement.dataset.tabContent);
+      // tabContent.classList.add('tab-nav-content-active');
 
-      // handle router
-      this.$route.push({ path: 'selections', query: { tab: toggleVal } })
+      // // handle router
+      // this.$route.push({ path: 'selections', query: { tab: toggleVal } })
+
+      // TODO: scroll snap to section
     }
   }
 }
@@ -68,7 +70,9 @@ export default {
   position: sticky;
   top: 0;
   background-color: white;
-  margin: 50px 0;
+  border-bottom: 1px solid $gray;
+  margin: 50px auto;
+  z-index: 2;
 
   ul {
     display: flex;
@@ -81,7 +85,7 @@ export default {
 
   h2 {
     @include text-mask-hover();
-    padding-bottom: 32px;
+    padding: 30px 0;
     line-height: .8;
   }
 }
@@ -92,14 +96,12 @@ export default {
   }
 }
 
-.tab-nav-content {
-  display: none;
+// .tab-nav-content {
+//   display: none;
 
-  &.tab-nav-content-active {
-    display: block;
-  }
-}
-
-
+//   &.tab-nav-content-active {
+//     display: block;
+//   }
+// }
 
 </style>
