@@ -41,7 +41,7 @@ export default createStore({
         "teams": [
           {"code": "ar", "name": "Argentina"},
           {"code": "hr", "name": "Croatia"},
-          {"code": "is", "name": "Iceland"},
+          {"code": "nl", "name": "Netherlands"},
           {"code": "ng", "name": "Nigeria"}
         ]
       },

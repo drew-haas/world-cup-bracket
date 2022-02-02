@@ -3,12 +3,8 @@
         <div class="knockout-stage-information">
             <div class="knockout-stage-description">
                 <h3 class="bold">Knockout Stage</h3>
-                <p>Click on the team that you think will win and advance to the next game. The teams are placed in the bracket based on your Group selections.</p>
-                <p>+40 points for each first round game</p>
-                <p>+80 points for each quarter-final game</p>
-                <p>+120 points for each semi-final game</p>
-                <p>+200 points for predicting the final</p>
-
+                <p>Click on the team that you think will win and advance to the next game.</p>
+                <p>The teams are placed in the bracket based on your Group selections.</p>
             </div>
         </div>
 

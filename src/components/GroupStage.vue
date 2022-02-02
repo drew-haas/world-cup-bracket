@@ -50,23 +50,7 @@ export default {
         TeamRow,
         draggable
     },
-    mounted() {
-        fetch("https://v3.football.api-sports.io/leagues", {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-                "x-rapidapi-key": "0d661a53adfc883c850de30a2ba55e8d"
-            }
-        })
-        .then(response => {
-            console.log('Success!')
-            console.log(response);
-        })
-        .catch(err => {
-            console.log('Error!')
-            console.error(err);
-        });
-    },
+    // mounted() {},
     computed: {
         userGroupData: {
             get() {

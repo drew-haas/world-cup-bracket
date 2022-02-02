@@ -96,6 +96,10 @@ export default {
   }
 }
 
+.tab-area {
+  padding: 0;
+}
+
 // .tab-nav-content {
 //   display: none;
 
