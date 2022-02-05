@@ -4,8 +4,9 @@
             <div class="group-stage-description">
                 <h2 class="visually-hidden">Group Stage</h2>
                 <h3 class="bold">Drag and drop the teams in the order you expect them to finish.</h3>
-                <p>When you are happy with your selections click Save and move on to the knockout stage.</p>
-                <p>You may reset the groups to the default position at anytime.</p>
+                <p>The Group Stage determines the team positions in the knockout round. When you make a change here it is reflected in the bracket below.</p>
+                <p>When you are happy with your selections click "Save" and move on to the knockout round.</p>
+                <p>You may reset the groups to the default position at anytime using the "Reset Groups" button. <span class="bold">This will update your groups and bracket.</span> Make sure to click "Save" when you are finished with your selections.</p>
             </div>
             <div class="group-key">
                 <h2 class="key-item-header">Key</h2>

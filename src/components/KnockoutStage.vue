@@ -100,20 +100,15 @@ export default {
 
         updateSubmitInfo(string, action) {
             this.submitInfo.innerHTML = string;
-            this.submitInfo.classList.remove('submit-info-success submit-info-alert');
+            this.submitInfo.classList.remove('submit-info-success', 'submit-info-alert');
             this.submitInfo.classList.add('submit-info-' + action);
         },
 
         updateFirebase() {
             let gameData = this.games;
 
-            // "set" new user to db
-            // FIXME: update just gameData
-            db.ref('users/' + this.uid).set({
-                uid: this.uid,
-                email: this.email,
-                gameData
-            }, (error) => {
+            // update just gameData
+            db.ref('users/' + this.uid + '/gameData').set(gameData, (error) => {
                 if (error) {
                     // The write failed...
                     console.log('Write Failed', error);

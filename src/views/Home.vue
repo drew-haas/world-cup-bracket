@@ -71,6 +71,7 @@ import KnockoutStage from '@/components/KnockoutStage.vue'
 
 export default {
   name: 'Home',
+  title: 'Home - World Brackets',
   components: {
     GroupStage,
     KnockoutStage

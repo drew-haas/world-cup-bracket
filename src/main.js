@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { db, auth } from './firebase'
+import titleMixin from './helpers/titleMixin'
 
 // ===================================
 //
@@ -10,6 +11,8 @@ import { db, auth } from './firebase'
 //
 // ===================================
 createApp(App).use(store).use(router).mount('#app');
+
+// App.mixin(titleMixin); // TOOD: doesn't work
 
 
 // ===================================

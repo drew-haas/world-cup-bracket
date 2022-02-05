@@ -76,7 +76,8 @@ export default {
             var userData = {
                 uid,
                 email,
-                gameData
+                gameData,
+                points: 0
             };
 
             // "set" new user to db
