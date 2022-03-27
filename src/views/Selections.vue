@@ -6,10 +6,10 @@
 
     <div class="content-wrapper tab-nav">
       <ul>
-        <li class="typography-headline-reduced tab-nav-item tab-nav-active" v-on:click="toggleStage('groups', $event)" data-tab-content="group-stage-container">
+        <li class="typography-headline-reduced tab-nav-item tab-nav-active" data-tab-content="group-stage-container">
           <h2><a href="#group-stage">Group Stage</a></h2>
         </li>
-        <li class="typography-headline-reduced tab-nav-item" v-on:click="toggleStage('knockout', $event)" data-tab-content="knockout-stage-container">
+        <li class="typography-headline-reduced tab-nav-item" data-tab-content="knockout-stage-container">
           <h2><a href="#knockout-stage">Knockout Stage</a></h2>
         </li>
       </ul>
@@ -32,31 +32,6 @@ export default {
   components: {
     GroupStage,
     KnockoutStage
-  },
-  methods: {
-    toggleStage: (toggleVal, event) => {
-      // // handle tab nav
-      // let tabs = document.querySelectorAll('.tab-nav-item');
-      // tabs.forEach(tab => {
-      //   tab.classList.remove('tab-nav-active');
-      // });
-
-      // event.srcElement.parentElement.classList.add('tab-nav-active');
-
-      // // handle tab items
-      // let tabContents = document.querySelectorAll('.tab-nav-content');
-      // tabContents.forEach(el => {
-      //   el.classList.remove('tab-nav-content-active');
-      // })
-
-      // let tabContent = document.querySelector('.' + event.srcElement.parentElement.dataset.tabContent);
-      // tabContent.classList.add('tab-nav-content-active');
-
-      // // handle router
-      // this.$route.push({ path: 'selections', query: { tab: toggleVal } })
-
-      // TODO: scroll snap to section
-    }
   }
 }
 </script>

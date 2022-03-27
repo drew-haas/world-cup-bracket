@@ -9,7 +9,6 @@
 
     <div v-if="signedin" class="signed-in-home content-wrapper">
       <div class="hero-text">
-        <!-- <h1>Welcome<span v-if="user.displayName"> {{user.displayName}}</span><span v-if="!user.displayName"> to your World Brackets Dashboard.</span></h1> -->
         <h1>Dashboard</h1>
         <p>Thanks for joining! This will be your hub for the World Cup and your World Cup Bracket. Check out your current <router-link class="link" to="/selections">selections</router-link>.</p>
       </div>
