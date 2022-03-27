@@ -15,7 +15,7 @@ const app = createApp(App).use(store).use(router).mount('#app');
 let USER_DATA = null;
 let LOCAL_STORAGE = null;
 
-// reset on first load // TODO: figure out why we need this?
+// reset on first load // TODO: figure out why we need this? - we need this for userGroupData to be generated
 store.commit('resetUserGroupData');
 store.commit('updateRoundOne');
 

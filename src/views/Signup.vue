@@ -1,13 +1,20 @@
 <template>
     <div class="view view-centered signup">
-
-        <Notification :notification="notification"/>
-
         <div class="content-wrapper">
-            <h1>Sign Up</h1>
-            <p>Sign up to save and submit your selections. <br>Already have an account? Click here to Sign In.</p>
+            <div class="sign-up-text" v-if="!signedin">
+                <h1>Sign Up</h1>
+                <p>Sign up to save and submit your selections. <br>Already have an account? Click here to Sign In.</p>
+            </div>
 
-            <form id="signupForm">
+            <div class="signed-in-text" v-if="signedin">
+                <h1>You're Signed in!</h1>
+                <p>Go checkout the other pages to fill out your bracket.</p>
+                <router-link to="/">
+                <span class="nav-link-text">Home</span>
+            </router-link>
+            </div>
+
+            <form id="signupForm" v-if="!signedin">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email">
                 <label for="password">Password</label>
@@ -23,29 +30,19 @@
 </template>
 
 <script>
-import { db, auth } from '../firebase'
-import Notification from '../components/Notification.vue';
+import { db, auth } from '../firebase';
 
 // Email and Password
 let email, password;
 
 export default {
     name: 'Home',
-    components: {
-        Notification
-    },
     computed: {
+        signedin() {
+            return this.$store.state.signedin
+        },
         games() {
             return this.$store.state.games
-        }
-    },
-    data() {
-        return {
-            notification: {
-                text: '',
-                status: '',
-                classList: ''
-            }
         }
     },
     mounted() {
@@ -54,59 +51,53 @@ export default {
         form.addEventListener('submit', this.handleForm);
         email = document.getElementById("email").value;
         password = document.getElementById("password").value;
+        this.statusDiv = document.querySelector('.status-message');
     },
     methods: {
         handleForm(event) {
             event.preventDefault(); // stop form from reloading page
             email = document.getElementById("email").value;
             password = document.getElementById("password").value;
-            const statusDiv = document.querySelector('.status-message');
 
             // [START auth_signup_password]
             auth.createUserWithEmailAndPassword(email, password).then((userCredential) => {
-                // Signed in
-                // var user = userCredential.user;
-                // statusDiv.classList.remove('error');
-                // statusDiv.classList.add('success');
-                // statusDiv.textContent = 'Sign up Successful! Signed in.';
-
-                this.notification.text = 'Sign up Successful! You are now signed in.';
-                this.notification.status = 'successful';
-                this.notification.classList = 'active';
-
-                console.log('user credential uid: ', userCredential.user.uid);
-
+                // Signed in (and signed up)
                 // Write New User to Database
                 this.writeNewUser(userCredential.user.uid, email);
 
-                this.removeNotification();
+                // Show success message
+                this.updateStatusDiv('Sign up Successful! You are now signed in.', 'success');
+
+                // Hide form and show additional links!
+
+                // remove any local storage
+                localStorage.removeItem('userGroupData');
+                localStorage.removeItem('userKnockoutData');
+
+                console.log('Sign Up Success!');
             })
             .catch((error) => {
-                // var errorCode = error.code;
+                console.log('error in signup: ', error)
                 var errorMessage = error.message;
-                // statusDiv.classList.add('error');
-                // statusDiv.classList.remove('success');
-                // statusDiv.textContent = errorMessage;
 
-                this.notification.text = errorMessage;
-                this.notification.status = 'active';
-                this.notification.classList = 'error';
+                // show sign in message
+                if (error.code == 'auth/email-already-in-use') {
+                    errorMessage = errorMessage + ' Go to Sign In Page.';
+                }
+
+                this.updateStatusDiv(errorMessage, 'error');
             });
-            // [END auth_signup_password]
         },
 
-        updateNotification() {
-            this.notification.text = '';
-            this.notification.status = '';
-            this.notification.classList = '';
+        updateStatusDiv(message, className) {
+            this.statusDiv.classList.remove('success', 'error');
+            this.statusDiv.classList.add(className);
+            this.statusDiv.textContent = message;
         },
 
-        removeNotification() {
-            setTimeout(() => {
-                this.notification.text = '';
-                this.notification.status = '';
-                this.notification.classList = '';
-            }, 10000);
+        clearStatusDiv() {
+            this.statusDiv.classList.remove('success', 'error');
+            this.statusDiv.textContent = '';
         },
 
         writeNewUser(uid, email) {
@@ -131,5 +122,13 @@ export default {
 p {
     max-width: 700px;
     margin: 20px 0 44px;
+}
+
+.content-wrapper {
+    position: relative;
+}
+
+.form-information {
+    position: absolute;
 }
 </style>
