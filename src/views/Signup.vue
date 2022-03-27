@@ -1,5 +1,8 @@
 <template>
     <div class="view view-centered signup">
+
+        <Notification :notification="notification"/>
+
         <div class="content-wrapper">
             <h1>Sign Up</h1>
             <p>Sign up to save and submit your selections. <br>Already have an account? Click here to Sign In.</p>
@@ -21,15 +24,28 @@
 
 <script>
 import { db, auth } from '../firebase'
+import Notification from '../components/Notification.vue';
 
 // Email and Password
 let email, password;
 
 export default {
     name: 'Home',
+    components: {
+        Notification
+    },
     computed: {
         games() {
             return this.$store.state.games
+        }
+    },
+    data() {
+        return {
+            notification: {
+                text: '',
+                status: '',
+                classList: ''
+            }
         }
     },
     mounted() {
@@ -50,23 +66,47 @@ export default {
             auth.createUserWithEmailAndPassword(email, password).then((userCredential) => {
                 // Signed in
                 // var user = userCredential.user;
-                statusDiv.classList.remove('error');
-                statusDiv.classList.add('success');
-                statusDiv.textContent = 'Sign up Successful! Signed in.';
+                // statusDiv.classList.remove('error');
+                // statusDiv.classList.add('success');
+                // statusDiv.textContent = 'Sign up Successful! Signed in.';
+
+                this.notification.text = 'Sign up Successful! You are now signed in.';
+                this.notification.status = 'successful';
+                this.notification.classList = 'active';
 
                 console.log('user credential uid: ', userCredential.user.uid);
 
                 // Write New User to Database
                 this.writeNewUser(userCredential.user.uid, email);
+
+                this.removeNotification();
             })
             .catch((error) => {
                 // var errorCode = error.code;
                 var errorMessage = error.message;
-                statusDiv.classList.add('error');
-                statusDiv.classList.remove('success');
-                statusDiv.textContent = errorMessage;
+                // statusDiv.classList.add('error');
+                // statusDiv.classList.remove('success');
+                // statusDiv.textContent = errorMessage;
+
+                this.notification.text = errorMessage;
+                this.notification.status = 'active';
+                this.notification.classList = 'error';
             });
             // [END auth_signup_password]
+        },
+
+        updateNotification() {
+            this.notification.text = '';
+            this.notification.status = '';
+            this.notification.classList = '';
+        },
+
+        removeNotification() {
+            setTimeout(() => {
+                this.notification.text = '';
+                this.notification.status = '';
+                this.notification.classList = '';
+            }, 10000);
         },
 
         writeNewUser(uid, email) {

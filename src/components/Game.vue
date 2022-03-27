@@ -23,6 +23,9 @@ export default {
         round: Object,
         index: Number,
     },
+    mounted() {
+        this.submitInfo = document.querySelector('#knockoutDataSubmitInfo');
+    },
     computed: {
         games() {
             return this.$store.state.games
@@ -63,6 +66,12 @@ export default {
                         team.isLoser = true;
                     }
                 });
+            }
+
+            // clear submit info
+            if (nextRound !== 'final') {
+                this.submitInfo.innerHTML = '';
+                this.submitInfo.classList.remove('submit-info-success', 'submit-info-alert');
             }
 
             // Update next game(s)
@@ -183,12 +192,12 @@ export default {
         },
 
         showSubmitButton() {
-            let submitBtn = document.querySelector('#submit');
+            let submitBtn = document.querySelector('#knockoutSubmit');
             submitBtn.classList.add('active');
         },
 
         hideSubmitButton() {
-            let submitBtn = document.querySelector('#submit');
+            let submitBtn = document.querySelector('#knockoutSubmit');
             submitBtn.classList.remove('active');
         }
     }

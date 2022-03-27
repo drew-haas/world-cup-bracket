@@ -5,14 +5,14 @@
     </div>
 
     <div class="content-wrapper tab-nav">
-    <ul>
-    <li class="typography-headline-reduced tab-nav-item tab-nav-active" v-on:click="toggleStage('groups', $event)" data-tab-content="group-stage-container">
-    <h2>Group Stage</h2>
-    </li>
-    <li class="typography-headline-reduced tab-nav-item" v-on:click="toggleStage('knockout', $event)" data-tab-content="knockout-stage-container">
-    <h2>Knockout Stage</h2>
-    </li>
-    </ul>
+      <ul>
+        <li class="typography-headline-reduced tab-nav-item tab-nav-active" v-on:click="toggleStage('groups', $event)" data-tab-content="group-stage-container">
+          <h2><a href="#group-stage">Group Stage</a></h2>
+        </li>
+        <li class="typography-headline-reduced tab-nav-item" v-on:click="toggleStage('knockout', $event)" data-tab-content="knockout-stage-container">
+          <h2><a href="#knockout-stage">Knockout Stage</a></h2>
+        </li>
+      </ul>
     </div>
 
     <div class="tab-area content-wrapper">
@@ -71,7 +71,8 @@ export default {
   top: 0;
   background-color: white;
   border-bottom: 1px solid $gray;
-  margin: 50px auto;
+  margin: 50px auto 0;
+  padding: 0;
   z-index: 2;
 
   ul {
@@ -84,9 +85,13 @@ export default {
   }
 
   h2 {
-    @include text-mask-hover();
+    // @include text-mask-hover();
     padding: 30px 0;
     line-height: .8;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 

@@ -14,21 +14,23 @@
       <div v-if="userGroups" class="groups">
         <div v-for="group in userGroups" :key="group" class="group">
 
-          <h3 class="bold">{{group.groupName}}</h3>
+          <h3 class="group-name bold">{{group.groupName}}</h3>
           <p class="group-creator">Group Creator: {{group.groupCreatorEmail}}</p>
 
           <div class="group-table">
 
             <div class="group-table-header group-table-row">
-              <div class="member-pos">Pos.</div>
+              <div class="member-rank">Rank</div>
               <div class="member-name">Name</div>
               <div class="member-points">Points</div>
+              <div class="member-points-pos">Pos.</div>
             </div>
 
             <div class="group-member-row group-table-row" v-for="(member, index) in group.members" :key="index">
-              <div class="member-pos">{{index + 1}}</div>
+              <div class="member-rank">{{index + 1}}</div>
               <div class="member-name">{{member.email}}</div>
               <div class="member-points">0</div>
+              <div class="member-points-pos">0</div>
             </div>
 
           </div>
@@ -52,8 +54,8 @@
           <label for="createGroupPassword">Group Password</label>
           <input type="text" id="createGroupPassword" name="createGroupPassword" autocomplete="new-password">
           <div class="pw-toggle">
-            <input type="checkbox" @change="togglePassword($event)">
-            <span>Hide Password</span>
+            <input id="pwVisbilityCreate" name="pwVisbilityCreate" type="checkbox" @change="togglePassword($event)">
+            <label for="pwVisbilityCreate">Hide Password</label>
           </div>
           <button class="button button-submit">Create and Join Group</button>
         </form>
@@ -324,13 +326,17 @@ h1 {
   margin: 10px 0 50px;
 }
 
+.group-name {
+  font-size: 23px;
+}
+
 .group-creator {
   font-size: 14px;
 }
 
 .group-table {
   background-color: $gray-bg;
-  max-width: 500px;
+  max-width: 700px;
   border: 1px solid #ddd;
 }
 
@@ -340,7 +346,7 @@ h1 {
 
 .group-table-row {
   display: grid;
-  grid-template-columns: 66px 1fr 100px;
+  grid-template-columns: 66px 1fr 66px 66px;
   justify-content: space-evenly;
   padding: 14px;
 
@@ -349,7 +355,7 @@ h1 {
   // }
 }
 
-.member-points {
+.member-points, .member-points-pos {
   text-align: right;
 }
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="knockout-stage-container tab-nav-content">
+    <div id="knockout-stage" class="knockout-stage-container tab-nav-content">
         <div class="knockout-stage-information">
             <div class="knockout-stage-description">
                 <h3 class="bold">Knockout Stage</h3>
@@ -32,9 +32,9 @@
 
         <div class="knockout-actions">
             <button id="resetBracket" class="button button-alert" @click="resetBracketData">Reset Bracket</button>
-            <button id="submit" class="button button-submit" v-if="!gameDataSaved" @click="submitData">Save & Submit</button>
+            <button id="knockoutSubmit" class="button button-submit" v-if="!gameDataSaved" @click="submitData">Save & Submit</button>
         </div>
-        <p id="submitInfo" class="submit-info"></p>
+        <p id="knockoutDataSubmitInfo" class="submit-info"></p>
         <div class="final-celebration"></div>
     </div>
 </template>
@@ -78,22 +78,12 @@ export default {
         }
     },
     mounted() {
+        this.submitInfo = document.querySelector('#knockoutDataSubmitInfo');
         this.checkForCompletion();
-        this.submitInfo = document.querySelector('#submitInfo');
     },
     methods: {
-
         // On Submit Save the Bracket Data
         submitData() {
-            // Submit data to database?
-            console.log('Submit and Save Data to Database');
-            console.log('-------------------------');
-            console.log(this.gameDataSaved)
-
-            // update store
-            this.$store.commit('updateGameDataSaved', true);
-            console.log(this.gameDataSaved)
-
             // Write new game data to firebase
             this.updateFirebase();
         },
@@ -111,16 +101,27 @@ export default {
             db.ref('users/' + this.uid + '/gameData').set(gameData, (error) => {
                 if (error) {
                     // The write failed...
-                    console.log('Write Failed', error);
                     this.updateSubmitInfo('Knockout Data Not Saved Successfully!', 'alert');
+                    console.log('Write Failed', error);
 
                 } else {
-                    // Data saved successfully!
-                    console.log('Data Saved Successfully');
-                    // update HTML
-                    this.updateSubmitInfo('Knockout Data Saved Successfully!', 'success');
+                    this.handleDataSuccess();
                 }
             });
+        },
+
+        handleDataSuccess() {
+            // update store
+            this.$store.commit('updateGameDataSaved', true);
+
+            // update HTML
+            this.updateSubmitInfo('Knockout Data Saved Successfully!', 'success');
+
+            // Data saved successfully!
+            console.log('Data Saved Successfully');
+
+            // Hide Save and Submit
+            this.hideSubmitButton();
         },
 
         // Reset the groups to the default value
@@ -175,12 +176,12 @@ export default {
         },
 
         showSubmitButton() {
-            let submitBtn = document.querySelector('#submit');
+            let submitBtn = document.querySelector('#knockoutSubmit');
             submitBtn.classList.add('active');
         },
 
         hideSubmitButton() {
-            let submitBtn = document.querySelector('#submit');
+            let submitBtn = document.querySelector('#knockoutSubmit');
             submitBtn.classList.remove('active');
         }
     }
@@ -192,6 +193,7 @@ export default {
     width: 100%;
     height: auto;
     position: relative;
+    padding-top: 120px;
 
     .button-submit {
         display: none;
@@ -205,7 +207,7 @@ export default {
 
 .knockout-stage-information {
     max-width: $container-size;
-    margin: $section-spacing auto;
+    margin: 0 auto $section-spacing;
     text-align: left;
 }
 
@@ -271,18 +273,6 @@ export default {
 .knockout-actions {
     margin: 40px 0;
     display: flex;
-}
-
-.submit-info {
-    display: block;
-
-    &-success {
-        color: $green;
-    }
-
-    &-error {
-        color: $red;
-    }
 }
 
 .final-celebration {

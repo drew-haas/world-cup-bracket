@@ -144,3 +144,14 @@ form {
     }
 }
 
+.submit-info {
+    display: block;
+
+    &-success {
+        color: $green;
+    }
+
+    &-error {
+        color: $red;
+    }
+}

@@ -106,7 +106,7 @@ export default {
     }
   },
   mounted() {
-    this.getData();
+    // this.getData();
   },
   computed: {
     signedin() {

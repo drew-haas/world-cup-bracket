@@ -1,32 +1,32 @@
 // All Typography and Font Face Classes Here
-$font_path: '~@/assets/webfonts/';
+// $font_path: '~@/assets/webfonts/';
 
 // Light
 @font-face {
     font-family: "Satoshi-Light";
     src: local("Satoshi-Light"),
-    url($font_path + 'Satoshi-Light.otf') format("otf");
+    url('~@/assets/webfonts/Satoshi-Light.ttf') format("ttf");
 }
 
 // Medium -- (Regular)
 @font-face {
     font-family: "Satoshi-Medium";
     src: local("Satoshi-Medium"),
-    url($font_path + 'Satoshi-Medium.otf') format("otf");
+    url('~@/assets/webfonts/Satoshi-Medium.ttf') format("ttf");
 }
 
 // Bold
 @font-face {
     font-family: "Satoshi-Bold";
     src: local("Satoshi-Bold"),
-    url($font_path + 'Satoshi-Bold.otf') format("otf");
+    url('~@/assets/webfonts/Satoshi-Bold.ttf') format("ttf");
 }
 
 // Black
 @font-face {
     font-family: "Satoshi-Black";
     src: local("Satoshi-Black"),
-    url($font_path + 'Satoshi-Black.otf') format("otf");
+    url('~@/assets/webfonts/Satoshi-Black.ttf') format("ttf");
 }
 
 #app {
