@@ -9,15 +9,14 @@
 
     <div v-if="signedin" class="signed-in-home content-wrapper">
       <div class="hero-text">
-        <!-- <h1>Welcome<span v-if="user.displayName"> {{user.displayName}}</span><span v-if="!user.displayName"> to your World Brackets Dashboard.</span></h1> -->
         <h1>Dashboard</h1>
-        <p>Thank you for joining! This will be your hub for the World Cup and your World Cup Bracket. Check out your current <router-link class="link" to="/selections">selections</router-link>.</p>
+        <p>Thanks for joining! This will be your hub for the World Cup and your World Cup Bracket. Check out your current <router-link class="link" to="/selections">selections</router-link>.</p>
       </div>
     </div>
 
     <div class="content-wrapper">
-      <div class="dashboard-grid">
-        <div class="grid-item selections large-span-8">
+      <div class="dashboard-grid default-grid">
+        <div class="grid-item tile selections large-span-8">
           <h3 class="grid-item-title">You have made <span>0</span>/48 selections.</h3>
           <p>Go To your <router-link class="link" to="/selections">selections</router-link></p>
           <div class="grid-item-inner">
@@ -30,17 +29,17 @@
           </div>
         </div>
 
-        <div class="grid-item countdown large-span-4">
+        <div class="grid-item tile countdown large-span-4">
           <p>The World Cup starts in ### days.</p>
         </div>
 
-        <div class="grid-item matches large-span-4">
+        <div class="grid-item tile matches large-span-4">
           <h3>Upcoming Matches</h3>
           <div class="matches"></div>
           <router-link to="/selections">view all</router-link>
         </div>
 
-        <div class="grid-item links large-span-4">
+        <div class="grid-item tile links large-span-4">
           <h3 class="typography-headline-reduced">Useful Links</h3>
           <ul>
             <li><a class="link" href="https://www.fifa.com/tournaments/mens/worldcup/qatar2022" target="_blank">FIFA World Cup Website</a></li>
@@ -50,7 +49,7 @@
           </ul>
         </div>
 
-        <div class="grid-item account large-span-4">
+        <div class="grid-item tile account large-span-4">
           <p v-if="user.email">You are signed in as: {{user.email}}</p>
           <p>go to your Account</p>
         </div>
@@ -67,9 +66,11 @@
 // @ is an alias to /src
 import GroupStage from '@/components/GroupStage.vue'
 import KnockoutStage from '@/components/KnockoutStage.vue'
+// import GroupStandings from '@/components/GroupStandings.vue'
 
 export default {
   name: 'Home',
+  title: 'Home - World Brackets',
   components: {
     GroupStage,
     KnockoutStage
@@ -82,15 +83,16 @@ export default {
     }
   },
   methods: {
-    // getDate() {
-    //   var now = new Date().getTime();
-    //   var timeleft = countDownDate - now;
+    getDate() {
+      var now = new Date().getTime();
+      console.log(now);
+      // var timeleft = countDownDate - now;
 
-    //   var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
-    //   var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    //   var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
-    //   var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
-    // }
+      var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    },
     getData() {
       console.log('in getData')
 
@@ -103,7 +105,7 @@ export default {
     }
   },
   mounted() {
-    this.getData();
+    // this.getData();
   },
   computed: {
     signedin() {
@@ -133,36 +135,7 @@ h1 {
   max-width: 600px;
 }
 
-.dashboard-grid {
-  $columns: 12;
-  display: grid;
-  grid-template-columns: repeat($columns, 1fr);
-  grid-gap: 25px;
-  margin-top: 100px;
-
-  @for $i from 1 through $columns {
-    .large-span-#{$i} {
-      grid-column: span #{$i};
-    }
-
-    @include viewport(medium) {
-      .medium-span-#{$i} {
-        grid-column: span #{$i};
-      }
-    }
-
-    @include viewport(small) {
-      .small-span-#{$i} {
-        grid-column: span #{$i};
-      }
-    }
-  }
-}
-
 .grid-item {
-  background-color: $bg-light;
-  border-radius: 18px;
-  padding: 20px;
   min-height: 300px;
 }
 </style>

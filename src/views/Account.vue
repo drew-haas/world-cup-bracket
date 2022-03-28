@@ -8,6 +8,11 @@
         <div class="user-value">{{user.email}}</div>
       </div>
 
+      <div class="user-item locked">
+        <div class="user-key">UID</div>
+        <div class="user-value">{{user.uid}}</div>
+      </div>
+
       <div class="user-item">
         <div class="user-key">Display Name</div>
         <div class="user-value">
@@ -60,10 +65,17 @@ export default {
           // Sign Out Success
           // update store
           this.$store.commit('updateSignin', false);
+
+          // remove any local storage
+          localStorage.removeItem('userGroupData');
+          localStorage.removeItem('userKnockoutData');
+
           // redirect to home
           this.$router.push('/');
+
         }).catch((error) => {
-          // An error happened.
+          // An error occurred
+          console.log('Error signing out: ', error);
         });
       }
     },

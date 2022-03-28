@@ -133,7 +133,7 @@ form {
 
 .status-message {
     color: $accent;
-    padding: 20px;
+    padding: 20px 0 20px;
 
     &.error {
         color: $red;
@@ -144,3 +144,14 @@ form {
     }
 }
 
+.submit-info {
+    display: block;
+
+    &-success {
+        color: $green;
+    }
+
+    &-error {
+        color: $red;
+    }
+}

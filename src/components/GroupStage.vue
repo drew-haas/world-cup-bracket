@@ -1,17 +1,18 @@
 <template>
-    <div class="group-stage-container tab-nav-content tab-nav-content-active">
+    <div id="group-stage" class="group-stage-container tab-nav-content tab-nav-content-active">
         <div class="group-stage-information">
             <div class="group-stage-description">
                 <h2 class="visually-hidden">Group Stage</h2>
                 <h3 class="bold">Drag and drop the teams in the order you expect them to finish.</h3>
-                <p>When you are happy with your selections click Save and move on to the knockout stage.</p>
-                <p>You may reset the groups to the default position at anytime.</p>
+                <p>The Group stage determines the team positions in the Knockout stage. When you make a change here it is reflected in the bracket below.</p>
+                <p>When you are happy with your selections click "Save" and move on to the Knockout stage.</p>
+                <p>You may reset the groups to the default position at anytime using the "Reset Groups" button. <span class="bold">This will update your groups and bracket.</span> Make sure to click "Save" when you are finished with your selections.</p>
             </div>
             <div class="group-key">
                 <h2 class="key-item-header">Key</h2>
                 <div class="key-item key-item-green">
                     <div class="key-item-icon"></div>
-                    <div class="key-item-info">Advancing to knockout stage</div>
+                    <div class="key-item-info">Advancing to Knockout stage</div>
                 </div>
                 <div class="key-item key-item-gray">
                     <div class="key-item-icon"></div>
@@ -33,39 +34,27 @@
                 </draggable>
             </div>
         </div>
-        <div class="group-stage-actions">
-            <button id="resetBracket" class="button button-alert" @click="resetGroupData">Reset Groups</button>
+        <div class="group-stage-actions" v-if="signedin">
+            <button id="resetGroups" class="button button-alert" @click="resetGroupData">Reset Groups</button>
+            <button id="groupSubmit" class="button button-submit" @click="submitData">Save & Submit</button>
         </div>
+        <div class="signed-out-text" v-if="!signedin">
+            <p>Sign in to save your bracket!</p>
+        </div>
+        <p id="groupDataSubmitInfo" class="submit-info"></p>
     </div>
 </template>
 
 <script>
 import TeamRow from '@/components/TeamRow.vue'
 import draggable from "vuedraggable"
-// import { mapState } from 'vuex'
+import { auth, db } from '../firebase'
 
 export default {
     name: 'GroupStage',
     components: {
         TeamRow,
         draggable
-    },
-    mounted() {
-        fetch("https://v3.football.api-sports.io/leagues", {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-                "x-rapidapi-key": "0d661a53adfc883c850de30a2ba55e8d"
-            }
-        })
-        .then(response => {
-            console.log('Success!')
-            console.log(response);
-        })
-        .catch(err => {
-            console.log('Error!')
-            console.error(err);
-        });
     },
     computed: {
         userGroupData: {
@@ -76,9 +65,18 @@ export default {
                 this.$store.commit('updateUserGroupData', value)
             }
         },
+        uid() {
+            return this.$store.state.user.uid
+        },
         games() {
             return this.$store.state.games
+        },
+        signedin() {
+            return this.$store.state.signedin
         }
+    },
+    mounted() {
+        this.submitInfo = document.querySelector('#groupDataSubmitInfo');
     },
     methods: {
         onMoveCallback(evt, originalEvent) {
@@ -88,6 +86,9 @@ export default {
             // Update LocalStorage
             localStorage.setItem('userGroupData', JSON.stringify(this.userGroupData));
             localStorage.setItem('userKnockoutData', JSON.stringify(this.games));
+
+            // clear submit info
+            this.updateSubmitInfo('', 'default');
         },
 
         // Update Teams in Round One
@@ -104,7 +105,43 @@ export default {
             this.updateRoundOneData();
 
             localStorage.setItem('userKnockoutData', JSON.stringify(this.games));
-        }
+        },
+
+        // On Submit Save the Bracket Data
+        submitData() {
+            // Write new game data to firebase
+            this.updateFirebase();
+        },
+
+        updateSubmitInfo(string, action) {
+            this.submitInfo.innerHTML = string;
+            this.submitInfo.classList.remove('submit-info-success', 'submit-info-alert');
+            this.submitInfo.classList.add('submit-info-' + action);
+        },
+
+        updateFirebase() {
+            console.log(this.userGroupData);
+            let groupData = this.userGroupData;
+
+            // update just gameData
+            db.ref('users/' + this.uid + '/groupData').set(groupData, (error) => {
+                if (error) {
+                    // The write failed...
+                    console.log('Write Failed', error);
+                    // this.updateSubmitInfo('Group Data Not Saved Successfully!', 'alert');
+
+                } else {
+                    // Data saved successfully!
+                    console.log('Data Saved Successfully');
+
+                    // update store if necessary
+                    this.$store.commit('updateGroupDataSaved', true);
+
+                    // update HTML
+                    this.updateSubmitInfo('Group Data Saved Successfully!', 'success');
+                }
+            });
+        },
     }
 }
 </script>
@@ -114,7 +151,7 @@ export default {
     --group-width: 1200px;
     --grid-row-gap: 30px;
     --grid-column-gap: 100px;
-    margin-bottom: 200px;
+    padding-top: 115px;
 }
 
 .group-stage-information {
@@ -195,6 +232,10 @@ export default {
 }
 
 .group-stage-actions {
-    margin: 70px 0;
+    margin: 50px 0 0;
+}
+
+.button-submit {
+    margin-left: 40px;
 }
 </style>

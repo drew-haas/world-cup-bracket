@@ -9,67 +9,64 @@ import { db, auth } from './firebase'
 // Create Vue App
 //
 // ===================================
-createApp(App).use(store).use(router).mount('#app');
+const app = createApp(App).use(store).use(router).mount('#app');
 
+// Save DB Game Data
+let USER_DATA = null;
+let LOCAL_STORAGE = null;
+
+// reset on first load // TODO: figure out why we need this? - we need this for userGroupData to be generated
+store.commit('resetUserGroupData');
+store.commit('updateRoundOne');
 
 // ===================================
 //
-// Check for firebase user data
+// Check auth for user and if data is available
 //
 // ===================================
 auth.onAuthStateChanged(async (user) => {
-  // const signInStatus = document.getElementById('sign-in-status');
-  // const signInButton = document.getElementById('sign-in');
-  // const accountDetails = document.getElementById('account-details');
 
   if (user) {
-    // User is signed in
-    // Show information:
-    // var displayName = user.displayName;
-    // var email = user.email;
-    // var emailVerified = user.emailVerified;
-    // var photoURL = user.photoURL;
-    // var uid = user.uid;
-    // var phoneNumber = user.phoneNumber;
-    // var providerData = user.providerData;
-
-    // Update Store
+    // User is signed in - update store
     store.commit('updateSignin', true);
     store.commit('updateUser', user);
 
-    // TODO: check for user.gameData and commit to store
-    // const gameData = await getGameData(uid);
-    // console.log('gameData', gameData);
+    // Check for DB data first - update store
+    USER_DATA = await userDb(user.uid); // get user data from database
 
-    // user.getIdToken().then(function(accessToken) {
-    //   signInStatus.textContent = 'Signed in as ' + email;
-    //   signInStatus.dataset.status = 'signed-in';
-    //   signInButton.textContent = 'Sign out';
-    //   signInButton.dataset.functionality = 'sign-out';
-    //   accountDetails.textContent = JSON.stringify({
-    //     displayName: displayName,
-    //     email: email,
-    //     emailVerified: emailVerified,
-    //     phoneNumber: phoneNumber,
-    //     photoURL: photoURL,
-    //     uid: uid,
-    //     accessToken: accessToken,
-    //     providerData: providerData
-    //   }, null, '  ');
-    // });
+    // Check for Local Storage second - update store
+    LOCAL_STORAGE = await checkLocalStorage();
+
+    // Logs
+    console.log('user: ', user.email);
+    console.log('uid: ', user.uid);
+
+    // update groupData
+    if (LOCAL_STORAGE.groupData) {
+      store.commit('updateUserGroupData', LOCAL_STORAGE.groupData);
+      console.log('used LOCAL_STORAGE.groupData: ', LOCAL_STORAGE.groupData);
+    } else if (USER_DATA.groupData) {
+      store.commit('updateUserGroupData', USER_DATA.groupData);
+      console.log('used USER_DATA.groupData: ', USER_DATA.groupData);
+    }
+
+    // update knockoutData
+    if (LOCAL_STORAGE.knockoutData) {
+      store.commit('updateGames', LOCAL_STORAGE.knockoutData);
+      console.log('used LOCAL_STORAGE.knockoutData: ', LOCAL_STORAGE.knockoutData);
+    } else if (USER_DATA.gameData) {
+      store.commit('updateGames', USER_DATA.gameData);
+      console.log('used USER_DATA.gameData: ', USER_DATA.gameData);
+    }
 
   } else {
-    // User not signed in.
+    // User not signed in - don't worry about data for now
     // update store
     store.commit('updateSignin', false);
-
-    // Show Information:
-    // signInStatus.textContent = 'Signed out';
-    // signInStatus.dataset.status = 'signed-out';
-    // signInButton.textContent = 'Sign in';
-    // signInButton.dataset.functionality = 'sign-in';
-    // accountDetails.textContent = 'user data null';
+    store.commit('resetUserGroupData');
+    store.commit('updateRoundOne');
   }
+
 }, function(error) {
   console.log(error);
 });
@@ -80,35 +77,23 @@ auth.onAuthStateChanged(async (user) => {
 // Check for localStorage items
 //
 // ===================================
-let lsGroupData = JSON.parse(localStorage.getItem('userGroupData'));
-let lsKnockoutData = JSON.parse(localStorage.getItem('userKnockoutData'));
+async function checkLocalStorage() {
+  let groupData = await JSON.parse(localStorage.getItem('userGroupData'));
+  let knockoutData = await JSON.parse(localStorage.getItem('userKnockoutData'));
 
-// If lsGroupData is there use it!
-if (lsGroupData) {
-  // if lsGroupData exists - use it for userGroupData
-  store.commit('updateUserGroupData', lsGroupData);
-} else {
-  // otherwise Set userGroupData to match ogGroupData
-  store.commit('resetUserGroupData');
-}
-
-// if lsKnockoutData is there use it!
-if (lsKnockoutData) {
-  // update all games
-  store.commit('updateGames', lsKnockoutData);
-} else {
-  // Set knockoutGames to match from start
-  store.commit('updateRoundOne');
+  return {
+    groupData,
+    knockoutData
+  }
 }
 
 // ===================================
 //
-// Return user saved game data
+// Return user data from database
 //
 // ===================================
-async function getGameData(uid) {
-  return await db.ref('users/' + uid + '/gameData').once('value').then((snapshot) => {
-    console.log('snapshot value', snapshot.val());
+async function userDb(uid) {
+  return await db.ref('users/' + uid).once('value').then((snapshot) => {
     const data = snapshot.val();
     return data;
   });

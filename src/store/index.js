@@ -7,6 +7,7 @@ export default createStore({
     user: [],
     pointsPossible: 920,
     userGroupData: [],
+    groupDataSaved: false,
     gameDataSaved: false,
     ogGroupData: [
       {
@@ -33,7 +34,7 @@ export default createStore({
           {"code": "au", "name": "Australia"},
           {"code": "dk", "name": "Denmark"},
           {"code": "fr", "name": "France"},
-          {"code": "pe", "name": "Peru"}
+          {"code": "ec", "name": "Ecuador"}
         ]
       },
       {
@@ -41,7 +42,7 @@ export default createStore({
         "teams": [
           {"code": "ar", "name": "Argentina"},
           {"code": "hr", "name": "Croatia"},
-          {"code": "is", "name": "Iceland"},
+          {"code": "nl", "name": "Netherlands"},
           {"code": "ng", "name": "Nigeria"}
         ]
       },
@@ -60,7 +61,7 @@ export default createStore({
           {"code": "de", "name": "Germany"},
           {"code": "mx", "name": "Mexico"},
           {"code": "kr", "name": "South Korea"},
-          {"code": "it", "name": "Italy"}
+          {"code": "sa", "name": "Saudi Arabia"}
         ]
       },
       {
@@ -350,6 +351,10 @@ export default createStore({
 
     updateGameDataSaved: (state, bool) => {
       state.gameDataSaved = bool;
+    },
+
+    updateGroupDataSaved: (state, bool) => {
+      state.groupDataSaved = bool;
     }
   },
   actions: {
