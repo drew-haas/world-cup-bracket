@@ -34,9 +34,12 @@
                 </draggable>
             </div>
         </div>
-        <div class="group-stage-actions">
+        <div class="group-stage-actions" v-if="signedin">
             <button id="resetGroups" class="button button-alert" @click="resetGroupData">Reset Groups</button>
             <button id="groupSubmit" class="button button-submit" @click="submitData">Save & Submit</button>
+        </div>
+        <div class="signed-out-text" v-if="!signedin">
+            <p>Sign in to save your bracket!</p>
         </div>
         <p id="groupDataSubmitInfo" class="submit-info"></p>
     </div>
@@ -67,6 +70,9 @@ export default {
         },
         games() {
             return this.$store.state.games
+        },
+        signedin() {
+            return this.$store.state.signedin
         }
     },
     mounted() {

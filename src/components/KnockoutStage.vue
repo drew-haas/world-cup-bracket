@@ -30,9 +30,12 @@
             </div>
         </div>
 
-        <div class="knockout-actions">
+        <div class="knockout-actions" v-if="signedin">
             <button id="resetBracket" class="button button-alert" @click="resetBracketData">Reset Bracket</button>
             <button id="knockoutSubmit" class="button button-submit" v-if="!gameDataSaved" @click="submitData">Save & Submit</button>
+        </div>
+        <div class="signed-out-text" v-if="!signedin">
+            <p>Sign in to save your bracket!</p>
         </div>
         <p id="knockoutDataSubmitInfo" class="submit-info"></p>
         <div class="final-celebration"></div>
@@ -75,6 +78,9 @@ export default {
         },
         gameDataSaved() {
             return this.$store.gameDataSaved
+        },
+        signedin() {
+            return this.$store.state.signedin
         }
     },
     mounted() {
@@ -176,13 +182,17 @@ export default {
         },
 
         showSubmitButton() {
-            let submitBtn = document.querySelector('#knockoutSubmit');
-            submitBtn.classList.add('active');
+            if (this.signedin) {
+                let submitBtn = document.querySelector('#knockoutSubmit');
+                submitBtn.classList.add('active');
+            }
         },
 
         hideSubmitButton() {
-            let submitBtn = document.querySelector('#knockoutSubmit');
-            submitBtn.classList.remove('active');
+            if (this.signedin) {
+                let submitBtn = document.querySelector('#knockoutSubmit');
+                submitBtn.classList.remove('active');
+            }
         }
     }
 }

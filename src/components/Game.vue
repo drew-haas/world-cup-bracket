@@ -29,6 +29,9 @@ export default {
     computed: {
         games() {
             return this.$store.state.games
+        },
+        signedin() {
+            return this.$store.state.signedin
         }
     },
     methods: {
@@ -192,13 +195,17 @@ export default {
         },
 
         showSubmitButton() {
-            let submitBtn = document.querySelector('#knockoutSubmit');
-            submitBtn.classList.add('active');
+            if (this.signedin) {
+                let submitBtn = document.querySelector('#knockoutSubmit');
+                submitBtn.classList.add('active');
+            }
         },
 
         hideSubmitButton() {
-            let submitBtn = document.querySelector('#knockoutSubmit');
-            submitBtn.classList.remove('active');
+            if (this.signedin) {
+                let submitBtn = document.querySelector('#knockoutSubmit');
+                submitBtn.classList.remove('active');
+            }
         }
     }
 }
