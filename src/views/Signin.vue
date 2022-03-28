@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase';
+// import { auth } from '../firebase';
 
 // Email and Password
 let email, password;
@@ -40,20 +41,18 @@ export default {
         form.addEventListener('submit', this.handleForm);
         email = document.getElementById("email").value;
         password = document.getElementById("password").value;
+        this.statusDiv = document.querySelector('.status-message');
     },
     methods: {
         handleForm(event) {
             event.preventDefault(); // stop form from reloading page
             email = document.getElementById("email").value;
             password = document.getElementById("password").value;
-            const statusDiv = document.querySelector('.status-message');
 
             firebase.auth().signInWithEmailAndPassword(email, password).then((userCredential) => {
                 // SIGNED IN SUCCESS
-                // var user = userCredential.user;
-                statusDiv.classList.remove('error');
-                statusDiv.classList.add('success');
-                statusDiv.textContent = 'Sign in Successful!';
+                // update status
+                this.updateStatusDiv('Sign in Successful!', 'success');
 
                 // update store
                 this.$store.commit('updateSignin', true);
@@ -63,15 +62,27 @@ export default {
                 this.$router.push('/');
 
             }).catch((error) => {
-                // var errorCode = error.code;
-                var errorMessage = error.message;
-                statusDiv.classList.add('error');
-                statusDiv.classList.remove('success');
-                statusDiv.textContent = errorMessage;
+                console.log(error);
+
+                // show status
+                this.updateStatusDiv(error.message, 'error');
 
                 // add forgot password reset button
-                this.showResetEmail();
+                if (error.code == 'auth/wrong-password') {
+                    this.showResetEmail();
+                }
             });
+        },
+
+        updateStatusDiv(message, className) {
+            this.statusDiv.classList.remove('success', 'error');
+            this.statusDiv.classList.add(className);
+            this.statusDiv.textContent = message;
+        },
+
+        clearStatusDiv() {
+            this.statusDiv.classList.remove('success', 'error');
+            this.statusDiv.textContent = '';
         },
 
         // add forgot password reset button
@@ -106,8 +117,13 @@ p {
     margin: 20px 0 44px;
 }
 
+.content-wrapper {
+    position: relative;
+}
+
 .form-information {
     margin-top: 20px;
+    position: absolute;
 }
 
 .forgot-password-reset {
