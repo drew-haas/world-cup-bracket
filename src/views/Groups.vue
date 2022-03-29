@@ -34,7 +34,6 @@
             </div>
 
           </div>
-
         </div>
       </div>
 
@@ -52,10 +51,10 @@
           <label for="createGroupName">Group Name</label>
           <input type="text" id="createGroupName" name="createGroupName">
           <label for="createGroupPassword">Group Password</label>
-          <input type="text" id="createGroupPassword" name="createGroupPassword" autocomplete="new-password">
+          <input type="password" id="createGroupPassword" class="password-field" name="createGroupPassword" autocomplete="new-password">
           <div class="pw-toggle">
             <input id="pwVisbilityCreate" name="pwVisbilityCreate" type="checkbox" @change="togglePassword($event)">
-            <label for="pwVisbilityCreate">Hide Password</label>
+            <label for="pwVisbilityCreate">Show Password</label>
           </div>
           <button class="button button-submit">Create and Join Group</button>
         </form>
@@ -67,7 +66,11 @@
           <label for="joinGroupName">Group Name</label>
           <input type="text" id="joinGroupName" name="joinGroupName">
           <label for="joinGroupPassword">Group Password</label>
-          <input type="password" id="joinGroupPassword" name="joinGroupPassword" autocomplete="new-password">
+          <input type="password" id="joinGroupPassword" class="password-field" name="joinGroupPassword" autocomplete="new-password">
+          <div class="pw-toggle">
+            <input id="pwVisbilityJoin" name="pwVisbilityJoin" type="checkbox" @change="togglePassword($event)">
+            <label for="pwVisbilityJoin">Show Password</label>
+          </div>
           <button class="button">Join Group</button>
         </form>
       </div>
@@ -286,20 +289,19 @@ export default {
       form.reset();
 
     },
-    addGroupMember() {
-      // Add Member Data to Group,
-      // Add Group to Member
-    },
+
     isAlphanumeric(str) {
       let regex = new RegExp('^[a-z0-9]+$');
       return regex.test(str);
     },
+
     togglePassword(event) {
-      console.log('toggle pw', event);
-      if (target.isChecked) {
-        // hide password
+      let pwField = event.target.closest('form').querySelector('.password-field');
+
+      if (pwField.type === 'password') {
+        pwField.type = "text";
       } else {
-        // show password
+        pwField.type = "password";
       }
     }
   }
@@ -368,8 +370,14 @@ h1 {
 
   input {
     width: auto;
-    margin-right: 17px;
-    margin: 0 15px 0 0px;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  label {
+    margin: 0;
+    padding-left: 15px;
+    cursor: pointer;
   }
 }
 
