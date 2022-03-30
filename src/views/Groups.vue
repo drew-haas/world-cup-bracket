@@ -22,7 +22,7 @@
 							<div class="group-table-cell member-rank">Rank</div>
 							<div class="group-table-cell member-name">Name</div>
 							<div class="group-table-cell member-points">Points</div>
-							<div class="group-table-cell member-points-pos">Pos.</div>
+							<div class="group-table-cell member-points-pos">Max</div>
 							<div class="group-table-cell member-winner">Winner</div>
 						</div>
 
