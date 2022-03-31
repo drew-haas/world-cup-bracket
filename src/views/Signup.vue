@@ -46,6 +46,8 @@ export default {
         }
     },
     mounted() {
+        window.scrollTo(0,0);
+
         // Form Setup
         const form = document.getElementById("signupForm");
         form.addEventListener('submit', this.handleForm);

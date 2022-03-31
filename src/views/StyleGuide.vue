@@ -43,6 +43,9 @@ export default {
   components: {
     // GroupStage,
     // KnockoutStage
+  },
+  mounted() {
+    window.scrollTo(0,0);
   }
 }
 </script>

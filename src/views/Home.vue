@@ -70,7 +70,6 @@ import KnockoutStage from '@/components/KnockoutStage.vue'
 
 export default {
   name: 'Home',
-  title: 'Home - World Brackets',
   components: {
     GroupStage,
     KnockoutStage
@@ -82,31 +81,6 @@ export default {
       teams: null
     }
   },
-  methods: {
-    getDate() {
-      var now = new Date().getTime();
-      console.log(now);
-      // var timeleft = countDownDate - now;
-
-      var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
-    },
-    getData() {
-      console.log('in getData')
-
-      fetch('api/standings')
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        this.standingsData = res;
-      });
-    }
-  },
-  mounted() {
-    // this.getData();
-  },
   computed: {
     signedin() {
       return this.$store.state.signedin
@@ -114,6 +88,9 @@ export default {
     user() {
       return this.$store.state.user
     }
+  },
+  mounted() {
+    window.scrollTo(0,0);
   }
 }
 </script>

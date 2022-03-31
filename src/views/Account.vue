@@ -58,6 +58,9 @@ export default {
           return this.$store.state.user
       }
     },
+    mounted() {
+      window.scrollTo(0,0);
+    },
     methods: {
       handleSignOut(event) {
         // Sign Out the user
