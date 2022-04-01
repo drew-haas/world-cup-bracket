@@ -14,72 +14,72 @@ export default createStore({
         "group": "a",
         "teams": [
           {"code": "qa", "name": "Qatar"},
-          {"code": "dk", "name": "Denmark"},
-          {"code": "ma", "name": "Morocco"},
-          {"code": "uy", "name": "Uruguay"}
+          {"code": "ec", "name": "Ecuador"},
+          {"code": "sn", "name": "Senegal"},
+          {"code": "nl", "name": "Netherlands"},
         ]
       },
       {
         "group": "b",
         "teams": [
+          {"code": "gb", "name": "England"},
           {"code": "ir", "name": "Iran"},
-          {"code": "ca", "name": "Canada"},
-          {"code": "pt", "name": "Portugal"},
-          {"code": "es", "name": "Spain"}
+          {"code": "us", "name": "United States"},
+          {"code": "uefa", "name": "UEFA Path A"}
         ]
       },
       {
         "group":"c",
         "teams": [
-          {"code": "au", "name": "Australia"},
-          {"code": "fr", "name": "France"},
-          {"code": "ec", "name": "Ecuador"},
-          {"code": "cm", "name": "Cameroon"}
+          {"code": "ar", "name": "Argentina"},
+          {"code": "sa", "name": "Saudi Arabia"},
+          {"code": "mx", "name": "Mexico"},
+          {"code": "pl", "name": "Poland"}
         ]
       },
       {
         "group":"d",
         "teams": [
-          {"code": "ar", "name": "Argentina"},
-          {"code": "hr", "name": "Croatia"},
-          {"code": "nl", "name": "Netherlands"},
-          {"code": "gh", "name": "Ghana"}
+          {"code": "fr", "name": "France"},
+          {"code": "fifa", "name": "AFC-CONMEBOL"},
+          {"code": "dk", "name": "Denmark"},
+          {"code": "tn", "name": "Tunisia"}
         ]
       },
       {
         "group":"e",
         "teams": [
-          {"code": "br", "name": "Brazil"},
-          {"code": "cr", "name": "Costa Rica"},
-          {"code": "rs", "name": "Serbia"},
-          {"code": "ch", "name": "Switzerland"}
+          {"code": "es", "name": "Spain"},
+          {"code": "fifa", "name": "CONCACAF-OFC"},
+          {"code": "de", "name": "Germany"},
+          {"code": "jp", "name": "Japan"}
         ]
       },
       {
         "group":"f",
         "teams": [
-          {"code": "de", "name": "Germany"},
-          {"code": "mx", "name": "Mexico"},
-          {"code": "kr", "name": "South Korea"},
-          {"code": "sa", "name": "Saudi Arabia"}
+          {"code": "be", "name": "Belgium"},
+          {"code": "ca", "name": "Canada"},
+          {"code": "ma", "name": "Morocco"},
+          {"code": "cr", "name": "Croatia"}
         ]
       },
       {
         "group":"g",
         "teams": [
-          {"code": "be", "name": "Belgium"},
-          {"code": "gb", "name": "England"},
-          {"code": "us", "name": "United States"},
-          {"code": "tn", "name": "Tunisia"}
+          {"code": "br", "name": "Brazil"},
+          {"code": "rs", "name": "Serbia"},
+          {"code": "ch", "name": "Switzerland"},
+          {"code": "cm", "name": "Cameroon"}
         ]
       },
       {
         "group":"h",
         "teams": [
-          {"code": "co", "name": "Colombia"},
-          {"code": "jp", "name": "Japan"},
-          {"code": "pl", "name": "Poland"},
-          {"code": "sn", "name": "Senegal"}
+          {"code": "pt", "name": "Portugal"},
+          {"code": "gh", "name": "Ghana"},
+          {"code": "uy", "name": "Uruguay"},
+          {"code": "kr", "name": "South Korea"}
         ]
       }
     ],
