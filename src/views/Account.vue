@@ -8,10 +8,10 @@
         <div class="user-value">{{user.email}}</div>
       </div>
 
-      <div class="user-item locked">
+      <!-- <div class="user-item locked">
         <div class="user-key">UID</div>
         <div class="user-value">{{user.uid}}</div>
-      </div>
+      </div> -->
 
       <div class="user-item">
         <div class="user-key">Display Name</div>
@@ -95,6 +95,11 @@ h1 {
   grid-template-columns: 170px 200px 1fr;
   margin-bottom: 20px;
   align-items: center;
+
+  @include viewport(medium) {
+    grid-template-columns: 90px 1fr 1fr;
+    grid-gap: 10px;
+  }
 
   &.locked {
     .user-value {

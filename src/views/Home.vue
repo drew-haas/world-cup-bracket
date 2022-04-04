@@ -16,7 +16,7 @@
 
     <div class="content-wrapper">
       <div class="dashboard-grid default-grid">
-        <div class="grid-item tile selections large-span-8">
+        <div class="grid-item tile selections large-span-8 small-span-12">
           <h3 class="grid-item-title">You have made <span>0</span>/48 selections.</h3>
           <p>Go To your <router-link class="link" to="/selections">selections</router-link></p>
           <div class="grid-item-inner">
@@ -29,17 +29,17 @@
           </div>
         </div>
 
-        <div class="grid-item tile countdown large-span-4">
+        <div class="grid-item tile countdown large-span-4 small-span-12">
           <p>The World Cup starts in ### days.</p>
         </div>
 
-        <div class="grid-item tile matches large-span-4">
+        <div class="grid-item tile matches large-span-4 small-span-12">
           <h3>Upcoming Matches</h3>
           <div class="matches"></div>
           <router-link to="/selections">view all</router-link>
         </div>
 
-        <div class="grid-item tile links large-span-4">
+        <div class="grid-item tile links large-span-4 small-span-12">
           <h3 class="typography-headline-reduced">Useful Links</h3>
           <ul>
             <li><a class="link" href="https://www.fifa.com/tournaments/mens/worldcup/qatar2022" target="_blank">FIFA World Cup Website</a></li>
@@ -49,16 +49,15 @@
           </ul>
         </div>
 
-        <div class="grid-item tile account large-span-4">
+        <div class="grid-item tile account large-span-4 small-span-12">
           <p v-if="user.email">You are signed in as: {{user.email}}</p>
-          <p>go to your Account</p>
         </div>
       </div>
     </div>
 
-    <div class="api-test-data">
+    <!-- <div class="api-test-data">
       {{standingsData}}
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -97,22 +96,22 @@ export default {
 
 <style scoped lang="scss">
 .logo {
-  max-width: 200px;
-}
-
-.home {
-  padding-top: 150px;
+	max-width: 200px;
 }
 
 h1 {
-  max-width: 760px;
+	max-width: 760px;
 }
 
 .hero-text {
-  max-width: 600px;
+	max-width: 600px;
 }
 
 .grid-item {
-  min-height: 300px;
+	min-height: 300px;
+
+	p {
+		word-break: break-word;
+	}
 }
 </style>

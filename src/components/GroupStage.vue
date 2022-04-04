@@ -152,10 +152,18 @@ export default {
     --grid-row-gap: 30px;
     --grid-column-gap: 100px;
     padding-top: 115px;
+
+    @include viewport(medium) {
+        --grid-column-gap: 0;
+        padding-top: 60px;
+    }
+
+    @include viewport(small) {
+        padding-top: 40px;
+    }
 }
 
 .group-stage-information {
-    // max-width: var(--group-width);
     max-width: 500px;
     text-align: left;
     margin: 0 0 70px 0;
@@ -178,7 +186,7 @@ export default {
     margin: 0 auto;
 
     @include viewport(medium) {
-        grid-template-columns: 1fr;
+        grid-template-columns: 100%;
     }
 }
 
@@ -237,5 +245,10 @@ export default {
 
 .button-submit {
     margin-left: 40px;
+
+    @include viewport(small) {
+        margin-left: 0;
+        margin-top: 20px;
+    }
 }
 </style>

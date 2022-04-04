@@ -209,6 +209,11 @@ export default {
         display: none;
         margin-left: 40px;
 
+        @include viewport(small) {
+            margin-left: 0;
+            margin-top: 20px;
+        }
+
         &.active {
             display: block;
         }
@@ -224,15 +229,23 @@ export default {
 .games-container, .knockout-stage-titles {
     --game-width: 200px;
     --game-height: 100px;
+    --game-grid-gap: 30px;
 
     display: grid;
     grid-template-columns: repeat(4, var(--game-width));
-    grid-gap: 30px;
+    grid-gap: var(--game-grid-gap);
     margin: 0 auto;
+
+    @include viewport(large) {
+        --game-width: 175px;
+        --game-height: 85px;
+        --game-grid-gap: 15px;
+    }
 }
 
 .games-container {
     max-width: 1120px;
+    padding-left: 40px;
 }
 
 .knockout-stage-titles {
@@ -283,6 +296,10 @@ export default {
 .knockout-actions {
     margin: 40px 0;
     display: flex;
+
+    @include viewport(medium) {
+        display: block;
+    }
 }
 
 .final-celebration {

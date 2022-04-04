@@ -386,6 +386,10 @@ export default {
 <style lang="scss" scoped>
 h1 {
 	margin-bottom: 100px;
+
+	@include viewport(medium) {
+		max-width: 350px;
+	}
 }
 
 .group-options {
