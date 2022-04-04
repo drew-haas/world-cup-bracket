@@ -5,7 +5,7 @@
         </div>
         <!-- TODO: loop through these? -->
         <div class="nav-links">
-            <router-link to="/">
+            <router-link to="/" class="home-link">
                 <span class="fi fi-rr-home"></span>
                 <span class="nav-link-text">Home</span>
             </router-link>
@@ -67,11 +67,13 @@ export default {
         height: auto;
         position: fixed;
         display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid $gray;
     }
 
     @include viewport(small) {
         width: 100vw;
-        justify-content: center;
+        // justify-content: center;
     }
 }
 
@@ -116,6 +118,12 @@ export default {
     @include viewport(small) {
         padding: 0;
     }
+
+    .home-link {
+        @include viewport(medium) {
+            display: none;
+        }
+    }
 }
 
 .nav-link-text {
@@ -141,10 +149,6 @@ export default {
             width: 60px;
             padding: 10px 20px;
         }
-    }
-
-    @include viewport(small) {
-        display: none;
     }
 }
 </style>
