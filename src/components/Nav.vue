@@ -60,7 +60,7 @@ export default {
     top: 0;
     box-sizing: border-box;
     text-align: left;
-    background-color: $bg-light;
+    background-color: var(--bg-light);
     z-index: 5;
 
     @include viewport(medium) {
@@ -68,7 +68,7 @@ export default {
         position: fixed;
         display: flex;
         justify-content: space-between;
-        border-bottom: 1px solid $gray;
+        border-bottom: 1px solid var(--gray);
     }
 
     @include viewport(small) {
@@ -84,8 +84,8 @@ export default {
         padding: 20px 20px 20px 36px;
         color: black;
         transition: color .3s;
-        font-family: 'Satoshi-Bold';
         font-size: 16px;
+        font-weight: 500;
         letter-spacing: .1px;
 
         @include viewport(medium) {
@@ -95,7 +95,6 @@ export default {
         }
 
         @include viewport(small) {
-            font-family: 'Satoshi-Medium';
             font-size: 15px;
         }
 
@@ -104,7 +103,7 @@ export default {
         }
 
         &:hover {
-            color: $accent;
+            color: var(--accent);
             transition: color .25s;
         }
     }

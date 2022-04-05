@@ -116,7 +116,7 @@ h1 {
     cursor: pointer;
 
     &:hover {
-      color: $accent;
+      color: var(--accent);
     }
   }
 

@@ -41,11 +41,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+// .content-wrapper.headline {
+// 	padding: 0;
+// }
+
 .tab-nav {
 	position: sticky;
 	top: 0;
 	background-color: white;
-	border-bottom: 1px solid $gray;
+	border-bottom: 1px solid var(--gray);
 	margin: 50px auto 0;
 	padding: 0;
 	z-index: 2;

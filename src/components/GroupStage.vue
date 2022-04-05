@@ -155,6 +155,7 @@ export default {
 
     @include viewport(medium) {
         --grid-column-gap: 0;
+        --grid-row-gap: 40px;
         padding-top: 60px;
     }
 
@@ -181,7 +182,7 @@ export default {
 .group-stage-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: var(--grid-row-gap) var(--grid-column-gap);
+    gap: var(--grid-row-gap) var(--grid-column-gap);
     max-width: var(--group-width);
     margin: 0 auto;
 
@@ -192,17 +193,19 @@ export default {
 
 .group-teams {
     padding: 0;
-    border: 1px solid $gray-bg;
+    border: 1px solid var(--gray-bg);
 }
 
 .group-name {
     span {
         display: block;
         text-transform: uppercase;
-        color: $gray;
-        font-family: 'Satoshi-Light';
+        color: var(--gray);
         font-size: 80px;
-        padding: 6px 0;
+        font-weight: 100;
+        line-height: 1;
+        padding: 10px 0;
+        margin-left: -3px;
     }
 }
 
@@ -222,13 +225,13 @@ export default {
 
     &-green {
         .key-item-icon {
-            background: $green;
+            background: var(--green);
         }
     }
 
     &-gray {
         .key-item-icon {
-            background: $gray;
+            background: var(--gray);
         }
     }
 }

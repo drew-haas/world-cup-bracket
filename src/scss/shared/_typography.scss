@@ -1,43 +1,63 @@
 // All Typography and Font Face Classes Here
 // $font_path: '~@/assets/webfonts/';
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;1,900&display=swap');
+
 // Light
-@font-face {
-    font-family: "Satoshi-Light";
-    src: local("Satoshi-Light"),
-    url('~@/assets/webfonts/Satoshi-Light.ttf') format("ttf");
-}
+// @font-face {
+//     font-family: "Satoshi-Light";
+//     src: local("Satoshi-Light"),
+//     url('~@/assets/webfonts/Satoshi-Light.ttf') format("ttf");
+// }
 
-// Medium -- (Regular)
-@font-face {
-    font-family: "Satoshi-Medium";
-    src: local("Satoshi-Medium"),
-    url('~@/assets/webfonts/Satoshi-Medium.ttf') format("ttf");
-}
+// // Medium -- (Regular)
+// @font-face {
+//     font-family: "Satoshi-Medium";
+//     src: local("Satoshi-Medium"),
+//     url('~@/assets/webfonts/Satoshi-Medium.ttf') format("ttf");
+// }
 
-// Bold
-@font-face {
-    font-family: "Satoshi-Bold";
-    src: local("Satoshi-Bold"),
-    url('~@/assets/webfonts/Satoshi-Bold.ttf') format("ttf");
-}
+// // Bold
+// @font-face {
+//     font-family: "Satoshi-Bold";
+//     src: local("Satoshi-Bold"),
+//     url('~@/assets/webfonts/Satoshi-Bold.ttf') format("ttf");
+// }
 
-// Black
-@font-face {
-    font-family: "Satoshi-Black";
-    src: local("Satoshi-Black"),
-    url('~@/assets/webfonts/Satoshi-Black.ttf') format("ttf");
-}
+// // Black
+// @font-face {
+//     font-family: "Satoshi-Black";
+//     src: local("Satoshi-Black"),
+//     url('~@/assets/webfonts/Satoshi-Black.ttf') format("ttf");
+// }
 
 #app {
-    font-family: 'Satoshi-Medium';
+    // font-family: 'Satoshi-Medium';
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2 {
+    letter-spacing: -1.5px;
 }
 
 // TODO: figure out the rem values for these?
 .typography-headline, h1 {
-    font-family: 'Satoshi-Medium';
-    font-size: 68px;
-    line-height: 76px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 50px;
+    line-height: 1.3;
+    letter-spacing: -2px;
+
+    @include viewport(medium) {
+        font-size: 40px;
+    }
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1;
     letter-spacing: -2px;
 
     @include viewport(medium) {
@@ -48,7 +68,7 @@
 
 // TODO: figure out the rem values for these?
 .typography-headline-reduced {
-    font-family: 'Satoshi-Medium';
+    font-family: 'Poppins', sans-serif;
     font-size: 32px;
     line-height: 1;
     letter-spacing: -.2px;
@@ -60,14 +80,15 @@
 
 // TODO: figure out the rem values for these
 .typography-body, p {
-    font-family: 'Satoshi-Medium';
+    font-family: 'Poppins', sans-serif;
     font-size: 17px;
     line-height: 28px;
 }
 
 // TODO: figure out the rem values for these
 .typography-link {
-    font-family: 'Satoshi-Bold';
+    font-family: 'Poppins', sans-serif;
     font-size: 17px;
     line-height: 1;
+    font-weight: 500;
 }

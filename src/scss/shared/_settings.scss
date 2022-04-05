@@ -1,61 +1,48 @@
+// CSS and SCSS Variables
+:root {
+    // =========================
+    // Colors
+    // =========================
+    --red: #e54242;
+    --maroon: #530312;
+    --red-light: #dd5953;
+    --red-dark: var(--maroon);
+    --warning: var(--red);
+
+    --green: #0fa372;
+    --green-dark: #098074;
+    --success: --green;
+
+    --blurple: #5251fa;
+
+    --gold: #F7B500;
+
+    --gray: #c6c6c6;
+    --gray-bg: #f7f7f7;
+
+    --bg-light: #f1f1f1;
+    --bg-dark: #1b1c31;
+
+    --border-color: #fafafa;
+
+    // Set Primary and Accent Colors
+    --primary: var(--blurple);
+    --accent: var(--green);
+
+    // =========================
+    // Spacing
+    // =========================
+    --section-spacing: 70px;
+    --container-size: 1200px;
+    --radius: 5px;
+    --top-bar-height: 90px;
+}
+
 // =========================
-// Colors
-// =========================
-$red: #e54242;
-$maroon: #530312;
-$red-light: #dd5953;
-$red-dark: $maroon;
-$warning: $red;
-
-$green: #0fa372;
-$green-dark: #098074;
-$success: $green;
-
-$blurple: #5251fa;
-
-$gold: #F7B500;
-
-$gray: #c6c6c6;
-$gray-bg: #f7f7f7;
-
-$bg-light: #f1f1f1;
-$bg-dark: #1b1c31;
-
-$border-color: #fafafa;
-
-// Set Primary and Accent Colors
-$primary: $blurple;
-$accent: $green;
-
-// =========================
-// Spacing
-// =========================
-$section-spacing: 70px;
-$container-size: 1200px;
-$radius: 5px;
-$top-bar-height: 90px;
-
-// =========================
-// Viewports
+// Viewports -- need scss variables for media query mixin
 // =========================
 $viewport-xlarge: 1400px;
 $viewport-large: 1200px;
 $viewport-medium: 900px;
 $viewport-small: 767px;
 $viewport-xsmall: 400px;
-
-
-// =========================
-// Themes
-// =========================
-// :root {
-//     // Default
-//     --text-color: $gray;
-//     --background: $white;
-
-//     // Dark Mode
-//     .dark-theme {
-//         --text-color: $white;
-//         --background: $deep-gray;
-//     }
-// }

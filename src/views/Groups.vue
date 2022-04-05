@@ -416,7 +416,7 @@ h1 {
 }
 
 .group-table {
-	background-color: $gray-bg;
+	background-color: var(--gray-bg);
 	width: 100%;
 	max-width: 900px;
 	border: 1px solid #ddd;

@@ -41,7 +41,7 @@ export default {
 <style scoped lang="scss">
 .footer {
   margin-top: 50px;
-  background-color: $bg-light;
+  background-color: var(--bg-light);
   text-align: left;
   padding: 50px 50px 45px;
   overflow: hidden;
