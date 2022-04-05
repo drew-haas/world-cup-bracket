@@ -221,8 +221,8 @@ export default {
 }
 
 .knockout-stage-information {
-    max-width: $container-size;
-    margin: 0 auto $section-spacing;
+    max-width: var(--container-size);
+    margin: 0 auto var(--section-spacing);
     text-align: left;
 }
 
@@ -249,15 +249,19 @@ export default {
 }
 
 .knockout-stage-titles {
-    $tabnav-height: 99px;
+    --sticky-height: 93px;
     margin-bottom: 20px;
     position: sticky;
-    top: $tabnav-height;
+    top: var(--sticky-height);
     background-color: white;
-    border-bottom: 1px solid $gray;
+    border-bottom: 1px solid var(--gray);
     z-index: 2;
     padding: 10px 50px;
     margin-bottom: 70px;
+
+    @include viewport(medium) {
+        --sticky-height: 74px;
+    }
 
     .title {
         opacity: .5;
@@ -310,7 +314,7 @@ export default {
   opacity: 0;
   pointer-events: none;
   font-size: 120px;
-  background: $bg-light;
+  background: var(--bg-light);
   padding: 100px;
 
   &.active {

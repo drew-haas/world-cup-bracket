@@ -215,8 +215,8 @@ export default {
 .game {
     width: var(--game-width);
     height: var(--game-height);
-    border: 1px solid $gray;
-    border-radius: $radius;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
     margin-bottom: 15px;
     grid-row: span 2;
     display: flex;
@@ -271,7 +271,7 @@ export default {
         align-items: center;
 
         &.winner {
-            background: $bg-light;
+            background: var(--bg-light);
         }
 
         &.loser {
@@ -279,11 +279,11 @@ export default {
         }
 
         &:first-of-type {
-            border-radius: $radius $radius 0 0;
+            border-radius: var(--radius) var(--radius) 0 0;
         }
 
         &:last-of-type {
-            border-radius: 0 0 $radius $radius;
+            border-radius: 0 0 var(--radius) var(--radius);
         }
     }
 

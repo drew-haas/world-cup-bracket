@@ -28,7 +28,7 @@ export default {
     grid-template-columns: 45px 32px 1fr;
     text-align: left;
     padding-left: var(--color-padding-size);
-    background: $gray-bg;
+    background: var(--gray-bg);
     position: relative;
     cursor: grab;
 
@@ -61,7 +61,7 @@ export default {
 
     &:nth-child(1), &:nth-child(2) {
         &:before {
-            background-color: $green;
+            background-color: var(--green);
         }
     }
 
@@ -75,7 +75,7 @@ export default {
     &:nth-child(4) .team-order:after { content: '4'; }
 
     &.sortable-chosen {
-        background-color: $bg-light;
+        background-color: var(--bg-light);
         z-index: 1;
     }
 }
