@@ -39,6 +39,11 @@
     font-size: 68px;
     line-height: 76px;
     letter-spacing: -2px;
+
+    @include viewport(medium) {
+        font-size: 40px;
+        line-height: 1;
+    }
 }
 
 // TODO: figure out the rem values for these?
@@ -47,6 +52,10 @@
     font-size: 32px;
     line-height: 1;
     letter-spacing: -.2px;
+
+    @include viewport(medium) {
+        font-size: 30px;
+    }
 }
 
 // TODO: figure out the rem values for these

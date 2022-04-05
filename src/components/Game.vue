@@ -223,6 +223,10 @@ export default {
     flex-direction: column;
     justify-content: space-evenly;
     position: relative;
+
+    @include viewport(large) {
+        font-size: 13px;
+    }
 }
 
 .prev-result {

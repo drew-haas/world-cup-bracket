@@ -1,10 +1,17 @@
 // =======================
 // Shared Page Styles
 // =======================
-
 .view {
     padding: 90px 40px;
     text-align: left;
+
+    @include viewport(medium) {
+        padding: 140px 24px;
+    }
+
+    @include viewport(small) {
+        padding-top: 126px;
+    }
 
     &-centered {
         display: flex;
@@ -17,4 +24,8 @@
     max-width: $container-size;
     margin: 0 auto;
     padding: 0 20px;
+
+    @include viewport(medium) {
+        padding: 0;
+    }
 }
