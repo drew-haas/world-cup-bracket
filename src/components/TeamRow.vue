@@ -5,8 +5,8 @@
             <img :src="require('@/assets/flags/' + team.code + '-32.png')">
         </div>
         <div class="team-name">{{team.name}}</div>
-        <div class="team-info-container">
-            <div class="info-button"></div>
+        <div class="team-actions-container">
+            <div class="drag-icon handle"><span class="fi fi-rr-apps-sort"></span></div>
         </div>
     </div>
 </template>
@@ -25,16 +25,11 @@ export default {
     --color-padding-size: 5px;
     --number-width: 30px;
     display: grid;
-    grid-template-columns: 45px 32px 1fr;
+    grid-template-columns: 45px 32px 1fr 45px;
     text-align: left;
     padding-left: var(--color-padding-size);
     background: var(--gray-bg);
     position: relative;
-    cursor: grab;
-
-    &:active {
-        cursor: grabbing;
-    }
 
     // Advancing/Eliminated Icon
     &:before {
@@ -75,6 +70,7 @@ export default {
     &:nth-child(4) .team-order:after { content: '4'; }
 
     &.sortable-chosen {
+        cursor: grabbing;
         background-color: var(--bg-light);
         z-index: 1;
     }
@@ -89,5 +85,28 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.team-actions-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid var(--gray);
+}
+
+.drag-icon {
+    cursor: grab;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    &:hover {
+        opacity: .5;
+    }
 }
 </style>

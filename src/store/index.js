@@ -25,7 +25,7 @@ export default createStore({
           {"code": "gb", "name": "England"},
           {"code": "ir", "name": "Iran"},
           {"code": "us", "name": "United States"},
-          {"code": "uefa", "name": "UEFA Path A"}
+          {"code": "wls", "name": "Wales"}
         ]
       },
       {

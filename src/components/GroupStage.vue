@@ -27,7 +27,7 @@
         <div class="group-stage-grid">
             <div v-for="group in userGroupData" :key="group.group" class="group" :data-group="group.group">
                 <div class="group-name"><span>{{group.group}}</span></div>
-                <draggable class="group-teams" v-model="group.teams" item-key="team" @change="onMoveCallback">
+                <draggable class="group-teams" v-model="group.teams" item-key="team" @change="onMoveCallback" handle=".handle">
                     <template #item="{element}">
                         <TeamRow :key="element" :team="element"/>
                     </template>

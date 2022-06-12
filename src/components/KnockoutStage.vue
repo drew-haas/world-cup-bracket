@@ -8,27 +8,66 @@
             </div>
         </div>
 
-        <div class="knockout-stage-titles">
-            <div class="title">Round of 16</div>
-            <div class="title">Quarterfinals</div>
-            <div class="title">Semifinals</div>
-            <div class="title">Final</div>
-        </div>
+        <!-- <div class="knockout-stage-titles">
+            <div class="inner-wrapper">
+                <div class="title" data-col="1">Round of 16</div>
+                <div class="title" data-col="2">Quarterfinals</div>
+                <div class="title" data-col="3">Semifinals</div>
+                <div class="title" data-col="4">Final</div>
+            </div>
+        </div> -->
 
-        <div class="games-container">
-            <div class="column col-g-8">
-                <Game v-for="(game, i) in roundOne" :key="game.gameId" :game="game" :round="roundOne" :index="i"/>
+        <!-- <div class="games-container">
+            <div class="inner-wrapper">
+                <div class="column col-g-8" data-col="1">
+                    <Game v-for="(game, i) in roundOne" :key="game.gameId" :game="game" :round="roundOne" :index="i"/>
+                </div>
+                <div class="column col-g-4" data-col="2">
+                    <Game v-for="(game, i) in roundTwo" :key="game.gameId" :game="game" :round="roundTwo" :index="i"/>
+                </div>
+                <div class="column col-g-2" data-col="3">
+                    <Game v-for="(game, i) in roundThree" :key="game.gameId" :game="game" :round="roundThree" :index="i"/>
+                </div>
+                <div class="column col-g-1" data-col="4">
+                    <Game v-for="(game, i) in roundFour" :key="game.gameId" :game="game" :round="roundFour" :index="i"/>
+                </div>
             </div>
-            <div class="column col-g-4">
-                <Game v-for="(game, i) in roundTwo" :key="game.gameId" :game="game" :round="roundTwo" :index="i"/>
-            </div>
-            <div class="column col-g-2">
-                <Game v-for="(game, i) in roundThree" :key="game.gameId" :game="game" :round="roundThree" :index="i"/>
-            </div>
-            <div class="column col-g-1">
-                <Game v-for="(game, i) in roundFour" :key="game.gameId" :game="game" :round="roundFour" :index="i"/>
-            </div>
-        </div>
+        </div> -->
+
+        <swiper
+            :slidesPerView="'auto'"
+            :spaceBetween="0"
+            :pagination="{
+                clickable: true,
+            }"
+            :modules="modules"
+            class="mySwiper"
+        >
+            <swiper-slide>
+                <div class="slide-header title">Round of 16</div>
+                <div class="column col-g-8" data-col="1">
+                    <Game v-for="(game, i) in roundOne" :key="game.gameId" :game="game" :round="roundOne" :index="i"/>
+                </div>
+            </swiper-slide>
+            <swiper-slide>
+                <div class="slide-header">Quarterfinals</div>
+                <div class="column col-g-4" data-col="2">
+                    <Game v-for="(game, i) in roundTwo" :key="game.gameId" :game="game" :round="roundTwo" :index="i"/>
+                </div>
+            </swiper-slide
+            ><swiper-slide>
+                <div class="slide-header">Semifinals</div>
+                <div class="column col-g-2" data-col="3">
+                    <Game v-for="(game, i) in roundThree" :key="game.gameId" :game="game" :round="roundThree" :index="i"/>
+                </div>
+            </swiper-slide>
+            <swiper-slide>
+                <div class="slide-header">Final</div>
+                <div class="column col-g-1" data-col="4">
+                    <Game v-for="(game, i) in roundFour" :key="game.gameId" :game="game" :round="roundFour" :index="i"/>
+                </div>
+            </swiper-slide>
+        </swiper>
 
         <div class="knockout-actions" v-if="signedin">
             <button id="resetBracket" class="button button-alert" @click="resetBracketData">Reset Bracket</button>
@@ -45,11 +84,21 @@
 <script>
 import { auth, db } from '../firebase'
 import Game from '@/components/Game.vue'
+import { Swiper, SwiperSlide } from "swiper/vue";
+import 'swiper/swiper-bundle.css' // swiper styles
+import { Pagination } from "swiper";
 
 export default {
     name: 'KnockoutStage',
     components: {
-        Game
+        Game,
+        Swiper,
+        SwiperSlide
+    },
+    setup() {
+        return {
+            modules: [Pagination],
+        };
     },
     computed: {
         roundOne() {
@@ -200,6 +249,11 @@ export default {
 
 <style lang="scss">
 .knockout-stage-container {
+    --game-width: 200px;
+    --game-height: 100px;
+    --slide-padding: 30px;
+    // --game-grid-gap: 30px;
+
     width: 100%;
     height: auto;
     position: relative;
@@ -209,7 +263,7 @@ export default {
         display: none;
         margin-left: 40px;
 
-        @include viewport(small) {
+        @include viewport(medium) {
             margin-left: 0;
             margin-top: 20px;
         }
@@ -226,55 +280,89 @@ export default {
     text-align: left;
 }
 
-.games-container, .knockout-stage-titles {
-    --game-width: 200px;
-    --game-height: 100px;
-    --game-grid-gap: 30px;
-
+.swiper-wrapper {
     display: grid;
-    grid-template-columns: repeat(4, var(--game-width));
-    grid-gap: var(--game-grid-gap);
-    margin: 0 auto;
-
-    @include viewport(large) {
-        --game-width: 175px;
-        --game-height: 85px;
-        --game-grid-gap: 15px;
-    }
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    width: 100%;
 }
 
-.games-container {
-    max-width: 1120px;
-    padding-left: 40px;
+.swiper-container {
+    width: 100%;
 }
 
-.knockout-stage-titles {
-    --sticky-height: 93px;
-    margin-bottom: 20px;
-    position: sticky;
-    top: var(--sticky-height);
-    background-color: white;
-    border-bottom: 1px solid var(--gray);
-    z-index: 2;
-    padding: 10px 50px;
-    margin-bottom: 70px;
+.swiper-slide {
+    width: auto;
 
-    @include viewport(medium) {
-        --sticky-height: 74px;
+    &:nth-of-type(1) {
+        .slide-header {
+            padding-left: var(--slide-padding);
+        }
     }
 
-    .title {
+    .slide-header {
         opacity: .5;
+        padding-bottom: 20px;
     }
 }
+
+// .games-container, .knockout-stage-titles {
+//     box-sizing: border-box;
+
+//     .inner-wrapper {
+//         display: grid;
+//         grid-template-columns: repeat(4, var(--game-width));
+//         grid-gap: var(--game-grid-gap);
+//         margin: 0 auto;
+//     }
+
+//     @include viewport(medium) {
+//         width: 100%;
+//         overflow: hidden;
+//     }
+
+//     @include viewport(large) {
+//         --game-width: 175px;
+//         --game-height: 85px;
+//         --game-grid-gap: 15px;
+//     }
+// }
+
+// .games-container {
+//     max-width: 1120px;
+//     padding-left: 40px;
+// }
+
+// .knockout-stage-titles {
+//     --sticky-height: 93px;
+//     margin-bottom: 20px;
+//     position: sticky;
+//     top: var(--sticky-height);
+//     background-color: white;
+//     border-bottom: 1px solid var(--gray);
+//     z-index: 2;
+//     padding: 10px 50px;
+//     margin-bottom: 70px;
+
+//     @include viewport(medium) {
+//         --sticky-height: 74px;
+//     }
+
+//     .title {
+//         opacity: .5;
+//     }
+// }
 
 .column {
     display: grid;
     grid-template-rows: repeat(16, calc(var(--game-height) / 2));
     grid-gap: 15px;
+    padding-right: var(--slide-padding);
 }
 
 .col-g-8 {
+    padding-left: var(--slide-padding);
+
     .prev-result {
         display: block;
     }
@@ -295,6 +383,7 @@ export default {
 .col-g-1 {
     grid-template-rows: 1fr;
     align-items: center;
+    height: 100%;
 }
 
 .knockout-actions {
