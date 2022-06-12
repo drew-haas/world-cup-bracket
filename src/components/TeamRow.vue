@@ -25,7 +25,7 @@ export default {
     --color-padding-size: 5px;
     --number-width: 30px;
     display: grid;
-    grid-template-columns: 45px 32px 1fr 32px;
+    grid-template-columns: 45px 32px 1fr 45px;
     text-align: left;
     padding-left: var(--color-padding-size);
     background: var(--gray-bg);
@@ -91,6 +91,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-left: 1px solid var(--gray);
 }
 
 .drag-icon {
@@ -99,6 +100,10 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &:active {
+        cursor: grabbing;
+    }
 
     &:hover {
         opacity: .5;

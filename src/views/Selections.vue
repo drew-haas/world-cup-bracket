@@ -41,9 +41,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// .content-wrapper.headline {
-// 	padding: 0;
-// }
+.view.selections {
+	@include viewport(medium) {
+		overflow: hidden;
+	}
+}
 
 .tab-nav {
 	position: sticky;
