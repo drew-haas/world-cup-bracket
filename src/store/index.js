@@ -41,7 +41,7 @@ export default createStore({
         "group":"d",
         "teams": [
           {"code": "fr", "name": "France"},
-          {"code": "fifa", "name": "AFC-CONMEBOL"},
+          {"code": "au", "name": "Australia"},
           {"code": "dk", "name": "Denmark"},
           {"code": "tn", "name": "Tunisia"}
         ]
