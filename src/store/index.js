@@ -61,7 +61,7 @@ export default createStore({
           {"code": "be", "name": "Belgium"},
           {"code": "ca", "name": "Canada"},
           {"code": "ma", "name": "Morocco"},
-          {"code": "cr", "name": "Croatia"}
+          {"code": "hr", "name": "Croatia"}
         ]
       },
       {
