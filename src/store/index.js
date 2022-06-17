@@ -50,7 +50,7 @@ export default createStore({
         "group":"e",
         "teams": [
           {"code": "es", "name": "Spain"},
-          {"code": "fifa", "name": "CONCACAF-OFC"},
+          {"code": "cr", "name": "Costa Rica"},
           {"code": "de", "name": "Germany"},
           {"code": "jp", "name": "Japan"}
         ]
