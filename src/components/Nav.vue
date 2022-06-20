@@ -140,7 +140,7 @@ export default {
     align-items: center;
 
     .logo {
-        width: 100px;
+        width: 78px;
         height: auto;
         padding: 20px 0;
 
