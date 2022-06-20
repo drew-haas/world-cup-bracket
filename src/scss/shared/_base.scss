@@ -2,6 +2,8 @@ html, body {
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
+    height: 100vh;
+    overflow: hidden;
 }
 
 #app {
@@ -9,9 +11,12 @@ html, body {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 30vw 70vw;
+    overflow: hidden;
+    position: relative;
 
     @include viewport(medium) {
-        display: block;
+        grid-template-columns: 1fr;
+        grid-template-rows: 30vh 70vh;
     }
 }

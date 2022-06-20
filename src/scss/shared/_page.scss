@@ -10,7 +10,8 @@
     }
 
     @include viewport(small) {
-        padding-top: 126px;
+        // padding-top: 126px;
+        padding-top: 50px;
     }
 
     &-centered {

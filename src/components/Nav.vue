@@ -5,7 +5,7 @@
         </div>
         <!-- TODO: loop through these? -->
         <div class="nav-links">
-            <router-link to="/" class="home-link">
+            <!-- <router-link to="/" class="home-link">
                 <span class="fi fi-rr-home"></span>
                 <span class="nav-link-text">Home</span>
             </router-link>
@@ -28,7 +28,7 @@
             <router-link to="/signup" v-if="!signedin">
                 <span class="fi fi-rr-user-add"></span>
                 <span class="nav-link-text">Signup</span>
-            </router-link>
+            </router-link> -->
             <!-- <router-link to="/style-guide">
                 <span class="fi fi-rr-apps"></span>
                 <span class="nav-link-text">Style Guide</span>
@@ -62,18 +62,13 @@ export default {
     text-align: left;
     background-color: var(--bg-light);
     z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @include viewport(medium) {
         height: auto;
-        position: fixed;
         display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid var(--gray);
-    }
-
-    @include viewport(small) {
-        width: 100vw;
-        // justify-content: center;
     }
 }
 
@@ -143,11 +138,22 @@ export default {
         width: 100px;
         height: auto;
         padding: 20px 0;
+        transform-style: preserve-3d;
+        animation: 3s rotate forwards infinite;
 
         @include viewport(medium) {
-            width: 60px;
+            width: 90px;
             padding: 10px 20px;
         }
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
     }
 }
 </style>

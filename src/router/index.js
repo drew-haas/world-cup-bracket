@@ -1,22 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
+import LandingPage from '../views/LandingPage.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: LandingPage,
     meta: {
       title: 'World Cup Bracket App',
       metaTags: [
         {
           name: 'description',
-          content: 'Bringing Fantasy Football to the World Cup.'
+          content: 'World Brackets - Bringing Fantasy Football to the World Cup. Coming Soon.'
         },
         {
           property: 'og:description',
-          content: 'Bringing Fantasy Football to the World Cup.'
+          content: 'World Brackets - Bringing Fantasy Football to the World Cup. Coming Soon.'
         }
       ]
     }
