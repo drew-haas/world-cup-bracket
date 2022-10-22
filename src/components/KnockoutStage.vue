@@ -41,6 +41,8 @@
                 clickable: true,
             }"
             :modules="modules"
+            @swiper="onSwiper"
+            @slideChange="onSlideChange"
             class="mySwiper"
         >
             <swiper-slide>
@@ -96,7 +98,15 @@ export default {
         SwiperSlide
     },
     setup() {
+        const onSwiper = (swiper) => {
+            console.log(swiper);
+        };
+        const onSlideChange = (evt) => {
+            console.log('slide change', evt);
+        };
         return {
+            onSwiper,
+            onSlideChange,
             modules: [Pagination],
         };
     },
